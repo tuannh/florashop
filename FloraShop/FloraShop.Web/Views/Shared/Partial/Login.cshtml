@@ -1,0 +1,30 @@
+﻿@{
+    var isLogggedIn = FloraShop.Core.SiteContext.Current.Context.User.Identity.IsAuthenticated;
+    var user = FloraShop.Core.SiteContext.Current.User;
+}
+
+@if (isLogggedIn)
+{
+    <h2 class="login"><a name="login">Xin chào: @user.Username </a></h2>
+
+    <div class="logged-in">
+        <ul>
+            <li>
+                <a href="#">Quản lý đơn hàng</a>
+            </li>
+            <li>
+                <a href="#">Điểm thưởng (1200)</a>
+            </li>
+            <li>
+                <a href="#">Tài khoản</a>
+            </li>
+            <li class="last">
+                <a href="#">Đăng xuất</a>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <h2 class="login"><a href="#">Login</a></h2>
+}

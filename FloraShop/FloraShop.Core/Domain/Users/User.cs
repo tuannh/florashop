@@ -1,8 +1,9 @@
-
+﻿
 using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FloraShop.Core.Domain.Users;
 
 namespace FloraShop.Core.Domain
 {
@@ -10,16 +11,30 @@ namespace FloraShop.Core.Domain
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Tên đăng nhập không thể rỗng")]
+        [Display(Name = "Tên đăng nhập")]
+        [RegularExpression(@"^[a-z0-9]{6, 50}$", ErrorMessage = "Tên đăng nhập chỉ chưa các ký tự a-z, 0-9")]
+        [StringLength(50, ErrorMessage = "Tên đăng nhập không được quá 50 kí tự")]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "Mật khẩu không thể rỗng")]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         public string PasswordSalt { get; set; }
 
+        [Required(ErrorMessage = "Email không thể rỗng")]
+        [StringLength(150, ErrorMessage = "Email không được quá 150 kí tự")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Email không hợp lệ")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Họ tên không thể rỗng")]
+        [Display(Name = "Họ tên")]
         public string FullName { get; set; }
 
+        [Display(Name = "Trạng thái")]
         public bool Active { get; set; }
 
         public bool IsAdmin { get; set; }
@@ -34,14 +49,24 @@ namespace FloraShop.Core.Domain
 
         public DateTime? ResetExpiredCode { get; set; }
 
+        [Display(Name = "Điện thoại di động")]
+        [RegularExpression(@"[0-9 \-]+", ErrorMessage = "Số điện thoại chỉ chứa ký số")]
         public string Cellphone { get; set; }
 
+        [Display(Name = "Điện thoại")]
+        [RegularExpression(@"[0-9 \-]+", ErrorMessage = "Số điện thoại chỉ chứa ký số")]
         public string Telphone { get; set; }
 
+        [Display(Name = "Địa chỉ")]
         public string Address { get; set; }
 
+        [Display(Name = "Điểm thưởng")]
+        public int TotalPoints { get; set; }
+
+        [Display(Name = "Quận/Huyện")]
         public int? DistrictId { get; set; }
 
+        [Display(Name = "Tỉnh/Thành phố")]
         public int? ProvinceId { get; set; }
 
         public District District { get; set; }

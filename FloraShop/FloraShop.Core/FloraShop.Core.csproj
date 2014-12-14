@@ -186,6 +186,7 @@
     <Compile Include="Domain\Users\District.cs" />
     <Compile Include="Domain\Users\Province.cs" />
     <Compile Include="Domain\Users\User.cs" />
+    <Compile Include="Domain\Users\UserPoint.cs" />
     <Compile Include="Enumerations\BannerType.cs" />
     <Compile Include="Enumerations\OrderStatus.cs" />
     <Compile Include="Enumerations\PageType.cs" />

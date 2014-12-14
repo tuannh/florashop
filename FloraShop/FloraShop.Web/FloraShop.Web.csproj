@@ -1675,6 +1675,8 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\Controls\Content-Online-Support.cshtml" />
+    <Content Include="Views\Shared\Controls\Content-Simple.cshtml" />
+    <Content Include="Views\Shared\Partial\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
