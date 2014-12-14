@@ -16,6 +16,8 @@ namespace FloraShop.Core.Enumerations
         Promotion,
         Contact,
         Shopcart,
-        Order
+        Order,
+        Login,
+        Register
     }
 }

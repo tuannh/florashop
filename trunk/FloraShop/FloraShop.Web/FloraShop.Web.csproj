@@ -1568,6 +1568,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\ChangePassModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MyCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1676,7 +1677,9 @@
     </Content>
     <Content Include="Views\Shared\Controls\Content-Online-Support.cshtml" />
     <Content Include="Views\Shared\Controls\Content-Simple.cshtml" />
-    <Content Include="Views\Shared\Partial\Login.cshtml" />
+    <Content Include="Views\Shared\Partial\Login-Info.cshtml" />
+    <Content Include="Views\Home\_Login.cshtml" />
+    <Content Include="Views\Home\_Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

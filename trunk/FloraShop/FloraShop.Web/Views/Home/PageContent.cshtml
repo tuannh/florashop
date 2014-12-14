@@ -41,6 +41,20 @@ else if (pageType == PageType.Order)
         @Html.JsBundle("~/js/jqueryval")
     }
 }
+else if (pageType == PageType.Login)
+{
+    Html.RenderPartial("~/Views/Home/_Login.cshtml", ViewData["LoginModel"] as FloraShop.Web.Models.LoginModel, ViewData);
+    @section FooterScripts    {
+        @Html.JsBundle("~/js/jqueryval")
+    }
+}
+else if (pageType == PageType.Register)
+{
+    Html.RenderPartial("~/Views/Home/_Register.cshtml");
+    @section FooterScripts    {
+        @Html.JsBundle("~/js/jqueryval")
+    }
+}
 
 
 @section Styles{
