@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title - Florashop</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0" />
+    @Html.CssBundle("~/css/admin/style", "~/Css/admin/style.css")
+    @RenderSection("Styles", false)
+    @Html.JsBundle("~/js/default")
+    @RenderSection("HeaderScripts", false)
+</head>
+<body>
+    <div id="fw_frame" class="clearfix">
+        @{ Html.RenderPartial("~/Areas/Admin/Views/Shared/Controls/Header.cshtml"); }
+        @{ Html.RenderPartial("~/Areas/Admin/Views/Shared/Controls/Menu.cshtml"); }
+
+        <div id="main_frame">
+            <div class="inner_new">
+               @RenderBody()
+            </div>
+        </div>
+        @{ Html.RenderPartial("~/Areas/Admin/Views/Shared/Controls/Footer.cshtml"); }
+    </div>
+    
+    @RenderSection("FooterScripts", false)
+    @Html.JsBundle("~/js/jqueryval")
+</body>
+</html>

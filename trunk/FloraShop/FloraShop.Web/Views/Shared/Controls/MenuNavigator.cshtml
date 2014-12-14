@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Page>
+@using FloraShop.Core.Enumerations
+
+@{
+    var pageAlias = "index";
+    if (FloraShop.Core.SiteContext.Current.RouteData.Values["frontendpage"] != null)
+    {
+        pageAlias = FloraShop.Core.SiteContext.Current.RouteData.Values["frontendpage"].ToString();
+    }
+    var count = Model.Count();
+
+    var productCategory = ViewBag.ProductCategory as IEnumerable<FloraShop.Core.Domain.Category>;
+
+    var newCateAlias = Html.ViewContext.RouteData.Values["newscategoryalias"] as string;
+
+}
+
+
+<ul class="nav-list">
+    @if (Model != null)
+    {
+        foreach (var page in Model)
+        {
+            var active = string.Compare(page.Alias, pageAlias, true) == 0 || string.IsNullOrEmpty(pageAlias) ? "class='active'" : "";
+
+            <li class="nav-item">
+                <a @Html.Raw(active) href="/@page.Alias" title="@page.Name">@page.Name</a>
+            </li>
+        }
+    }
+</ul>

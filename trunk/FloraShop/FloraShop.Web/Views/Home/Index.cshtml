@@ -1,0 +1,11 @@
+﻿@model FloraShop.Core.Domain.Page
+@{
+    ViewBag.Title = "Flora shop";    
+    var pageAlias = ViewBag.PageAlias;
+    
+    if (Model != null)
+    {
+        ViewBag.Title = Model.Title;
+        Layout = Model.Layout ?? "~/Views/Layouts/Index.cshtml";
+    }
+}

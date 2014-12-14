@@ -1,0 +1,173 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Product>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+
+    var types = new List<SelectListItem>()
+        {
+            new SelectListItem() { Value = "1", Text= "Sản phẩm mới" },
+            new SelectListItem() { Value = "2", Text= "Sản phẩm ký gởi" },
+            new SelectListItem() { Value = "3", Text= "Sản phẩm 2ND" },
+            new SelectListItem() { Value = "4", Text= "Sản phẩm bán chạy" }
+        };
+
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.SummaryInfoTemplate = "Trang {0}/{1} ({2} sản phẩm)";
+    var kw = ViewBag.Keyword as string;
+
+    var type = Context.Request.QueryString["type"] ?? "0";
+    var newClass = type == "1" ? "class='active'" : "";
+    var kgClass = type == "2" ? "class='active'" : "";
+    var ndClass = type == "3" ? "class='active'" : "";
+    var bsClass = type == "4" ? "class='active'" : "";
+    var normalClass = type == "5" ? "class='active'" : "";
+    var allClass = type == "0" ? "class='active'" : "";
+}
+<div class="header">
+    <h1>
+        Danh sách sản phẩm
+        @if (ViewBag.Category != null)
+        {
+            @Html.Raw(string.Format(" (Danh mục: {0})", ViewBag.Category.Name))
+        }
+        @if (ViewBag.Brand != null)
+        {
+            @Html.Raw(string.Format(" (Nhãn hiệu: {0})", ViewBag.Brand.Name))
+        }
+    </h1>
+    <div class="headerL">
+        @Html.ActionLink("Thêm", "create") |
+        <a @Html.Raw(allClass) href="/admin/product/?type=0">Tất cả</a> |
+        <a @Html.Raw(normalClass) href="/admin/product/?type=5">SP thường</a> |
+        <a @Html.Raw(newClass) href="/admin/product/?type=1">SP mới</a> |
+        <a @Html.Raw(kgClass) href="/admin/product/?type=2">SP ký gởi</a> |
+        <a @Html.Raw(ndClass) href="/admin/product/?type=3">SP 2ND</a> |
+        <a @Html.Raw(bsClass) href="/admin/product/?type=4">SP bán chạy</a>
+    </div>
+    <div class="headerR">
+        @Html.Raw(ViewBag.SearchReseult)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="type" name="type" type="hidden" value="@type" />
+            <input id="kw" name="kw" type="text" placeholder="Từ khóa cần tìm" value="@kw" />
+            <input type="submit" value="Tìm" class="btnSearch" />
+        }
+
+    </div>
+</div>
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th style="width: 120px;">
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th style="width: 60px;">
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th style="width: 100px;">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th style="width: 100px;">
+            @Html.DisplayNameFor(model => model.SalePrice)
+        </th>
+        <th style="width: 120px;">
+            @Html.DisplayNameFor(model => model.DislayOrder)
+        </th>
+        <th style="width: 100px;">
+            Loại SP
+        </th>
+        <th style="width: 160px;">
+            Photo
+        </th>
+        <th class="col-command"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="tb_content">
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @if (item.Active)
+                {
+                    <img src="~/images/admin/true.gif" alt="" style="width: 22px; height: 18px;">
+                }
+            </td>
+            <td>
+                @item.Price.ToString("N0")
+            </td>
+            <td>
+                @item.SalePrice.ToString("N0")
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DislayOrder)
+            </td>
+            <td>
+                @ProductType(item.Type)
+            </td>
+            <td>
+                @if (item.Photos != null)
+                {
+                    var photo = item.Photos.FirstOrDefault();
+                    if (photo != null)
+                    {
+                        <img style="max-width: 150px" src="~/Userfiles/Modules/Products/Thumb/@photo.FileName" title="@photo.Title" />
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "edit", new { id = item.Id }) |
+                @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="paging">
+    @Html.Controls().Pager(pagingModel)
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.cmd-delete').click(function () {
+            var result = confirm('Bạn thực sự muốn xóa sản phẩm này không?')
+            if (result)
+                return true;
+
+            return false;
+        })
+    })
+</script>
+
+
+@helper ProductType(int type)
+{
+    switch (type)
+    {
+        case 5:
+            @("SP thường")
+            break;
+            
+        case 1:
+        @("SP mới")
+            break;
+
+        case 2:
+        @("SP ký gởi")
+            break;
+
+        case 3:
+        @("SP 2ND")
+            break;
+
+        case 4:
+        @("SP bán chạy")
+            break;
+    }
+}

@@ -1,0 +1,36 @@
+﻿@model FloraShop.Web.Areas.Common.Models.UserModel
+
+@{
+    Layout = "~/Areas/Common/Views/Shared/Layouts/Default.cshtml";
+    ViewBag.Title = "Đăng nhập";
+}
+<div class="form-login">
+    <h1>Đăng nhập</h1>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="error">
+            @ViewBag.Error
+            @Html.ValidationSummary(true)
+        </div>
+        <p>
+            <label>Tên đăng nhập</label>
+            @Html.TextBoxFor(m => m.Username, new { @class = "txt-small" })
+            @Html.ValidationMessageFor(m => m.Username)
+        </p>
+        <p>
+            <label>Mật khẩu</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "txt-small" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </p>
+        <p>
+            <label>&nbsp;</label>
+            <a href="/common/user/forgotpw">Quên mật khẩu</a>
+        </p>
+        <p>
+            <label>&nbsp;</label>
+            <input type="submit" value="Đăng nhập" class="btnAdd" />
+            <input type="reset" value="Reset" class="btnCancel" />
+        </p>
+    }
+</div>

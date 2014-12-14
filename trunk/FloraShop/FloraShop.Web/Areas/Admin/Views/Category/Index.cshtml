@@ -1,0 +1,108 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Category>
+@using FloraShop.Core.Models;
+
+@{
+    ViewBag.Title = "Quản lý danh mục";
+
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.SummaryInfoTemplate = "Trang {0}/{1} ({2} danh mục)";
+    var kw = ViewBag.Keyword as string;
+}
+<div class="header">
+    <h1>Quản lý danh mục</h1>
+    <div class="headerL">
+        @Html.ActionLink("Thêm danh mục", "create")
+    </div>
+    <div class="headerR">
+        @Html.Raw(ViewBag.SearchReseult)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="kw" name="kw" type="text" placeholder="Từ khóa cần tìm" value="@kw" />
+            <input type="submit" value="Tìm" class="btnSearch" />
+        }
+
+    </div>
+</div>
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th style="width: 80px;">
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th style="width: 100px;">
+            @Html.DisplayNameFor(model => model.DisplayOrder)
+        </th>
+        <th style="width: 300px;">
+            Danh mục cha
+        </th>
+        <th style="width: 80px;">
+            Sản phẩm
+        </th>
+        <th class="col-command"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="tb_content">
+
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (item.Active)
+                {
+                    <img src="~/images/admin/true.gif" alt="" style="width: 22px; height: 18px;">
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayOrder)
+            </td>
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Parent.Name)
+            </td>
+            <td>
+                @if (item.HasProduct())
+                {
+                    <a title="Click để xem danh sách chi tiết" href="/admin/product/?catid=@item.Id">@(item.Products().Count())</a>
+                }
+                else
+                {
+                    <span>0</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "edit", new { id = item.Id })
+                @if (item.GetSubCategory().Count() == 0 || !item.HasProduct())
+                {
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="paging">
+    @Html.Controls().Pager(pagingModel)
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.cmd-delete').click(function () {
+            var result = confirm('Bạn thực sự muốn xóa danh mục này không?')
+            if (result)
+                return true;
+
+            return false;
+        })
+
+        $('.cmd-delete-no').click(function () {
+            var result = alert('Danh mục này đang được sử dụng. Bạn không thể xóa.')
+
+            return false;
+        })
+
+    })
+</script>

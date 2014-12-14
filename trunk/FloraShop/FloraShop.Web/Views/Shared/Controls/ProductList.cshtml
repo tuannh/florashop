@@ -1,0 +1,73 @@
+﻿@model IEnumerable<FloraShop.Core.Search.SearchItem>
+
+@{
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.ShowSummaryInfo = false;
+    pagingModel.NextPageText = ">";
+    pagingModel.PrevPageText = "<";
+    pagingModel.LastPageText = ">>";
+    pagingModel.FirstPageText = "<<";
+
+    var pagingText = Html.Controls().Pager(pagingModel);
+    var category = ViewBag.Category as Category;
+}
+
+<div class="search-result">@Html.Raw(ViewBag.Message)</div>
+
+@if (category != null)
+{
+    <h2>@category.Name</h2>
+}
+<div class="pagination">
+    @pagingText
+</div>
+<div class="clear"></div>
+@if (Model != null)
+{
+    <div class="productsList">
+        <ul>
+            @foreach (var item in Model)
+            {
+                var url = category == null ? string.Format("/chi-tiet-sp/{0}", item.Alias) : string.Format("/san-pham/{0}/{1}", category.Alias, item.Alias);
+                <li>
+                    <div class="content_products">
+                        <div class="img_content">
+                            <a href="@url" title="@item.Name">
+                                @if (!string.IsNullOrEmpty(item.Photo))
+                                {
+                                    <img src="/Userfiles/Modules/Products/Thumb/@item.Photo" alt="@item.Name" />
+                                }
+                                else
+                                {
+                                    @item.Name
+                                }
+                            </a>
+                            <h4>
+                                <a href="@url" title="@item.Name">@item.Name</a>
+                            </h4>
+                        </div>
+                        <div class="text_infor">
+                            <p><a href="@url" title="@item.Name">@item.Name</a></p>
+
+                            @if (item.SalePrice > 0)
+                            {
+                                <p class="price">
+                                    @item.SalePrice.ToString("N0") VND
+                                    <span class="sale-price">@item.Price.ToString("N0") VND</span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="price">@item.Price.ToString("N0") VND</p>
+                            }
+                        </div>
+                        <a href="javascript:void(0);" data-id="@item.Id" class="btn_chonmua cart-add">Thêm vào giỏ hàng</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+<div class="pagination pagination-bottom">
+    @pagingText
+</div>

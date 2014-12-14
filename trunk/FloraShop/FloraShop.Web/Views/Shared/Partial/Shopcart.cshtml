@@ -1,0 +1,61 @@
+﻿@using FloraShop.Core
+@using FloraShop.Web.Models
+
+@{
+    var cart = SiteContext.Current.Context.Session[MyCart.ShopCart] as List<FloraShop.Web.Models.MyCart>;
+    cart = cart ?? new List<FloraShop.Web.Models.MyCart>();
+
+    var total = cart.Sum(a => a.Sum);
+    var count = cart.Sum(a => a.Quatity);
+
+    var hideOrderBtn = (count == 0) ? "style='display: none;'" : "";
+}
+
+<div class="title-big">
+    Giỏ<br />
+    &nbsp;&nbsp; hàng
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tbody>
+            <tr class="table-title">
+                <td class="cart-img">Sản Phẩm</td>
+                <td class="cart-name">Tên Sản Phẩm</td>
+                <td class="cart-price">Đơn giá</td>
+                <td class="cart-qty">Số lượng</td>
+                <td class="cart-subtotal">Tổng tiền</td>
+                <td class="cart-del"></td>
+            </tr>
+            @foreach (var item in cart)
+            {
+                <tr id="tr@(item.ProductId)" class="table-product-info">
+                    <td class="prod-img-center">
+                        <div class="prod-table-img-c">
+                            <img src="/Userfiles/Modules/Products/Thumb/@item.Photo" alt="@item.Name" />
+                        </div>
+                    </td>
+                    <td class="prod-name">
+                        <a href="/chi-tiet-sp/@item.Alias">
+                            @item.Name
+                        </a>
+                    </td>
+                    <td class="prod-price">@item.Price.ToString("N0") VND</td>
+                    <td class="prod-qty"><input class="cart-update" data-id="@item.ProductId" data-quatity="@item.Quatity" type="text" value="@item.Quatity"></td>
+                    <td class="prod-tot">@((item.Quatity * item.Price).ToString("N0")) VND</td>
+                    <td class="prod-del"><a data-id="@item.ProductId" class="trash-table cart-remove" href="javascript:void(0)"><img src="/images/flora/icon-delete.png" alt="" /></a></td>
+                </tr>
+            }
+            <tr class="totalAll"><td colspan="6" class="align">Tổng tiền: <span id="shopcart-total">@total.ToString("N0")</span> VND</td>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-12 cart-but">
+    <div class="cart-but-left">
+        <a @Html.Raw(hideOrderBtn) href="javascript:void(0)" class="continue btn-order cart-link" data-href="/dat-hang/">Đặt hàng</a>
+    <a href="/san-pham/" class="continue">Tiếp tục mua</a> </div>
+    <div class="cart-but-right">
+        <div class="clear-cart-but"> <a @Html.Raw(hideOrderBtn) href="javascript:void(0)" class="clear-cart cart-clear">Xóa đơn hàng</a> </div>
+        <br>
+        <br>
+    </div>
+</div>

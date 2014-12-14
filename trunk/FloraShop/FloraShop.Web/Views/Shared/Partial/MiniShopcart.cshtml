@@ -1,0 +1,28 @@
+﻿@using FloraShop.Web.Models
+@{
+    var cart = FloraShop.Core.SiteContext.Current.Context.Session[MyCart.ShopCart] as List<FloraShop.Web.Models.MyCart>;
+    cart = cart ?? new List<FloraShop.Web.Models.MyCart>();
+
+    var count = cart.Sum(a => a.Quatity);
+    var total = cart.Sum(a => a.Quatity * a.Price);
+
+    var emptyCart = (count > 0) ? "style='display: none;'" : "";
+    var notEmptyCart = (count == 0) ? "style='display: none;'" : "";
+}
+
+<h2 class="title-shop-cart">Giỏ hàng của bạn</h2>
+<div class="content-shop-cart">
+
+    <p id="cart-empty" @Html.Raw(emptyCart)>Giỏ hàng hiện đang rỗng</p>
+
+    <div id="cart-not-empty" @Html.Raw(notEmptyCart)>
+        <p>
+            Hiện có
+            <a href="/gio-hang/" title="Giỏ hàng"><span id="cart-count-val">@count.ToString("N0")</span></a>
+            sản phẩm
+
+        </p>
+        <p id="cart-total">Tổng cộng: <span id="cart-total-val">@total.ToString("N0")</span> VND</p>
+    </div>
+
+</div>

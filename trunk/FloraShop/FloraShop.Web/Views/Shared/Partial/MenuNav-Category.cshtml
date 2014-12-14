@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Category>
+
+@{
+    var cateAlias = Html.ViewContext.RouteData.Values["categoryalias"] as string;
+}
+
+@if (Model != null)
+{
+    <ul id="nav-category" class="nav-submenu">
+        @foreach (var cate in Model)
+        {
+            @ViewCategory(cate, cateAlias)
+        }
+    </ul>
+}
+
+
+@helper ViewCategory(Category cate, string cateAlias)
+{
+    if (cate != null)
+    {
+        var active = string.Compare(cate.Alias, cateAlias, true) == 0 || cate.IsActive(cateAlias) ? @"class=""active""" : "";
+        var lst = cate.GetSubCategory();
+
+        <li class="nav-submenu-item">
+            <a @Html.Raw(active) href="/san-pham/@cate.Alias">
+                @cate.Name
+            </a>
+            @if (lst != null)
+            {
+                <ul class="nav-submenu2">
+                    @foreach (var category in lst)
+                    {
+                        @ViewCategory(category, cateAlias)
+                    }
+                </ul>
+            }
+        </li>
+    }
+}

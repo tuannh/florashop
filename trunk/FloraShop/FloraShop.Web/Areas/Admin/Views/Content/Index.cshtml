@@ -1,0 +1,69 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Content>
+
+@{
+    ViewBag.Title = "Quản lý nội dung";
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/Default.cshtml";
+
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.SummaryInfoTemplate = "Trang {0}/{1} ({2} danh mục)";
+    var kw = ViewBag.Keyword as string;
+
+
+}
+<div class="header">
+    <h1>Quản lý nội dung</h1>
+    <div class="headerL" style="display: none;">
+        @Html.ActionLink("Thêm nội dung", "create")
+    </div>
+    <div class="headerR" style="display: none;">
+        @Html.Raw(ViewBag.SearchReseult)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="kw" name="kw" type="text" placeholder="Từ khóa cần tìm" value="@kw" />
+            <input type="submit" value="Tìm" class="btnSearch" />
+        }
+    </div>
+</div>
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+       
+        <th class="col-command"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="tb_content">
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.ActionLink("Sửa", "edit", new { id = item.Id })
+                <div style="display: none;">
+                    |
+                    @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="paging">
+    @Html.Controls().Pager(pagingModel)
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.cmd-delete').click(function () {
+            var result = confirm('Bạn thực sự muốn xóa nội dung này không?')
+            if (result)
+                return true;
+
+            return false;
+        })
+    })
+</script>

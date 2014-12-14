@@ -1,0 +1,83 @@
+﻿@model FloraShop.Core.Domain.Content
+
+@{
+    ViewBag.Title = "Cập nhật nội dung";
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/Edit.cshtml";
+}
+
+<h2>Cập nhật nhãn hiệu</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Content</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <label>Tiêu đề</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Value, new { @class = "myeditor" })
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.PageAlias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PageAlias, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PageAlias, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btnAdd" />
+                <input style="display: none;" type="button" value="Xóa" class="btnDelete" data-href="/admin/content/delete/@Model.Id" />
+                <input type="reset" value="Reset" class="btnCancel" />
+                <input type="button" value="Bỏ qua" class="btnCancel btnDiscard" data-href="/admin/content/" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Name').blur(function () {
+            AutoGenerateAlias(this.value, 'Alias', false);
+        })
+
+        $('.btnDelete').click(function () {
+            var ok = confirm('Bạn muốn xóa nội dung này không?')
+            if (ok)
+                location.href = $(this).attr('data-href');
+
+            return false;
+        })
+
+        $('.btnDiscard').click(function () {
+            location.href = $(this).attr('data-href');
+        })
+
+        $('.myeditor').clawEditor('standard');
+    })
+</script>

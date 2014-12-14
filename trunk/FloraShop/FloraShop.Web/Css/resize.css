@@ -1,0 +1,216 @@
+@media only screen and (max-width:1200px) {
+.main{width:100%}
+.wrapper { width:94%; padding:0 3%}
+.colLeft { width: 23.5% }
+.colRight { width: 73.5%; padding-bottom: 10px }
+.productsList { margin:0; width: 100% }
+.productsList ul li { width: 31%; margin: 0% 0 20px 3% }
+.productsList ul li:nth-of-type(4n+1) { clear: none; margin-left: 3% }
+.productsList ul li:nth-of-type(3n+1) { clear: left; margin-left: 0; border-left: none }
+.resp-tabs-list li {
+    padding: 7px 25px;
+}
+footer .design_by{ width:100%}
+}
+@media only screen and (max-width:1100px) {
+
+.nav-item a{ padding: 26px 20px}
+.img_detail{ width:40%}
+.img_detail .imgages-zoom-block li{ width:22%}
+
+}
+@media only screen and (max-width:1000px) {
+
+header{ position:relative; height:auto; background:#000; padding-bottom:10px}
+header .logo{ float:left; width:100%; background:none; text-align:center; position:relative; top:0; left:0}
+.nav{ position:relative; float:left; width:100%; text-align:center}
+.nav-item{ float:none; display:inline-block}
+.nav-item a{ padding: 5px 20px}
+
+footer{ width:92%; padding:20px 4% 0 4%; position:relative; overflow:hidden}
+.show1{ display:block}
+.contentSub{ max-width:92%; padding:20px 4%; overflow:hidden}
+
+.colLeft { width: 28% }
+.colRight { width: 69%; padding-bottom: 10px }
+.productsList { margin:0; width: 100% }
+.productsList ul li { width:31%; margin: 0% 0 20px 3% }
+/*.productsList ul li:nth-of-type(3n+1) { clear: none; margin-left: 3% }
+.productsList ul li:nth-of-type(2n+1) { clear: left; margin-left: 0; border-left: none }*/
+
+
+}
+
+
+@media only screen and (max-width: 980px) {
+.map{ float:left; width:100%; margin-bottom:20px; overflow:hidden}
+.contact_form{ float:left; overflow:hidden; width:100%}
+.contact_form .inputText {
+ height: 24px;
+ padding: 0 2%;
+ width: 95%;
+}
+.contact_form .textarea{ width:95%}
+}
+@media only screen and (max-width: 940px) {
+.img_detail{ width:100%}
+.img_detail .imgages-zoom-block li{ width:22%; height:auto}
+.product-content-info{ float:left; width:100%; padding-bottom:20px}
+.table-responsive tr.table-title{ display:none}
+/* Force table to not be like tables anymore */
+.table-responsive table,.table-responsive thead, .table-responsive tbody, .table-responsive th, .table-responsive td, .table-responsive tr { 
+		display: block; 
+	}
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border:none
+}	
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-bottom: 1px solid #ddd;
+    line-height: 1.42857;
+    padding: 8px;
+}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.table-responsive thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	.table-responsive tr {  }
+	
+	.table-responsive td { 
+		/* Behave  like a "row" */
+		border: none;
+		position: relative;
+		text-align:left
+	}
+.table-product-info:nth-child(2n+1){ background:#f8f8f8}
+.table-responsive .table-product-info td:nth-of-type(1):before { content: "Sản Phẩm:"; float:left; width:50% ; font-weight:bold}
+.table-responsive .table-product-info td:nth-of-type(2):before { content: "Tên Sản Phẩm:"; float:left; width:50%; font-weight:bold }
+.table-responsive.table-product-info td:nth-of-type(3):before { content: "Sửa:"; float:left; width:50%; font-weight:bold }
+
+.table-responsive .table-product-info	td:nth-of-type(4):before { content: "Đơn giá:"; float:left; width:50% ; font-weight:bold}
+.table-responsive .table-product-info	td:nth-of-type(5):before { content: "Số lượng:"; float:left; width:50%; font-weight:bold }
+.table-responsive .table-product-info	td:nth-of-type(6):before { content: "Thành tiền:"; float:left; width:50% ; font-weight:bold}
+.table-responsive .table-product-info	td:nth-of-type(7):before { content: "Xóa:"; float:left; width:50% ; font-weight:bold}
+.cart-but-left{ padding-bottom:5px}
+.cart-but-right{float:left}
+}
+
+@media only screen and (max-width: 860px) {
+	.inner-subpage .design_by .menu-footer{width:100%; text-align:center; padding-bottom:15px}
+	.inner-subpage .design_by p.text_footer{ float:left; width:100%; text-align:center}
+	.map-contact{width:100%; text-align:center; padding-bottom:15px; display:block}
+	.text-sale{ float:left; width:100%; text-align:center ;display:block; min-height:80px; padding:20px 0}
+	.map-contact .googl-map, .map-contact address{ float:none; display:inline-block}
+	.map-contact .googl-map img{vertical-align:top; margin-top:-88px }
+	.map-contact address {text-align:left}
+	.info-user label{ float:left; margin-right:0; width:100%}
+	.info-user input[type="text"], .info-user textarea, #liPayment select{ width:54%}
+	.wrap-checkbox input[type="checkbox"]{margin-left:0}
+}
+
+@media only screen and (max-width: 767px) {
+.colLeft { width: 34% }
+.colRight { width: 62%; padding-bottom: 10px }
+.productsList { margin:0; width: 100% }
+.productsList ul li { width:48%; margin: 0% 0 20px 3% }
+.productsList ul li:nth-of-type(3n+1) { clear: none; margin-left: 3% }
+.productsList ul li:nth-of-type(2n+1) { clear: left; margin-left: 0; border-left: none }
+
+/*nav*/
+.nav-mobile { display: block; }
+.name { display: block }
+.addArrow { display: none !important }
+.nav { width: 100%; top: 0px; left: 0%; background: #9f1500; padding-top: 40px; height: auto; padding-bottom: 0 }
+.nav-list { display: none }
+.nav-item { width: 100%; float: none; padding: 0; text-align: left; border-bottom:1px solid #8f1603 }
+.nav-item:nth-child(1){width:100%}
+.nav-item:nth-child(1) { width: 100% }
+.nav-item > a:hover,
+.nav-item a.active { color: #fff; background: #de4509 }
+.nav-submenu { position: static; width: 100%; padding: 0 }
+.nav-submenu2 { position: static; left: 0; top: 0; width: 100%; padding: 0; margin: 0 }
+.nav-item:hover .nav-submenu { display: none; }
+.nav-submenu-item:hover .nav-submenu2 { display: none }
+.nav-item:hover { }
+.nav-item > a { text-align: left;  margin-right: 0; color: #fff; line-height: 24px; padding: 8px 20px; display: block}
+.nav-submenu-item a { padding: 10px 20px; font-size: 15px }
+.nav-item:hover a {  }
+.nav-item a.first { padding-left: 20px }
+.nav-click { display: block }
+.nav-mobile-open { border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; }
+
+}
+@media only screen and (max-width:740px) {
+
+.block-qty {
+    border-bottom: 1px solid #efefef;
+    float: left;
+    margin-top: 24px;
+    min-height: 50px;
+    padding-bottom: 20px; width:100%; text-align:center
+}
+.add-to-cart{ float:left; width:100%; margin-top:15px}
+.detail a.btn_chonmua{ width:100%; padding:0}
+
+
+
+}
+
+
+
+
+@media only screen and (max-width: 680px) {
+.title-big{font-size:45px}
+.colLeft { width: 40% }
+.colRight { width: 56%; padding-bottom: 10px }
+.pagination {
+    float: left;
+    padding-top: 0px;
+    position: relative;
+    right: 0;
+    top: 0;
+	width:100%; padding-bottom:20px
+}
+
+}
+@media only screen and (max-width: 600px) {
+.show2{ display:block}
+header{ padding-bottom:0}
+.title-big{ font-size:30px}
+
+
+}
+
+@media only screen and (max-width: 580px) {
+.colLeft { width:100% }
+.colRight { width: 100%; padding-bottom: 10px; float:left }
+.category{margin-bottom:5px}
+.inner-subpage .design_by .menu-footer ul li{float:left; display:block; text-align:center; border-bottom:1px solid #f3f3f3; width:100%; padding:10px 0}
+.title-big{font-size:35px}
+#owl1 { margin:0; width: 100%}
+.img_detail{width:100%}
+.text-detail{ float:left; width:100%; padding-bottom:0}
+.info-detail{padding: 20px 10% 0px}
+.info-detail p{margin-bottom:7px}
+.info-detail p label{width:100%; margin-bottom:0px; text-align:left}
+.info-detail p input {
+	width: 100%;margin-bottom:5px
+}
+.info-detail p select { width:100%}
+.map-contact .googl-map{width:100%; padding-bottom:15px}
+.map-contact .address{width:100%}
+.map-contact .googl-map img{vertical-align:top; margin-top:0px }
+}
+
+@media only screen and (max-width: 390px) {
+.productsList ul li { width:100%; margin: 0% 0 20px 0% }
+.productsList ul li:nth-of-type(3n+1) { clear: none; margin-left: 0% }
+.productsList ul li:nth-of-type(2n+1) {  clear: none; margin-left: 0%  }
+
+}
+
+@media only screen and (max-width: 240px) {
+}

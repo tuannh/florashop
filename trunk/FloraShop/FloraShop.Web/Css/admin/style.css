@@ -1,0 +1,112 @@
+.clearfix:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+* html > body .clearfix { display: block; width: 100%; }
+* html .clearfix { height: 1%; }
+input[type=text]{ width: 500px; height:20px;border: solid 1px #bebcbb;}
+.input-validation-error { border: solid 1px #F00 !important; }
+.field-validation-error { color: #f00 !important; }
+textarea{ width: 500px; height:100px;border: solid 1px #bebcbb;}
+a { color: #243135; text-decoration: underline; }
+a:hover { text-decoration: none; }
+body { background:url(/images/admin/bg-thead.png) repeat;font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif; font-size: 14px; color: #212121; margin: 0; padding: 0; }
+#fw_frame { clear: both; width: 100%; }
+#fw_banner { border-bottom: 1px solid #aa7a6d; height: 100px; background:url(/images/admin/bg_top.png) repeat }
+#fw_banner .right_top{ height: 27px; position: absolute; right: 30px; text-align: right; top: 20px; width: auto; color:#fff }
+#fw_banner .right_top ul{float:right; list-style:none; margin:0}
+#fw_banner .right_top ul li{float:none; display:inline-block; padding-left:15px; margin-left:15px; background:url(/images/admin/line-li.png) no-repeat left 4px}
+#fw_banner .right_top ul li:nth-child(1){ background:none}
+#fw_banner .right_top ul li:hover, #fw_banner .right_top ul li:hover a{color:#ff860a}
+#fw_banner .right_top ul a{color:#fff}
+#fw_banner .logo { float: left; width:338px; padding:10px 0 0 15px }
+#fw_banner .div_2 { color: #FFFFFF; float: right; font-weight: bold; padding-right: 20px; padding-top: 40px; text-align: right; width: 300px; }
+#fw_menu { background:url(/images/admin/bg_menu.png) repeat-x left top; height: 40px; position: relative; width: 100%; border-bottom:1px solid #d76f0d }
+#fw_menu #menu_1 {top:-10px; left: 10px; list-style: none outside none; position: absolute; }
+#fw_menu #menu_1 li { color: #3c382f; cursor: pointer; float: left; font-weight: bold; line-height: 30px; padding-left: 10px; padding-right: 10px; position: relative; background:url(/images/admin/line-li.png) no-repeat right 9px}
+#fw_menu #menu_1 li:last-child{ background:none}
+#fw_menu #menu_1 li a{ color:#3c382f; text-decoration: none;}
+#fw_menu #menu_1 li:hover, #fw_menu #menu_1 li.active { background:#fe7e03; color:#fff}
+#fw_menu #menu_1 li:hover a, #fw_menu #menu_1 li.active a { color:#fff; }
+#fw_menu #menu_1 li:hover ul { display: block; }
+#fw_menu #menu_1 li ul { background: #fc9f40; border-bottom: 1px solid #fbc4b5; border-left: 1px solid #fbc4b5; border-right: 1px solid #fbc4b5; display: none; left: -1px; list-style: none outside none;position: absolute; top: 30px; width: 165px; padding:10px 0 }
+#fw_menu #menu_1 li ul li { color: #fff; float: none; font-weight: normal; height: 24px; line-height: 24px; margin:3px 0; background:none }
+#fw_menu #menu_1 li ul li:hover{ background:none}
+#fw_menu #menu_1 li ul li a{color: #fff}
+#fw_menu #menu_1 li ul li:hover,#fw_menu #menu_1 li ul li a:hover { color: #212121 }
+#main_frame { margin:0;text-align: left; background:#fff; min-height: 450px; }
+#main_frame .function { clear: both; padding-bottom: 2px; padding-top: 10px }
+#main_frame .function a{ color:#fff}
+#main_frame .function a:hover{color:#fe7b00}
+#main_frame .frmEdit{ background:#fff}
+.tb_table {border-collapse: collapse; width: 100%; }
+table.tb_table tbody th, table.tb_table tbody td {
+    border: 1px solid #CCC;
+}
+.tb_table .tb_head { height: 30px; }
+.tb_table .tb_head a{}
+.tb_table .tb_head a:hover{color:#fe7b00}
+.tb_table .tb_head td { color: #FFFFFF; font-weight: bold; text-align: center; }
+.tb_table .tb_head td input{margin-right:15px}
+.tb_table .tb_content { background: none repeat scroll 0 0 #FFFFFF; }
+.tb_table .tb_content:hover { background: #FFD8B3; cursor:pointer }
+.tb_table .tb_content td {height: 28px; padding-left: 2px; padding-right: 2px; text-align: center; }
+.tb_table .tb_content:nth-child(2n+1) > td {
+    background: #fafbfc;
+}
+.tb_table .tb_content th{ background:#dd5b29; color:#fff;
+    height: 28px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;}
+.tb_table .tb_content:nth-child(2n+1):hover> td{background: #FFD8B3 !important; cursor:pointer }
+
+.paging {width: 100%; text-align: right; margin-top: 15px;}
+.paging a { padding: 0 2px; text-decoration: none;}
+.paging a:hover, .paging a.selected{ color:#ff860a}
+
+.inputbox { background: #EFE0DB; border: solid 1px #ccc;  padding: 3px; font-family: Verdana; font-size: 12px; }
+.button { background: url(/images/admin/nav.png) repeat-x scroll left -51px transparent; border: 1px solid #ABC6DD; color: #FFFFFF; font-family: Verdana; font-size: 11px; height: 23px; cursor:pointer }
+.button_2 { background-color: #EBE8D6; border-color: #ECE9D8 #716F64 #716F64 #ECE9D8; border-left: 1px solid #ECE9D8; border-right: 2px solid #716F64; border-style: solid; border-width: 1px 2px 2px 1px; font-family: Tahoma; font-size: 8pt; cursor:pointer }
+#copyright { background:url(/images/admin/bg-thead.png) repeat; clear: both; color: #909090; height: 25px; line-height: 15px; padding-top:8px; text-align: center; width: 100%; position:relative; bottom:0 }
+#copyright a { color: #909090; text-decoration: none; }
+#copyright a:hover { text-decoration: underline; color:#fe7b00}
+.inner_new{padding:5px 65px 20px; }
+.inner_new div.form-group {width: 100%; float: left; padding: 8px 0;}
+.inner_new div label{margin-right:10px; width: 150px; display:inline-block; float: left;}
+.inner_new div .check{height: 16px;
+    margin: 5px 3px 0 0;
+    vertical-align: top;
+    width: 16px;}
+	
+.inner_new .btnAdd, .inner_new .btnDelete, .inner_new  .btnCancel{background:url(/images/admin/bg-btn-chonmua.png) no-repeat left top; height:29px; width:88px; display:inline-block; line-height:29px; text-transform:uppercase; z-index:800; color:#fff;-moz-transition: all 0.3s ease 0s; -webkit-transition: all 0.3s ease 0s; -o-transition: all 0.3s ease 0s; -ms-transition: all 0.3s ease 0s; transition: all 0.3s ease 0s; text-decoration:none; border: none;}
+.inner_new .btnAdd:hover, .inner_new .btnCancel:hover{background:url(/images/admin/bg-btn-chonmua-hover.png) no-repeat left top; text-decoration:none}
+
+.headerL { margin-top: 10px; float: left; }
+.headerR {float: right; margin-bottom: 10px;}
+.headerR input[type=text] {width: 250px;}
+.headerR .btnSearch {width: 50px; height: 24px; border: 1px solid #bebcbb; }
+.colLeft { text-align: left !important; }
+.col-command {width: 120px;}
+.error {color: #F00;}
+
+.inner-fix { display: inline-block; }
+
+
+.col-md-10 {float: left;}
+
+/* login */
+.txt-small {
+    width: 260px !important;
+    height: 20px !important;
+    border: solid 1px #bebcbb !important;
+}
+
+.form-login .inner_new p label{
+margin-right: 10px;
+width: 96px;
+display: inline-block;
+}
+
+input[type=password]{ width: 350px; height:20px;border: solid 1px #bebcbb;}
+
+.headerL a.active {color: #dd5b29;}
+
+.frm-album {float: left; width: 50%}

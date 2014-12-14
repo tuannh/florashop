@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Brand>
+@using FloraShop.Core;
+@{
+    var ctx = SiteContext.Current;
+    var sort = ctx.QueryString["sort"] ?? "Price";
+    var order = ctx.QueryString["order"] ?? "desc";
+    var sortOrder = string.Format("sort={0}&order={1}", sort, order);
+
+    var brandAlias = ctx.RouteData.Values["brandAlias"] != null ? ctx.RouteData.Values["brandAlias"].ToString() : "";
+
+    var ascPrice = Globals.AppendQueryString(ctx.RawUrl, "sort=Price&order=desc");
+    var descPrice = Globals.AppendQueryString(ctx.RawUrl, "sort=Price&order=asc");
+
+    var selectAscPrice = ascPrice.Contains(sortOrder) ? "selected" : "";
+    var selectDescPrice = descPrice.Contains(sortOrder) ? "selected" : "";
+
+    var paging = new int[] { 8, 12, 16, 20 };
+    var ps = ctx.QueryString["ps"] ?? "8";
+}
+
+
+
+
+<div class="label">
+    <h4>Thương hiệu</h4>
+    <ul>
+        <li><a href="/san-pham/" @Html.Raw(string.IsNullOrEmpty(brandAlias) ? "class='active'" : "")>All</a></li>
+        @if (Model != null)
+        {
+            foreach (var brand in Model)
+            {
+                var active = string.Compare(brand.Alias, brandAlias, true) == 0 ? "class='active'" : "";
+                <li>
+                    <a @Html.Raw(active) href="/nhan-hieu/@brand.Alias">@brand.Name</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+<div class="sort">
+    <div class="sort_left">
+        <label>Sắp xếp theo</label>
+        <select id="orderby">
+            <option @Html.Raw(selectDescPrice) value="@descPrice">Giá tăng</option>
+            <option @Html.Raw(selectAscPrice) value="@ascPrice">Giá giảm</option>
+        </select>
+    </div>
+    <div class="count_page">
+        <p>
+            Số sản phẩm mỗi trang :
+            @foreach (var i in paging)
+            {
+                var url = Globals.AppendQueryString(ctx.RawUrl, string.Format("ps={0}", i));
+                url = i.ToString() == ps ? "javascript:void(0);" : url;
+                var active = i.ToString() == ps ? "class='active'" : "";
+                <a href="@url" @Html.Raw(active)>@i</a>
+            }
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#orderby').change(function () { location.href = $(this).val(); })
+    })
+</script>

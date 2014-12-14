@@ -1,0 +1,114 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Banner>
+
+@{
+    ViewBag.Title = "Quản lý banner";
+
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.SummaryInfoTemplate = "Trang {0}/{1} ({2} danh mục)";
+    var kw = ViewBag.Keyword as string;
+}
+<div class="header">
+    <h1>Quản lý banner</h1>
+    <div class="headerL">
+        @Html.ActionLink("Thêm banner", "create")
+    </div>
+    <div class="headerR">
+        @Html.Raw(ViewBag.SearchReseult)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="kw" name="kw" type="text" placeholder="Từ khóa cần tìm" value="@kw" />
+            <input type="submit" value="Tìm" class="btnSearch" />
+        }
+
+    </div>
+</div>
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th style="width: 250px;">
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th style="width: 250px;">
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th style="width: 80px;">
+            @Html.DisplayNameFor(model => model.Target)
+        </th>
+        <th style="width: 80px;">
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th style="width: 100px;">
+            @Html.DisplayNameFor(model => model.DisplayOrder)
+        </th>
+        <th class="col-command"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="tb_content">
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.FileName))
+                {
+                    <img style="max-width: 180px;" alt="banner" src="~/Userfiles/Modules/BannerRotators/@item.FileName" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Target)
+            </td>
+
+            <td>
+                @if (item.Active)
+                {
+                    <img src="~/images/admin/true.gif" alt="" style="width: 22px; height: 18px;">
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayOrder)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "edit", new { id = item.Id }) |
+                @if (true)
+                {
+                    @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
+                }
+                else
+                {
+                    @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete-no" })
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+<div class="paging">
+    @Html.Controls().Pager(pagingModel)
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.cmd-delete').click(function () {
+            var result = confirm('Bạn thực sự muốn xóa banner này không?')
+            if (result)
+                return true;
+
+            return false;
+        })
+
+        $('.cmd-delete-no').click(function () {
+            var result = alert('Banner đang được sử dụng. Bạn không thể xóa.')
+
+            return false;
+        })
+
+    })
+</script>

@@ -1,0 +1,19 @@
+﻿@{
+    var ctx = FloraShop.Core.SiteContext.Current;
+    var logout = string.Format("/common/user/logout?{0}=/admin/", ctx.ReturnUrlQueryKey);
+}
+
+<div id="fw_banner">
+    <div class="logo"><a href="/admin/" target="_blank"><img src="/images/admin/logo.png" border="0" alt="" /></a></div>
+
+    @if (ctx.Context.User.Identity.IsAuthenticated)
+    {
+        <div class="right_top">
+            <ul>
+                <li><p>Xin chào: @ctx.User.Username</p></li>
+                <li><a href="/admin/user/changepwd/">Đổi mật khẩu</a></li>
+                <li><a href="@logout">Thoát</a></li>
+            </ul>
+        </div>
+    }
+</div>

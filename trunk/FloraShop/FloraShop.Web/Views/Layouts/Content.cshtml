@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    
+    @Html.CssBundle("~/css/content")
+    @RenderSection("Styles", false)
+
+    @Html.JsBundle("~/js/default")
+    @RenderSection("HeaderScripts", false)
+</head>
+<body>
+    <div class="out_wrapper">
+
+        <!--header-->
+        <header>
+            <div class="wrapper">
+                <div class="logo"><a href="/" title="Trang chủ"><img src="/images/flora/logo.png" alt="logo"></a></div>
+                <nav class="nav">
+                   @Html.Controls().MenuNavigator()
+                </nav>
+                <!-- /Nav -->
+                <div class="clear"></div>
+            </div>
+        </header>
+        <div class="clear"></div>
+        <div class='iosSliderFull'>
+            <div class='fluidHeight newPosition'>
+                <div class='sliderContainer'>
+                    <div class='iosSlider'>
+                       @Html.Controls().Slider("Slider-Content.cshtml")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end banner-->
+    <div class="clear"></div>
+    <div class="main">
+        <div class="wrapper">
+            <aside class="colLeft">
+                @{ Html.RenderPartial("~/Views/Shared/Partial/SearchBox.cshtml"); }
+                
+                @Html.Controls().CategoryList()
+                <!--end category-->
+
+                @{ Html.RenderPartial("~/Views/Shared/Partial/MiniShopcart.cshtml"); }
+               
+                @Html.Controls().LastViewProduct()
+
+                @{ Html.RenderPartial("~/Views/Shared/Partial/SupportInfo.cshtml"); }
+            </aside>
+            <div class="colRight">
+              @RenderBody()
+            </div>
+            <div class="adversting">
+                @{ Html.RenderPartial("~/Views/Shared/Partial/Ad.cshtml"); }
+            </div>
+        </div>
+        <!--end main-->
+
+        <div class="clear"></div>
+        <footer class="inner-subpage">
+            <div class="wrapper">
+                <div class="design_by">
+                    <div class="menu-footer">
+                        @Html.Controls().MenuNavigator("MenuNavigator-Footer.cshtml")
+                    </div>
+                    @{ Html.RenderPartial("~/Views/Shared/Partial/Footer.cshtml"); }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </footer>
+    </div>
+    <div id="mask-loading">
+        <div></div>
+    </div>
+    @Html.JsBundle("~/js/page/content")
+    @RenderSection("FooterScripts", false)
+</body>
+</html>
