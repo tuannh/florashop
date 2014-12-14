@@ -5,24 +5,33 @@
     var index = 0;
 }
 
-<div class='slider'>
-    <div class='item selected'>
-        <div class='inner'>
-            <img src='/images/flora/banner-khuyenmai1.jpg' alt="" />
-        </div>
+@if (Model != null)
+{
+    <div class='slider'>
+        @foreach (var banner in Model)
+        {
+            var selected = (index++ == 0) ? "selected" : "";
+            <div class='item @selected'>
+                <div class='inner'>
+                    @if (!string.IsNullOrEmpty(banner.Url))
+                    {
+                        <a title="@banner.Name" href="@banner.Url" target="@banner.Target">
+                            <img alt="@banner.Name" src="~/Userfiles/Modules/BannerRotators/@banner.FileName" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a title="@banner.Name" href="javascript:void(0);">
+                            <img alt="@banner.Name" src="~/Userfiles/Modules/BannerRotators/@banner.FileName" />
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
     </div>
-    <div class='item'>
-        <div class='inner'>
-            <img src='/images/flora/banner-khuyenmai2.jpg' alt="" />
-        </div>
+    <div class='slideSelectors'>
+        <div class='prev'>‹</div>
+        <div class='next'>›</div>
     </div>
-    <div class='item'>
-        <div class='inner'>
-            <img src='/images/flora/banner-khuyenmai1.jpg' alt="" />
-        </div>
-    </div>
-</div>
-<div class='slideSelectors'>
-    <div class='prev'>‹</div>
-    <div class='next'>›</div>
-</div>
+}

@@ -18,26 +18,26 @@ using System.Collections;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
-    public class  BannerSettings
+    public class BannerSettings
     {
         public int Width { get; set; }
         public int Height { get; set; }
+        public int Quality { get; set; }
+
+        public Color BgColor { get; set; }
     }
 
     public class BannerController : AdminController
     {
         public const string Folder = "~/Userfiles/Modules/BannerRotators/";
-        public ArrayList Settings = new ArrayList();
+        public BannerSettings HomeSettings { get; private set; }
+        public BannerSettings ContentSettings { get; private set; }
 
         public BannerController(FloraShopContext dbContext)
             : base(dbContext)
         {
-            var settingHome = new { Width = 1800, Height = 1186 };
-            var settingContent = new { Width = 1366, Height = 420 };
-
-            Settings.Add(settingHome);
-            Settings.Add(settingContent);
-            
+            HomeSettings = new BannerSettings() { Width = 1800, Height = 1186, BgColor = Color.White, Quality = 80 };
+            ContentSettings = new BannerSettings() { Width = 1366, Height = 420, BgColor = Color.White, Quality = 80 };
         }
 
         // GET: Admin/Banner
@@ -91,7 +91,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Order,FileName,Active,Target,Url,DisplayOrder")] Banner banner, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Order,FileName,Active,Target,Url,DisplayOrder,Category")] Banner banner, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -117,9 +117,8 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     var tmppath = string.Format("{0}{1}", folerPath, tmpname);
                     file.SaveAs(tmppath);
 
-                    var config = FloraShop.Core.Configurations.SiteConfiguration.GetConfig();
-                    var bannerConfig = config.Banner;
-                    ImageTools.FixResizeImage(tmppath, path, bannerConfig.Width, bannerConfig.Height, ColorTranslator.FromHtml(bannerConfig.Background), config.Quality);
+                    var settings = banner.Category == 0 ? HomeSettings : ContentSettings;
+                    ImageTools.FixResizeImage(tmppath, path, settings.Width, settings.Height, settings.BgColor, settings.Quality);
 
                     try { System.IO.File.Delete(tmppath); }
                     catch { }
@@ -155,7 +154,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,FileName,Active,Target,Url,DisplayOrder")] Banner banner, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,FileName,Active,Target,Url,DisplayOrder,Category")] Banner banner, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -176,9 +175,8 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     var tmppath = string.Format("{0}{1}", folerPath, tmpname);
                     file.SaveAs(tmppath);
 
-                    var config = FloraShop.Core.Configurations.SiteConfiguration.GetConfig();
-                    var bannerConfig = config.Banner;
-                    ImageTools.FixResizeImage(tmppath, path, bannerConfig.Width, bannerConfig.Height, ColorTranslator.FromHtml(bannerConfig.Background), config.Quality);
+                    var settings = banner.Category == 0 ? HomeSettings : ContentSettings;
+                    ImageTools.FixResizeImage(tmppath, path, settings.Width, settings.Height, settings.BgColor, settings.Quality);
 
                     try { System.IO.File.Delete(tmppath); }
                     catch { }
