@@ -255,12 +255,13 @@ namespace FloraShop.Core.Extensions
             return MvcHtmlString.Create(result.ToString());
         }
 
-        public static MvcHtmlString Slider(this SiteControl control, string viewName = "Slider.cshtml")
+        public static MvcHtmlString Slider(this SiteControl control, BannerType type, string viewName = "Slider.cshtml")
         {
             var viewPath = string.Format("~/Views/Shared/Controls/{0}", viewName);
             var db = new FloraShopContext();
+            var category = (int)type;
 
-            var banners = db.Banners.Where(a => a.Active).OrderBy(a => a.DisplayOrder).ThenBy(a => a.Name).ToList();
+            var banners = db.Banners.Where(a => a.Active && a.Category == category).OrderBy(a => a.DisplayOrder).ThenBy(a => a.Name).ToList();
 
             var result = RenderViewToString(control.HtmlHelper.ViewContext.Controller, viewPath, banners);
 

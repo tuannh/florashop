@@ -30,7 +30,7 @@
             <div class='fluidHeight newPosition'>
                 <div class='sliderContainer'>
                     <div class='iosSlider'>
-                       @Html.Controls().Slider("Slider-Content.cshtml")
+                       @Html.Controls().Slider(BannerType.Content, "Slider-Content.cshtml")
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                
                 @Html.Controls().LastViewProduct()
 
-                @{ Html.RenderPartial("~/Views/Shared/Partial/SupportInfo.cshtml"); }
+                @Html.Controls().Content("ho-tro-truc-tuyen", "Content-Online-Support.cshtml")
             </aside>
             <div class="colRight">
               @RenderBody()

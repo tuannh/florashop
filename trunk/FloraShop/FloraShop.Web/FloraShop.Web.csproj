@@ -1655,7 +1655,6 @@
     <Content Include="utility\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="utility\ckeditor\samples\sample_posteddata.php" />
     <Content Include="utility\ckeditor\skins\moono\readme.md" />
-    <Content Include="Views\Shared\Partial\SupportInfo.cshtml" />
     <Content Include="Views\Shared\Controls\Slider-Content.cshtml" />
     <Content Include="Views\Shared\Partial\Ad.cshtml" />
     <Content Include="Views\Shared\Controls\MenuNavigator-Footer.cshtml" />
@@ -1675,6 +1674,7 @@
     <Content Include="Userfiles\Templates\Order-Info-Row.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Shared\Controls\Content-Online-Support.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
