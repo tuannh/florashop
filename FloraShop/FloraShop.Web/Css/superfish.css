@@ -1,0 +1,76 @@
+/********************************************************/
+/* menu */
+.icon-angle-up:before {  }
+li.parent > i:hover { cursor: pointer; }
+li.parent > i.icon-angle-down { float: right; font-size: 21px; position: absolute; right: 0px; top: 0px; }
+.sf-menu-phone li.parent > i.icon-angle-down { background: url(/images/flora/iconClickSale-in.png) no-repeat left 11px }
+.sf-menu-phone li.parent > i.icon-angle-up { background: url(/images/flora/iconClickSale.png) no-repeat left 11px }
+.sf-menu-phone li.parent > i.icon-angle-down:before, .sf-menu-phone li.parent > i.icon-angle-up:before { width: 24px; }
+li.parent > i.icon-angle-down:hover, .sf-menu-phone li.parent > i.icon-angle-down:hover:before { }
+#menu { float: left; display: inline-block; padding: 13px 0 12px; margin-top: 5px; }
+#menu ul { list-style: none; margin: 0; padding: 0; }
+#menu ul > li ul.big { width: 100px; min-width: 100px; left: 0px; }
+#menu ul > li ul.big ul { border-top: none; box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; background: none; top: 0; }
+#menu ul > li ul+ul.big { left: 100px; }
+#menu ul > li ul+ul+ul.big { left: 200px; }
+#menu ul > li ul+ul+ul+ul.big { left: 300px; }
+#menu ul > li ul.big ul { position: relative; width: 100px; min-width: 100px; left: 0; padding: 0; top: 0; margin: 0; border: none; }
+#menu ul > li ul.big span.sf-sub-indicator:after { margin: 0; }
+#menu ul.big > li > ul li { padding-left: 0; padding-right: 0; }
+#menu> ul > li { float: left; z-index: 10; position: relative; border-radius: 0; margin-left: 22px; }
+#menu> ul > li > a { display: inline-block; z-index: 1; position: relative; font-size: 14px; color: #000; text-decoration: none; line-height: 16px; font-family: 'Open Sans', sans-serif; }
+#menu> ul > li>a:hover, #menu> ul > li.sfHover>a, #menu> ul > li.active>a { color: #9f68e1; text-decoration:none }
+#menu> ul > li ul { display: none; position: absolute; z-index: 99; background: #fff; border-top: 0; left: 0; top: 30px; width: 210px; margin: 1px 0 0 !important; padding: 15px 0; border: 1px solid #cfe1ea; }
+#menu ul ul > li ul { top: -16px; left: 100%; margin-left: -1px; }
+#menu span.sf-sub-indicator { display: inline-block; float: right; height: 5px; position: relative; width: 7px; }
+#menu span.sf-sub-indicator:after { position: absolute; top: 7px; left: 0) no-repeat right 5px ; height: 5px; margin-top: 0; text-decoration: inherit; vertical-align: middle; width: 7px; font-size: 5px; line-height: 5px; margin-left: 2px; }
+#menu ul li li span.sf-sub-indicator { float: right; }
+#menu ul li li span.sf-sub-indicator:after {  font-size: 7px; line-height: 7px; }
+#menu> ul > li:hover > div { display: table; }
+#menu> ul > li ul + ul { padding-left: 0px; }
+#menu> ul > li ul > li > a:hover, #menu> ul > li ul > li.active > a, #menu> ul > li ul > li.sfHover > a, #menu> ul > li > ul > li a.active { color: #FF6666; }
+#menu> ul > li > ul li:first-child { border-top: 0px; }
+#menu> ul > li > ul li { position: relative; padding: 2px 20px; }
+#menu> ul > li > ul > li a { text-decoration: none; color: #6d6d6d; font-size: 11px; text-transform: none; line-height: 13px; font-family: 'Open Sans', sans-serif; text-align: left; text-transform: uppercase; }
+#menuul > li ul ul { position: absolute; left: 100%; top: -16px; }
+#menuul > ul > li ul li a:hover, #menu > ul > li > ul > li a.active { color: #551f1f; }
+/*****************************************************/
+
+#menu-icon { line-height: 23px; margin-bottom: 0px; padding: 10px 15px; cursor: pointer; display: none; color:#fff; font-size:18px; font-weight:normal; position: relative; background:#9f1500 url(/images/flora/iconClickSale.png) no-repeat 97% 12px; cursor:pointer; border-bottom:1px solid #7f1504}
+/*#menu-icon:after {line-height: 23px; margin-bottom: 0; padding: 10px 15px; cursor: pointer; display: none; color:#fff; font-size:18px; font-weight:normal; position: relative; background:#0c2234 url(/images/flora/iconClickSale-in.png) no-repeat 98% 14px; cursor:pointer; border-bottom:1px solid #54748c}
+#menu-icon:hover:after { color: #fff; }*/
+.sf-menu-phone { background:#fff; padding:0}
+.sf-menu-phone li { position: relative; background-color: #fff; list-style:none ; margin:0 }
+.sf-menu-phone li a { display: inline-block; color: #616161; text-transform:uppercase; border-bottom: 1px solid #cfe1ea }
+.sf-menu-phone li { font-size: 12px; padding: 0; }
+.sf-menu-phone li.parent{ background:#000}
+.sf-menu-phone li.parent a{ color:#fff}
+.sf-menu-phone li.parent a:hover{color:#fff; text-decoration:none}
+.sf-menu-phone li.parent ul { border-bottom: 1px solid #cfe1ea }
+.sf-menu-phone li.parent ul li a{color:#616161; border-bottom:none}
+ .sf-menu-phone li.parent ul li a:hover, .sf-menu-phone li.parent ul li a.active{color: #9f1500; text-decoration:none  }
+.sf-menu-phone li > a { padding: 10px 20px; display: block; }
+.sf-menu-phone li li a { padding: 10px 20px 10px 20px; display: block; color:#616161}
+.sf-menu-phone li li li a { padding: 10px 25px 10px 40px; display: block; color:#979191}
+.sf-menu-phone li a:hover { color: #9f1500; text-decoration:none  }
+.sf-menu-phone li li {  }
+.sf-menu-phone li li.last { padding-bottom: 0 !important; }
+.sf-menu-phone li i { position: absolute; display: block; top: 2px; right: 0; height: 38px; width: 32px; }
+.sf-menu-phone li i { top: 8px; color: #717171; font-size: 20px; padding: 0 0; right: 5px }
+.sf-menu-phone li i.icon-angle-up:before { }
+.sf-menu-phone li i:hover { cursor: pointer; color: #fff; }
+.sf-menu-phone li i.opened { background-position: center 7px; }
+/** dropdown **/
+.sf-menu-phone ul { width: auto; padding: 0px 0px }
+.sf-menu-phone li.active > a > span { color: inherit; }
+/*.sf-menu-phone li.active > a, .sf-menu-phone li:hover > a { color: #ed1c24; background: #f9f9f9; text-decoration:none }
+.sf-menu-phone li li.active > a, .sf-menu-phone li li a:hover { color: #393939; }*/
+
+@media only screen  and (max-width:767px) {
+.sf-menu-phone{ display:none}
+#menu-icon { display:block}
+.colLeft .category h3{ display:none}
+}
+@media only screen  and (max-width:340px) {
+ background:#acca4d url(/images/flora/iconClickSale.png) no-repeat 97% 12px
+}

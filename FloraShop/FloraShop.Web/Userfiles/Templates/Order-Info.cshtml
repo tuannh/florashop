@@ -1,0 +1,30 @@
+﻿<h5>Đặt hàng thành công</h5><br/>
+<h3>Thông tin khách hàng</h3><br />
+<p>Tên khách hàng: {username}</p>
+<p>Địa chỉ: {address}</p>
+<p>Email: {email}</p>
+<p>Phone: {phone}</p>
+<p>Ghi chú:  {note}</p>
+
+<h3>Thông tin đơn hàng</h3><br />
+<p>Mã đơn hàng: #{orderid}</p>
+<p>Ngày đặt: {orderdate}</p>
+<table style="width: 100%; text-align: center;" class="data-table cart-table" id="shopping-cart-table">
+    <thead>
+        <tr class="first last">
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr></tr>
+    </tfoot>
+    <tbody>
+        {orderdetail}
+        <tr class="rowTotal">
+            <td colspan="4" style="text-align: right;"><p class="total">Tổng tiền: <span id="total">{total}</span> VND</p></td>
+        </tr>
+    </tbody>
+</table>

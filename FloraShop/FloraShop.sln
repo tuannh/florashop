@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{389DB702-B570-4EA0-9BE1-96515AFFC5E1}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloraShop.Core", "FloraShop.Core\FloraShop.Core.csproj", "{B86D89C7-C89F-4145-8AD1-4B69BB56DD73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloraShop.Web", "FloraShop.Web\FloraShop.Web.csproj", "{560D8484-885A-4556-B6A3-7D9147DFAC05}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B86D89C7-C89F-4145-8AD1-4B69BB56DD73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B86D89C7-C89F-4145-8AD1-4B69BB56DD73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B86D89C7-C89F-4145-8AD1-4B69BB56DD73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B86D89C7-C89F-4145-8AD1-4B69BB56DD73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{560D8484-885A-4556-B6A3-7D9147DFAC05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{560D8484-885A-4556-B6A3-7D9147DFAC05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{560D8484-885A-4556-B6A3-7D9147DFAC05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{560D8484-885A-4556-B6A3-7D9147DFAC05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

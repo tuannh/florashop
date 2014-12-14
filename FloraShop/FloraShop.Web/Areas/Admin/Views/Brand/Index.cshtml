@@ -1,0 +1,114 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Brand>
+@{
+    ViewBag.Title = "Quản lý danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/Default.cshtml";
+
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.SummaryInfoTemplate = "Trang {0}/{1} ({2} danh mục)";
+    var kw = ViewBag.Keyword as string;
+
+
+}
+<div class="header">
+    <h1>Quản lý nhãn hiệu</h1>
+    <div class="headerL">
+        @Html.ActionLink("Thêm nhãn hiệu", "create")
+    </div>
+    <div class="headerR">
+        @Html.Raw(ViewBag.SearchReseult)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="kw" name="kw" type="text" placeholder="Từ khóa cần tìm" value="@kw" />
+            <input type="submit" value="Tìm" class="btnSearch" />
+        }
+
+    </div>
+</div>
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th style="width: 200px;">
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th style="width: 80px;">
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th style="width: 100px;">
+            @Html.DisplayNameFor(model => model.DisplayOrder)
+        </th>
+        <th style="width: 80px;">
+            Sản phẩm
+        </th>
+        <th class="col-command"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="tb_content">
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.Photo))
+                {
+                    <img style="max-width: 174px;" alt="banner" src="~/Userfiles/Upload/images/Modules/Brand/@item.Photo" />
+                }
+            </td>
+            <td>
+                @if (item.Active)
+                {
+                    <img src="~/images/admin/true.gif" alt="" style="width: 22px; height: 18px;">
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayOrder)
+            </td>
+            <td>
+                @if (item.HasProduct())
+                {
+                    <a href="/admin/product/?brandid=@item.Id">@(item.Products().Count())</a>
+                }
+                else
+                {
+                    <span>0</span>
+                }
+            </td>
+            <td>
+
+                @Html.ActionLink("Sửa", "edit", new { id = item.Id })
+                @if (item.HasProduct())
+                {
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="paging">
+    @Html.Controls().Pager(pagingModel)
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.cmd-delete').click(function () {
+            var result = confirm('Bạn thực sự muốn xóa nhãn hiệu này không?')
+            if (result)
+                return true;
+
+            return false;
+        })
+
+        $('.cmd-delete-no').click(function () {
+            var result = alert('Nhãn hiệu này đang được sử dụng. Bạn không thể xóa.')
+
+            return false;
+        })
+
+    })
+</script>

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Page>
+
+@{
+    var pageAlias = "index";
+    if (FloraShop.Core.SiteContext.Current.RouteData.Values["frontendpage"] != null)
+    {
+        pageAlias = FloraShop.Core.SiteContext.Current.RouteData.Values["frontendpage"].ToString();
+    }
+}
+
+@if (Model != null)
+{
+    <ul>
+        @foreach (var page in Model)
+        {
+            var active = string.Compare(page.Alias, pageAlias, true) == 0 || string.IsNullOrEmpty(pageAlias) ? "class='active arrow'" : "";
+            <li>
+                <a @Html.Raw(active) href="/@page.Alias" title="@page.Name">@page.Name</a>
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,28 @@
+﻿@model string
+@{
+    Layout = "~/Areas/Common/Views/Shared/Layouts/Default.cshtml";
+    ViewBag.Title = "Quên mật khẩu";
+}
+
+<div class="form-login">
+    <h1>Quên mật khẩu</h1>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="error">
+            @ViewBag.Error
+            @ViewBag.Message
+            @Html.ValidationSummary(true)
+        </div>
+        <p>
+            <label>Nhập tên đăng nhập/email</label>
+            <input type="text" value="@Model" name="email" id="email" data-val-required="Bạn chưa nhập tên đăng nhập/email" data-val="true" class="txt-small">
+            <span data-valmsg-replace="true" data-valmsg-for="email" class="field-validation-valid"></span>
+        </p>
+        <p>
+            <label>&nbsp;</label>
+            <input type="submit" value="Đồng ý" class="btnAdd" />
+            <input type="reset" value="Reset" class="btnCancel" />
+        </p>
+    }
+</div>

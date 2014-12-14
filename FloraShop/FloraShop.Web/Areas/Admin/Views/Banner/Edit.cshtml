@@ -1,0 +1,145 @@
+﻿@model FloraShop.Core.Domain.Banner
+@{
+    ViewBag.Title = "Cập nhật banner";
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/Edit.cshtml";
+
+    var targets = new List<SelectListItem>()
+        {
+            new SelectListItem() { Value = "_blank", Text= "_blank" },
+            new SelectListItem() { Value = "_self", Text= "_self" },
+            new SelectListItem() { Value = "_parent", Text= "_parent" },
+            new SelectListItem() { Value = "_top", Text= "_top" }
+        };
+
+    var categories = new List<SelectListItem>()
+        {
+            new SelectListItem() { Value = "0", Text= "Trang chủ" },
+            new SelectListItem() { Value = "1", Text= "Trang nội dung" },
+        };
+
+    var config = FloraShop.Core.Configurations.SiteConfiguration.GetConfig().Banner;
+}
+
+<h2>Cập nhật banner</h2>
+@using (Html.BeginForm("edit", "banner", new { id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="error">
+        @ViewBag.Error
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.FileName)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Vị trí hiển thị</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Category, categories)
+                @Html.ValidationMessageFor(model => model.Category)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "myeditor" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Active)
+                    @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Target, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Target, targets)
+                @Html.ValidationMessageFor(model => model.Target)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label>@(string.Format("Thumb photo({0}x{1})", config.Width, config.Height))</label>
+            <div class="col-md-10">
+                <input type="file" name="file" id="file" data-val-required="Chưa chọn photo" />
+
+                @if (!string.IsNullOrEmpty(Model.FileName))
+                {
+                    <img style="max-width: 150px;" alt="banner" src="~/Userfiles/Upload/images/Modules/BannerRotators/@Model.FileName" />
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btnAdd" />
+                @if (true)
+                {
+                    <input type="button" value="Xóa" class="btnDelete" data-href="/admin/banner/delete/@Model.Id" />
+                }
+                <input type="reset" value="Reset" class="btnCancel" />
+                <input type="button" value="Bỏ qua" class="btnCancel btnDiscard" data-href="/admin/banner/" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.btnDelete').click(function () {
+            var ok = confirm('Bạn muốn xóa banner này không?')
+            if (ok)
+                location.href = $(this).attr('data-href');
+
+            return false;
+        })
+
+        $('.myeditor').clawEditor('standard');
+
+        $('.btnDiscard').click(function () {
+            location.href = $(this).attr('data-href');
+        })
+
+        $('#Category').change(function () {
+            var val = $(this).val();
+
+            if (val == '0')
+                $('#photo').text('Banner photo(1800x1186)');
+            else
+                $('#photo').text('Banner photo(1366x420)');
+        })
+    })
+</script>

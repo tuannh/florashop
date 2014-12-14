@@ -1,0 +1,48 @@
+﻿<div id="fw_menu">
+    <ul id="menu_1">
+        @*<li>Cấu hình</li>*@
+        <li>
+            <a href="/admin/category/">
+                Danh mục
+            </a>
+        </li>
+        <li>
+            <a href="/admin/brand/">Nhãn hiệu</a>
+        </li>
+        <li><a href="/admin/product/" style="width: 65px; display: block;">Sản phẩm</a></li>
+        <li><a href="/admin/order/">Đơn hàng</a></li>
+        <li><a href="/admin/banner/">Banner</a></li>
+        <li>
+            <a href="/admin/content/">Nội dung</a>
+            <ul>
+                <li>
+                    <a href="/admin/content/edit/1">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="/admin/content/edit/2">Câu thi</a>
+                </li>
+                <li>
+                    <a href="/admin/content/edit/3">Footer</a>
+                </li>
+                <li>
+                    <a href="/admin/content/edit/4">Facebook</a>
+                </li>
+                <li>
+                    <a href="/admin/content/edit/5">Địa chỉ liên hệ</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var pathname = location.pathname.toLowerCase();
+
+        $('#menu_1>li>a').each(function (i, e) {
+            var url = $(this).attr('href').toLowerCase()
+
+            if (pathname.indexOf(url) >= 0)
+                $(this).closest('li').addClass('active');
+        })
+    })
+</script>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Category>
+@{
+    var category = ViewBag.Category as Category;
+    category = category ?? new Category();
+}
+
+
+@helper ViewCategory(Category cate, string cssClass, Category currentCate)
+{
+    var lst = cate.GetSubCategory();
+    var active = cate.Id == currentCate.Id ? "active" : null;
+        
+    <li class="@cssClass">
+        <a class="@active" href="/san-pham/@cate.Alias" title="@cate.Name">
+            @cate.Name
+        </a>
+        @if (lst != null)
+        {
+            <ul>
+                @foreach (var category in lst)
+                {
+                    @ViewCategory(category, null, currentCate)
+                }
+            </ul>
+        }
+    </li>
+}
+
+@if (Model != null)
+{
+    <div class="category">
+        <h3>Danh mục sản phẩm</h3>
+        <div id="menu-icon">Danh mục sản phẩm</div>
+        <ul id="nav" class="sf-menu-phone">
+            @foreach (var cate in Model)
+            {
+                @ViewCategory(cate, "parent", category)
+            }
+        </ul>
+    </div>
+}
+

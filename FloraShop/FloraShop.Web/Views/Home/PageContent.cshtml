@@ -1,0 +1,59 @@
+﻿@model FloraShop.Core.Domain.Page
+@using FloraShop.Core.Enumerations
+
+@{
+    Layout = "~/Views/Layouts/Content.cshtml";
+
+    var pageType = ViewBag.PageType;
+    var pageAlias = ViewBag.PageAlias;
+
+    ViewBag.Title = Model != null ? Model.Title : "Florashop";
+
+}
+
+@if (pageType == PageType.Product)
+{
+    @Html.Controls().ProductList()
+}
+else if (pageType == PageType.Promotion)
+{
+    @Html.Controls().PromotionList()
+}
+else if (pageType == PageType.ProductDetail)
+{
+    @Html.Controls().ProductDetail()
+    @section FooterScripts    {
+        @Html.JsBundle("~/js/page/product-detail")
+    }
+}
+else if (pageType == PageType.Contact || pageType == PageType.BuyGuide)
+{
+    @Html.Controls().Content(pageAlias as string)
+}
+else if (pageType == PageType.Shopcart)
+{
+    Html.RenderPartial("~/Views/Shared/Partial/Shopcart.cshtml");
+}
+else if (pageType == PageType.Order)
+{
+    Html.RenderPartial("~/Views/Home/_Order.cshtml", ViewData["Order"] as Order, ViewData);
+    @section FooterScripts    {
+        @Html.JsBundle("~/js/jqueryval")
+    }
+}
+
+
+@section Styles{
+    @if (pageType == PageType.Product)
+    {
+        @Html.CssBundle("~/css/product")
+    }
+    else if (pageType == PageType.Promotion)
+    {
+        @Html.CssBundle("~/css/promotion")
+    }
+    else
+    {
+        @Html.CssBundle("~/css/content")
+    }
+}

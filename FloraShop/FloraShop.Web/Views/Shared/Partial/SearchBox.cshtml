@@ -1,0 +1,25 @@
+﻿@{
+    var kw = FloraShop.Core.SiteContext.Current.QueryString["kw"] ?? "";
+
+    var routeData = FloraShop.Core.SiteContext.Current.RouteData;
+    var cateAlias = routeData.Values["categoryalias"] as string;
+    var brandAlias = routeData.Values["brandAlias"] as string;
+
+    var postUrl = "/san-pham/";
+    if (!string.IsNullOrEmpty(cateAlias))
+    {
+        postUrl = string.Format("/san-pham/{0}/", cateAlias);
+    }
+
+    if (!string.IsNullOrEmpty(brandAlias))
+    {
+        postUrl = string.Format("/nhan-hieu/{0}/", brandAlias);
+    }
+}
+
+<div id="search">
+    <form action="@postUrl" method="get">
+        <input type="text" name="kw" id="kw" class="text" value="@kw" placeholder="Tìm sản phẩm" />
+        <input type="submit" class="button" value="" />
+    </form>
+</div>

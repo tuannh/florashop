@@ -1,0 +1,135 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Banner>
+
+@{
+    var banners = Model;
+    var index = 0;
+}
+
+@if (Model != null)
+{
+    <div class='slider'>
+        @foreach (var banner in Model)
+        {
+            var selected = (index == 0) ? " selected" : "";
+            <div class='item @selected'>
+                <div class='inner'>
+                    <img src='~/Userfiles/Modules/BannerRotators/@banner.FileName' alt="@banner.Name" />
+                    <div class='text1'>
+                        <div class="inner-text">
+                            @Html.Raw(banner.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            index++;
+        }
+    </div>
+}
+
+
+
+<div class="infor-sale">
+    <h4>Khuyến mãi</h4>
+    &nbsp;
+
+    <h3><a href="#">Giảm 50% các loại váy</a></h3>
+</div>
+<div class="infor-news">
+    <h4>Sản phẩm mới</h4>
+    &nbsp;
+
+    <h3><a href="#">Váy Gucci Summer 2014</a></h3>
+    &nbsp;
+
+    <h3><a href="#">Jean nữ Marc Jacob</a></h3>
+</div>
+
+
+
+@*<div class='slider'>
+    <div class='item selected'>
+        <div class='inner'>
+            <img src='/images/flora/banner.jpg' alt="" />
+            <div class='text1'>
+                <div class="inner-text">
+                    <div class="infor-sale">
+                        <h4>Khuyến mãi</h4>
+                        <br />
+                        <h3><a href="#">Giảm 50% các loại váy</a></h3>
+                    </div>
+                    <div class="infor-news">
+                        <h4>Sản phẩm mới</h4>
+                        <br />
+                        <h3><a href="#">Váy Gucci Summer 2014</a></h3>
+                        <br />
+                        <h3><a href="#">Jean nữ Marc Jacob</a></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='item'>
+        <div class='inner'>
+            <img src='/images/flora/banner1.jpg' alt="" />
+            <div class='text1'>
+                <div class="inner-text">
+                    <div class="infor-sale">
+                        <h4>Khuyến mãi</h4>
+                        <br />
+                        <h3><a href="#">Giảm 50% các loại váy</a></h3>
+                    </div>
+                    <div class="infor-news">
+                        <h4>Sản phẩm mới</h4>
+                        <br />
+                        <h3><a href="#">Váy Gucci Summer 2014</a></h3>
+                        <br />
+                        <h3><a href="#">Jean nữ Marc Jacob</a></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='item'>
+        <div class='inner'>
+            <img src='/images/flora/banner2.jpg' alt="" />
+            <div class='text1'>
+                <div class="inner-text">
+                    <div class="infor-sale">
+                        <h4>Khuyến mãi</h4>
+                        <br />
+                        <h3><a href="#">Giảm 50% các loại váy</a></h3>
+                    </div>
+                    <div class="infor-news">
+                        <h4>Sản phẩm mới</h4>
+                        <br />
+                        <h3><a href="#">Váy Gucci Summer 2014</a></h3>
+                        <br />
+                        <h3><a href="#">Jean nữ Marc Jacob</a></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='item'>
+        <div class='inner'>
+            <img src='/images/flora/banner3.jpg' alt="" />
+            <div class='text1'>
+                <div class="inner-text">
+                    <div class="infor-sale">
+                        <h4>Khuyến mãi</h4>
+                        <br />
+                        <h3><a href="#">Giảm 50% các loại váy</a></h3>
+                    </div>
+                    <div class="infor-news">
+                        <h4>Sản phẩm mới</h4>
+                        <br />
+                        <h3><a href="#">Váy Gucci Summer 2014</a></h3>
+                        <br />
+                        <h3><a href="#">Jean nữ Marc Jacob</a></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

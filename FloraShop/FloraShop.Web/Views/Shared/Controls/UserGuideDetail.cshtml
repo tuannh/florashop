@@ -1,0 +1,17 @@
+﻿@model  FloraShop.Core.Domain.UserGuide
+<p class="link">
+    <a href="/">Trang chủ</a><span>&gt;&gt;</span>
+    <a href="/huong-dan/">Hướng dẫn</a><span>&gt;&gt;</span>
+    <a href="javascript:void(0)" class="active">Chi tiết</a>
+</p>
+<div class="inner-frm6">
+    <div class="news-detail">
+        <h3>@Model.Name</h3>
+        <p>
+            <strong>
+                @Model.Summary
+            </strong>
+        </p>
+        @Html.Raw(Model.Content)
+    </div>
+</div>

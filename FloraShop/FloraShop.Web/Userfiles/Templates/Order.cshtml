@@ -1,0 +1,66 @@
+﻿<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 30px auto;background-color: #f2f2f2;">
+    <tr>
+        <td>
+            <table align="center" border="1" cellpadding="0" cellspacing="0" width="700" style="border-collapse: collapse;  border: 1px solid #d7d7d7;background-color: white;">
+
+                <!-- LOGO SECTION-->
+                <tr>
+                    <td align="center" style="border: 1px solid #d7d7d7;">
+                        <a href="http://tuanhangxanh.com" target="_blank">
+                            <img alt="logo" src="http://tuanhangxanh.com/images/logo.jpg" style="display:block; width:700px; height:96px" />
+                        </a>
+                    </td>
+                </tr>
+                <!-- LOGO SECTION-->
+                <!-- STATUS -->
+                <tr>
+                    <td class="no-border padding-20" align="center" style="padding: 20px 30px; border: none;">
+                        <h1 style="font-size:34px;  font-family: 'Kozuka Gothic Pro', 'Roboto', Helvetica, Arial, Verdana, sans-serif;font-weight: 400;margin: 0 auto;">THÔNG TIN ĐƠN HÀNG</h1>
+
+                    </td>
+                </tr>
+                <!-- STATUS -->
+                <!--MESSAGE-->
+                <tr>
+                    <td class="no-border padding-10" style="padding: 10px 30px; border: none;">
+
+                        <h3 style="font-size:20px;  font-family: 'Kozuka Gothic Pro', 'Roboto', Helvetica, Arial, Verdana, sans-serif;font-weight: 400; margin:0"> Thông tin khách hàng </h3>
+                        <p style="font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;"> Họ tên: {username} </p>
+                        <p style="font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;"> Số điện thoại: {phone}</p>
+                        <p style="font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;"> Email: {email}</p>
+                        <p style="font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;"> Địa chỉ: {address} </p>
+                        <p style="font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;"> Ghi chú: {note} </p>
+
+                    </td>
+                </tr>
+
+                <!--MESSAGE-->
+                <tr>
+                    <td class="no-border padding-10" style="padding: 10px 30px; border: none;">
+
+                        <h3 style="font-size:20px;  font-family: 'Kozuka Gothic Pro', 'Roboto', Helvetica, Arial, Verdana, sans-serif;font-weight: 400; margin:0">Thông tin đơn hàng</h3>
+                        <p style="font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;">Mã đơn hàng: #{orderid}</p>
+                        <p style="font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;"> Ngày đặt: {orderdate}</p>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="no-border padding-10" style="padding: 10px 30px 50px; border: none;">
+                        <h3 style="font-size:20px;  font-family: 'Kozuka Gothic Pro', 'Roboto', Helvetica, Arial, Verdana, sans-serif;font-weight: 400; margin:0">Chi tiết đơn hàng</h3>
+                        <table align="center" border="1" cellpadding="0" cellspacing="0" width="640" style="border-collapse: collapse;  border: 1px solid #d7d7d7;background-color: white; font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333;">
+                            <tr><th style="border-right: 1px solid #d7d7d7;border-bottom: 1px solid #d7d7d7; height:28px; font-weight:bold">Tên sản phẩm</th><th style="border-right: 1px solid #d7d7d7;border-bottom: 1px solid #d7d7d7; height:28px; font-weight:bold">Đơn giá</th><th style="border-right: 1px solid #d7d7d7;border-bottom: 1px solid #d7d7d7; height:28px; font-weight:bold">Số lượng</th><th style="border-bottom: 1px solid #d7d7d7; height:28px; font-weight:bold">Thành tiền</th></tr>
+                            {orderdetail}
+                        </table>
+                        <div style="width: 200px; float: right; font-weight:bold; background-color: white; font-size: 12px;line-height: 20px; font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;color: #333333; text-align: right;">Tổng: {total} VND</div>
+                    </td>
+                </tr>
+
+                <!--SPACE-->
+                <!--SPACE-->
+
+            </table>
+        </td>
+    </tr>
+</table>
+

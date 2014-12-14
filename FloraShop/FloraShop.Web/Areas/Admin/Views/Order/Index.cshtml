@@ -1,0 +1,130 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Order>
+
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.SummaryInfoTemplate = "Trang {0}/{1} ({2} đơn hàng)";
+    var kw = ViewBag.Keyword as string;
+
+    var status = Context.Request.QueryString["status"] ?? "0";
+    var newClass = status == "1" ? "class='active'" : "";
+    var confirmClass = status == "2" ? "class='active'" : "";
+    var deliveryClass = status == "3" ? "class='active'" : "";
+    var cancelClass = status == "4" ? "class='active'" : "";
+    var allClass = status == "0" ? "class='active'" : "";
+}
+<div class="header">
+    <h1>Quản lý đơn hàng</h1>
+    <div class="headerL">
+        <a @Html.Raw(allClass) href="/admin/order/?status=0">Tất cả</a> |
+        <a @Html.Raw(newClass) href="/admin/order/?status=1">ĐH mới</a> |
+        <a @Html.Raw(confirmClass) href="/admin/order/?status=2">ĐH đã xác nhân</a> |
+        <a @Html.Raw(deliveryClass) href="/admin/order/?status=3">ĐH đã giao</a> |
+        <a @Html.Raw(cancelClass) href="/admin/order/?status=4">ĐH đã hủy</a>
+    </div>
+    <div class="headerR">
+        @Html.Raw(ViewBag.SearchReseult)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="status" name="status" type="hidden" value="@status" />
+            <input id="kw" name="kw" type="text" placeholder="Từ khóa cần tìm" value="@kw" />
+            <input type="submit" value="Tìm" class="btnSearch" />
+        }
+
+    </div>
+</div>
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <th style="width: 80px;">
+            Mã đặt hàng
+        </th>
+        <th style="width: 200px;">
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </th>
+        <th style="width: 220px;">
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th style="width: 100px;">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th style="width: 80px;">
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th style="width: 150px;"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="tb_content">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td class="colLeft">
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @item.OrderDate.Value.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @GetStatus(item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Cập nhật", "edit", new { id = item.Id }) |
+                @Html.ActionLink("Chi tiết", "details", new { id = item.Id }) |
+                @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="paging">
+    @Html.Controls().Pager(pagingModel)
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.cmd-delete').click(function () {
+            var result = confirm('Bạn thực sự muốn đơn hàng này không?')
+            if (result)
+                return true;
+
+            return false;
+        })
+    })
+</script>
+
+@helper GetStatus(int status)
+{
+    switch (status)
+    {
+        case (int)FloraShop.Core.Enumerations.OrderStatus.New:
+            @("Mới")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Confirm:
+        @("Đã xác nhận")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Delivery:
+        @("Đã giao hàng")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Cancel:
+        @("Hủy")
+            break;
+
+        default:
+        @("");
+        break;
+    }
+}

@@ -1,0 +1,125 @@
+﻿@model FloraShop.Core.Domain.Order
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+}
+
+<h1>Chi tiết đơn hàng</h1>
+
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <td class="colLeft">
+            Mã đơn hàng: @Model.Id
+        </td>
+        <td class="colLeft">
+            Trang thái: <b> @GetStatus(Model.Status)</b>
+        </td>
+        <td class="colLeft">
+            Ngày đặt: @Model.OrderDate.Value.ToString("dd/MM/yyyy")
+        </td>
+    </tr>
+    <tr class="tb_content">
+        <td class="colLeft">
+            Khách hàng:
+            @Model.CustomerName
+        </td>
+        <td class="colLeft">
+            Địa chỉ: @Model.Address
+        </td>
+        <td class="colLeft">
+            Điện thoại: @Html.DisplayFor(model => model.Phone)
+        </td>
+    </tr>
+    <tr class="tb_content">
+        <td class="colLeft">
+            Địa chỉ: @Model.Email
+        </td>
+        <td colspan="2" class="colLeft">
+            Ghi chú: @Html.DisplayFor(model => model.Note)
+        </td>
+    </tr>
+</table>
+<br />
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Đơn giá
+        </th>
+        <th>
+            Thành tiền
+        </th>
+    </tr>
+
+    @foreach (ProductOrder po in Model.ProductOrders)
+    {
+        <tr class="tb_content">
+            <td>
+                @po.Product.Name
+            </td>
+            <td>
+                @po.Quatity
+            </td>
+            <td>
+                @po.Price.ToString("N0")
+            </td>
+            <td>
+                @((po.Price * po.Quatity).ToString("N0"))
+            </td>
+        </tr>
+    }
+    <tr class="tb_content">
+        <td colspan="3"></td>
+        <td>
+            Tổng cộng: @(Model.ProductOrders.Sum(a => a.Price * a.Quatity).ToString("N0"))
+        </td>
+    </tr>
+
+</table>
+
+<div class="form-horizontal">
+    <div class="form-group" style="text-align: right;">
+        <a href="/admin/order/">Quay lại</a>
+    </div>
+</div>
+
+@helper GetStatus(int status)
+{
+    switch (status)
+    {
+        case (int)FloraShop.Core.Enumerations.OrderStatus.New:
+            @("Mới")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Confirm:
+        @("Đã xác nhận")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Delivery:
+        @("Đã giao hàng")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Cancel:
+        @("Hủy")
+            break;
+
+        default:
+        @("");
+        break;
+    }
+}
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.btnDiscard').click(function () {
+            location.href = $(this).attr('data-href');
+        })
+    })
+</script>

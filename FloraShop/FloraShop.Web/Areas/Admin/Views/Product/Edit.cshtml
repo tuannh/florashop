@@ -1,0 +1,336 @@
+﻿@model FloraShop.Core.Domain.Product
+
+@{
+    ViewBag.Title = "Cập nhật sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/Edit.cshtml";
+
+    var types = new List<SelectListItem>()
+        {
+            new SelectListItem() { Value = "5", Text= "Sản phẩm thường" },
+            new SelectListItem() { Value = "1", Text= "Sản phẩm mới" },
+            new SelectListItem() { Value = "2", Text= "Sản phẩm ký gởi" },
+            new SelectListItem() { Value = "3", Text= "Sản phẩm secondhand" },
+            new SelectListItem() { Value = "4", Text= "Sản phẩm bán chạy" }
+        };
+}
+
+<h2>Cập nhật sản phẩm</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="error">
+        @ViewBag.Error
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "myeditor" } })
+                @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "myeditor" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Active)
+                    @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalePrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MadeIn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MadeIn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MadeIn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sizes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Sizes, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Sizes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Colors, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Colors, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Colors, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DislayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DislayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DislayOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BrandId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("BrandId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Type, types)
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <a href="javascript:void(0);" class="view-photo">Quản lý photo</a>
+        </div>
+
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btnAdd" />
+                <input type="button" value="Xóa" class="btnDelete" data-href="/admin/product/delete/@Model.Id" />
+                <input type="reset" value="Reset" class="btnCancel" />
+                <input type="button" value="Bỏ qua" class="btnCancel btnDiscard" data-href="/admin/product/" />
+            </div>
+        </div>
+
+        <div class="frm-photo" title="Photo list" style="display: none;">
+            <table class="photo-list tb_table" style="width: 100%;">
+                <tbody>
+                    <tr class="tb_content">
+                        <th>Title</th>
+                        <th style="width: 300px;"> Photo</th>
+                        <th style="width: 130px;">Thứ tự hiển thị</th>
+                        <th class="col-command"></th>
+                    </tr>
+                    @if (Model.Photos != null)
+                    {
+                        var index = 0;
+                        foreach (ProductPhoto photo in Model.Photos)
+                        {
+                            <tr class="tb_content" data-id="@photo.Id">
+                                <td>
+                                    <input id="Photos[@index].Title" name="Photos[@index].Title" value="@photo.Title" type="text" style="width: 95%;" />
+                                    <input id="Photos[@index].Id" data-index="@index" class="photo-id" name="Photos[@index].Id" value="@photo.Id" type="hidden"/>
+                                    <input id="Photos[@index].FileName" name="Photos[@index].FileName" value="@(photo.FileName)" type="hidden" />
+                                    <input id="Photos[@index].DisplayOrder" name="Photos[@index].DisplayOrder" value="@(photo.DisplayOrder)" type="hidden" />
+                                    <input id="Photos[@index].ProductId" name="Photos[@index].ProductId" value="@(photo.ProductId)" type="hidden" />
+                                </td>
+                                <td>
+                                    <img src="~/Userfiles/Modules/Products/Thumb/@(photo.FileName)" alt="@(photo.Title)" />
+                                </td>
+                                <td>
+                                    <input type="number" style="width: 80px;" value="@photo.DisplayOrder" />
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" class="del-photo">Xóa</a>
+                                </td>
+                            </tr>
+
+                            index++;
+                        }
+                    }
+                </tbody>
+            </table>
+            <table class="form-upload">
+                <tr>
+                    <td>
+                        Upload photo
+                    </td>
+                    <td>
+                        <input type="file" name="file" id="file" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="button" class="btn-add-photo" value="Upload" />
+                        <input type="button" class="btn-done" value="Xong" style="@(Model.Photos!= null && Model.Photos.Count > 0 ? "": "display: none")" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+}
+
+<link href="~/Css/jquery/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Name').blur(function () {
+            AutoGenerateAlias(this.value, 'Alias', false);
+        })
+
+        $('.btnDelete').click(function () {
+            var ok = confirm('Bạn muốn xóa sản phẩm này không?')
+            if (ok)
+                location.href = $(this).attr('data-href');
+
+            return false;
+        })
+
+        $('.btnDiscard').click(function () {
+            location.href = $(this).attr('data-href');
+        })
+
+        $('.del-photo').click(function () {
+            var tr = $(this).closest('tr');
+
+            if (tr.attr('data-id') != undefined) {
+                var id = tr.attr('data-id');
+                var index = tr.find('.photo-id').attr('value', '-' + id);
+                tr.hide();
+            }
+            else
+                tr.remove();
+        })
+
+        $('.myeditor').clawEditor('standard');
+
+        $('.view-photo').click(function () {
+            $('.frm-photo').dialog({ minWidth: $(window).width(), minHeight: $(window).height() });
+        })
+
+        $('.btn-done').click(function () {
+            $('.frm-photo').dialog('close');
+        })
+
+        $('.btn-add-photo').click(function () {
+
+            var formData = new FormData();
+            formData.append("file", $("#file")[0].files[0]);
+            resetUpload();
+
+            $.ajax({
+                async: true,
+                type: 'POST',
+                url: '/admin/product/uploadfile/',
+                data: formData,
+                success: function (data) {
+                    data.src = "/Userfiles/_temp/Modules/Product/thumb/" + data.filename;
+
+                    var index = $('.photo-list tr').length - 1;
+                    var html = $('#template').html();
+
+                    html = html.replace(/#index#/g, index);
+                    html = html.replace(/#title#/g, data.title);
+                    html = html.replace(/#displayorder#/g, data.displayorder);
+                    html = html.replace(/#filename#/g, data.filename);
+                    html = html.replace(/#src#/g, data.src);
+
+                    $('.photo-list tbody').append(html).show();
+                    $('.photo-list').show();
+                    $('.btn-done').show();
+
+                    $('.del-photo').unbind('click').click(function () {
+                        $(this).closest('tr').remove();
+                    })
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        })
+
+        function resetUpload() {
+            $('#title').val('')
+            $('#photoOrder').val('1000')
+            $("#file").val('');
+        }
+
+        $('form').submit(function () {
+            $(this).append($('.photo-list').hide());
+        })
+    })
+</script>
+
+
+<script type="text/html" id="template">
+    <tr class="tb_content">
+        <td>
+            <input id="Photos[#index#].Title" name="Photos[#index#].Title" value="#title#" type="text" style="width: 95%;" />
+            <input id="Photos[#index#].FileName" name="Photos[#index#].FileName" value="#filename#" type="hidden" />
+            <input id="Photos[#index#].DisplayOrder" name="Photos[#index#].DisplayOrder" value="#displayorder#" type="hidden" />
+        </td>
+        <td>
+            <img src="#src#" alt="#title#" />
+        </td>
+        <td>
+            <input type="number" style="width: 80px;" value="#displayorder#" />
+        </td>
+        <td>
+            <a href="javascript:void(0);" class="del-photo">Xóa</a>
+        </td>
+    </tr>
+</script>

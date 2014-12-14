@@ -1,0 +1,28 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Banner>
+
+@{
+    var banners = Model;
+    var index = 0;
+}
+
+<div class='slider'>
+    <div class='item selected'>
+        <div class='inner'>
+            <img src='/images/flora/banner-khuyenmai1.jpg' alt="" />
+        </div>
+    </div>
+    <div class='item'>
+        <div class='inner'>
+            <img src='/images/flora/banner-khuyenmai2.jpg' alt="" />
+        </div>
+    </div>
+    <div class='item'>
+        <div class='inner'>
+            <img src='/images/flora/banner-khuyenmai1.jpg' alt="" />
+        </div>
+    </div>
+</div>
+<div class='slideSelectors'>
+    <div class='prev'>‹</div>
+    <div class='next'>›</div>
+</div>
