@@ -12,7 +12,7 @@ namespace FloraShop.Core.DAL
     {
         protected override void Seed(FloraShopContext context)
         {
-            InitAdminUser(context);
+            // InitAdminUser(context);
         }
 
         private void InitAdminUser(FloraShopContext context)
@@ -20,24 +20,28 @@ namespace FloraShop.Core.DAL
             var admin = new User()
             {
                 Username = "admin",
+                FullName = "admin",
                 Password = "VhL+dONCCxu68w0qZiuRJuBJx5k=",
                 PasswordSalt = "/+jj1XHAkCKH8MGbXSmETg==",
                 Email = "nht257@yahoo.com",
                 IsAdmin = true,
                 CreatedDate = DateTime.Now,
-                Active = true
+                Active = true,
+                TotalPoints = 0
             };
             context.Users.Add(admin);
 
             var webmaster = new User()
             {
                 Username = "webmaster",
+                FullName = "webmaster",
                 Password = "UR+o5v1LPhotXzvrCakeUAvpAzQ=",
                 PasswordSalt = "BbXwoC3mCjjwBFPWmDhNug==",
                 Email = "redhearthcm@gmail.com",
                 IsAdmin = true,
                 CreatedDate = DateTime.Now,
-                Active = true
+                Active = true,
+                TotalPoints = 0
             };
             context.Users.Add(webmaster);
 

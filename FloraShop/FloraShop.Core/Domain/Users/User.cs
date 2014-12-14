@@ -26,7 +26,7 @@ namespace FloraShop.Core.Domain
         [Required(ErrorMessage = "Email không thể rỗng")]
         [StringLength(150, ErrorMessage = "Email không được quá 150 kí tự")]
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Email không hợp lệ")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -45,7 +45,7 @@ namespace FloraShop.Core.Domain
 
         public DateTime? LastLogin { get; set; }
 
-        public Guid ResetCode { get; set; }
+        public Guid? ResetCode { get; set; }
 
         public DateTime? ResetExpiredCode { get; set; }
 

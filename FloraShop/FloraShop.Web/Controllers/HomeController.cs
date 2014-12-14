@@ -76,12 +76,30 @@ namespace FloraShop.Web.Controllers
                     ViewData["Order"] = new Order();
                     ViewData["Provinces"] = provinces;
                 }
+                else if (pageType == PageType.Login)
+                {
+                    ViewData["LoginModel"] = new LoginModel();
+                }
 
                 return View(page);
             }
 
             return View();
         }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Include = "Username,Password,RememberMe")] LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return Redirect("index");
+            }
+
+            return Redirect("index");
+        }
+
 
         [HttpPost]
         [ValidateInput(false)]
