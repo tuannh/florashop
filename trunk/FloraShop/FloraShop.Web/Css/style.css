@@ -430,3 +430,8 @@ input.btn-type-1[type="submit"]:hover { background-color: #9f1500; cursor: point
 .logged-in ul li {border-bottom: 1px solid #cfe1ea;}
 .logged-in ul li.last {border-bottom: none;}
 .logged-in a {color: #616161; display: block; padding: 10px 20px; text-transform: uppercase;}
+
+.info-detail p input[type=checkbox], .login-remember {width: auto !important;}
+
+.user-birthday {width: 120px !important;}
+.user-gender {width: 80px !important;}
