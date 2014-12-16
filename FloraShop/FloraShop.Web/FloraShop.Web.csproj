@@ -1562,12 +1562,15 @@
     <Compile Include="Areas\Admin\Controllers\UserGuideController.cs" />
     <Compile Include="Areas\Common\Controllers\UserController.cs" />
     <Compile Include="Areas\Common\Models\UserModel.cs" />
-    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\Api\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Models\ChangePassModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MyCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1680,6 +1683,7 @@
     <Content Include="Views\Shared\Partial\Login-Info.cshtml" />
     <Content Include="Views\Home\_Login.cshtml" />
     <Content Include="Views\Home\_Register.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

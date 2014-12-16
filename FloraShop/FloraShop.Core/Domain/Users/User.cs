@@ -13,7 +13,7 @@ namespace FloraShop.Core.Domain
 
         [Required(ErrorMessage = "Tên đăng nhập không thể rỗng")]
         [Display(Name = "Tên đăng nhập")]
-        [RegularExpression(@"^[a-z0-9]{6, 50}$", ErrorMessage = "Tên đăng nhập chỉ chưa các ký tự a-z, 0-9")]
+        [RegularExpression("^[a-z0-9_-]{3,50}$", ErrorMessage = "Tên đăng nhập tối đa tối thiểu 3 kí tự, tối đa 50 kí tự")]
         [StringLength(50, ErrorMessage = "Tên đăng nhập không được quá 50 kí tự")]
         public string Username { get; set; }
 
@@ -62,6 +62,12 @@ namespace FloraShop.Core.Domain
 
         [Display(Name = "Điểm thưởng")]
         public int TotalPoints { get; set; }
+
+        [Display(Name = "Ngày sinh")]
+        public DateTime? Birthday { get; set; }
+
+        [Display(Name = "Giới tính")]
+        public int Gender { get; set; }
 
         [Display(Name = "Quận/Huyện")]
         public int? DistrictId { get; set; }

@@ -15,6 +15,8 @@ using FloraShop.Core;
 using System.Globalization;
 using System.Text;
 using FloraShop.Core.Utility;
+using FloraShop.Core.Providers;
+using System.Web.Security;
 
 namespace FloraShop.Web.Controllers
 {
@@ -94,10 +96,29 @@ namespace FloraShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Redirect("index");
+                var user = DbContext.Users.Where(a => string.Compare(a.Username, model.Username, true) == 0).FirstOrDefault();
+
+                if (user != null)
+                {
+                    var password = EncryptProvider.EncryptPassword(model.Password, user.PasswordSalt);
+
+                    if (user.Active && user.Password == password)
+                    {
+                        var userInfo = string.Format("{0}-{1}", user.Id, user.Username);
+                        FormsAuthentication.SetAuthCookie(userInfo, model.RememberMe);
+
+                        var key = SiteContext.Current.ReturnUrlQueryKey;
+                        var returnUrl = SiteContext.Current.QueryString[key] ?? "";
+
+                        if (!string.IsNullOrEmpty(returnUrl))
+                            return Redirect(SiteUrls.Instance.DefaultAdminUrl());
+
+                        return Redirect("/san-pham/");
+                    }
+                }
             }
 
-            return Redirect("index");
+            return Redirect("/dang-nhap/");
         }
 
 
