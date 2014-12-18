@@ -37,10 +37,13 @@ namespace FloraShop.Web.Models
         public string FullName { get; set; }
 
         [Display(Name = "Ngày sinh")]
-        public DateTime? Birthday { get; set; }
+        [Required(ErrorMessage = "Bạn chưa chọn ngày sinh")]
+        public string Birthday { get; set; }
 
         [Display(Name = "Giới tính")]
+        
         [Required(ErrorMessage = "Chưa chọn giới tính")]
-        public int Gender { get; set; }
+        [RegularExpression(@"\d", ErrorMessage = "Chưa chọn giới tính")]
+        public int? Gender { get; set; }
     }
 }
