@@ -6,13 +6,17 @@
 
     var genders = new List<SelectListItem>()
     {
-        new SelectListItem() { Value = "", Text= "Giới tính" },
+        new SelectListItem() {  Text= "--------" },
         new SelectListItem() { Value = "1", Text= "Nam" },
-        new SelectListItem() { Value = "0", Text= "Nữ" }
+        new SelectListItem() { Value = "2", Text= "Nữ" }
     };
-
 }
+
 <div class="title-big">Đăng ký</div>
+<div class="error">
+    @ViewBag.Message
+</div>
+
 
 <div class="info-detail">
     <form method="post" action="/user/register/">
@@ -61,7 +65,7 @@
 
         <p>
             @Html.LabelFor(model => model.Birthday)
-            @Html.EditorFor(model => model.Birthday, new { @class = "user-birthday" })
+            @Html.EditorFor(model => model.Birthday, new { @class = "user-birthday", placeholder = "dd/MM/yyyy" })
             @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
         </p>
 
@@ -77,11 +81,34 @@
     </form>
 </div>
 
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            var config = {
+                changeMonth: true,
+                duration: 'fast',
+                changeYear: true,
+                numberOfMonths: 1,
+                selectOtherMonths: true,
+                showOtherMonths: true,
+                firstDay: 1,
+                dayNames: ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'],
+                monthNamesShort: ['Thg 1', 'Thg 2', 'Thg 3', 'Thg 4', 'Thg 5', 'Thg 6', 'Thg 7', 'Thg 8', 'Thg 9', 'Thg 10', 'Thg 11', 'Thg 12'],
+                yearRange: '1902:@(DateTime.Now.Year-10)',
+                dateFormat: 'dd/mm/yy'
+            };
+
+            $('#Birthday').datepicker(config);
+        })
+</script>
+
 
 @section Styles{
     @Html.CssBundle("~/css/content")
+    @Html.CssBundle("~/css/jquery-ui", "~/Css/jquery/jquery-ui.css")
 }
 
 @section FooterScripts    {
     @Html.JsBundle("~/js/jqueryval")
+    @Html.JsBundle("~/js/jquery-ui", "~/Scripts/jquery/jquery-ui.js")
 }

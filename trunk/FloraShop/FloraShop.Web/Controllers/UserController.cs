@@ -11,6 +11,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DM = FloraShop.Core.Domain;
 using FloraShop.Core.Extensions;
+using System.Threading;
+using System.Globalization;
 
 namespace FloraShop.Web.Controllers
 {
@@ -19,8 +21,16 @@ namespace FloraShop.Web.Controllers
         public UserController(FloraShopContext dbContext)
             : base(dbContext)
         {
+            var culture = CultureInfo.GetCultureInfo("en-US").Clone() as CultureInfo;
 
+            culture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            culture.DateTimeFormat.ShortTimePattern = "HH:mm";
+            culture.DateTimeFormat.LongDatePattern = "dd/MM/yyyy";
+            culture.DateTimeFormat.LongTimePattern = "dd/MM/yyyy";
+
+            Thread.CurrentThread.CurrentCulture = culture;
         }
+
         // GET: User
         public ActionResult Index()
         {
@@ -44,7 +54,7 @@ namespace FloraShop.Web.Controllers
 
         public ActionResult Register()
         {
-            return View(new RegisterModel());
+            return View();
         }
 
         [HttpPost]
@@ -69,8 +79,9 @@ namespace FloraShop.Web.Controllers
                     Password = pass,
 
                     FullName = model.FullName,
-                    Birthday = model.Birthday,
-                    Gender = model.Gender,
+                    Birthday = DateTime.ParseExact(model.Birthday, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+
+                    Gender = model.Gender.HasValue ? model.Gender.Value : 0,
                     Email = model.Email
                 };
 
@@ -78,14 +89,23 @@ namespace FloraShop.Web.Controllers
                 {
                     DbContext.Users.Add(user);
                     DbContext.SaveChanges();
+
+                    ViewBag.Error = 0;
+                    ViewBag.Message = "Đăng ký tài khoản thành công.";
+
+                    ModelState.Clear();
+
+                    // return RedirectToAction("register");
+                    return View();
                 }
-                catch(Exception exp)
+                catch (Exception exp)
                 {
                     exp.Log();
                 }
             }
 
-            ViewBag.Error = "Thông tin không hợp lệ. Xin kiểm tra lại.";
+            ViewBag.Error = 1;
+            ViewBag.Message = "Thông tin không hợp lệ. Xin kiểm tra lại.";
             return View(model);
         }
 
