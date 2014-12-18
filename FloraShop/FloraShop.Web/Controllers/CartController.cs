@@ -5,17 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using FloraShop.Core.Controllers;
+using System.Web.Mvc;
 
 namespace FloraShop.Web.Controllers
 {
-    public class CartController : ApiController
+    public class CartController : FrontController
     {
+        public CartController(FloraShopContext dbContext)
+            : base(dbContext)
+        {
+
+        }
+
         // POST: api/Cart
         [HttpPost]
         [ActionName("add")]
-        public IHttpActionResult Add([FromBody]string productId)
+        public ActionResult Add(string productId)
         {
             var session = SiteContext.Current.Context.Session;
             var lst = session[MyCart.ShopCart] as List<MyCart>;
@@ -30,7 +36,7 @@ namespace FloraShop.Web.Controllers
             var cart = lst.FirstOrDefault(a => a.ProductId == productId);
             if (cart == null)
             {
-                var db = new FloraShopContext();
+                var db = DbContext;
                 var id = int.Parse(productId);
 
                 var product = db.Products.Find(id);
@@ -50,7 +56,7 @@ namespace FloraShop.Web.Controllers
 
         [HttpPost]
         [ActionName("remove")]
-        public IHttpActionResult Remove([FromBody]string productId)
+        public ActionResult Remove(string productId)
         {
             var session = SiteContext.Current.Context.Session;
             var lst = session[MyCart.ShopCart] as List<MyCart>;
@@ -77,14 +83,8 @@ namespace FloraShop.Web.Controllers
 
         [HttpPost]
         [ActionName("update")]
-        public IHttpActionResult Update()
+        public ActionResult Update(int id, int quatity)
         {
-            var id = SiteContext.Current.Context.Request.Form["id"] ?? "0";
-            var strQuatity = SiteContext.Current.Context.Request.Form["quatity"] ?? "0";
-
-            var quatity = 0;
-            int.TryParse(strQuatity, out quatity);
-
             var session = SiteContext.Current.Context.Session;
             var lst = session[MyCart.ShopCart] as List<MyCart>;
 
@@ -94,7 +94,7 @@ namespace FloraShop.Web.Controllers
 
             if (lst != null)
             {
-                var item = lst.FirstOrDefault(a => a.ProductId == id);
+                var item = lst.FirstOrDefault(a => a.ProductId == id.ToString());
                 if (item != null)
                 {
                     item.Quatity = quatity;
@@ -111,7 +111,7 @@ namespace FloraShop.Web.Controllers
 
         [HttpPost]
         [ActionName("clear")]
-        public IHttpActionResult Clear()
+        public ActionResult Clear()
         {
             var session = SiteContext.Current.Context.Session;
             session[MyCart.ShopCart] = null;
@@ -121,7 +121,7 @@ namespace FloraShop.Web.Controllers
 
         [HttpPost]
         [ActionName("district")]
-        public IHttpActionResult District([FromBody]int provinceId)
+        public ActionResult District(int provinceId)
         {
             var db = new FloraShopContext();
             var lst = db.Districts.Where(a => a.ProvinceId == provinceId).ToList();

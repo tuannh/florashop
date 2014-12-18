@@ -79,8 +79,7 @@ namespace FloraShop.Web.Controllers
                     Password = pass,
 
                     FullName = model.FullName,
-                    Birthday = DateTime.ParseExact(model.Birthday, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-
+                    Birthday = DateTime.Now.GetDate(model.Birthday, "dd/MM/yyyy"),
                     Gender = model.Gender.HasValue ? model.Gender.Value : 0,
                     Email = model.Email
                 };

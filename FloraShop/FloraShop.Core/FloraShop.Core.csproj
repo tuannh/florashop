@@ -193,6 +193,7 @@
     <Compile Include="Enumerations\ProductType.cs" />
     <Compile Include="Exception\SiteException.cs" />
     <Compile Include="Exception\SiteExceptionType.cs" />
+    <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\SiteControl.cs" />
