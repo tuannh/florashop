@@ -2,29 +2,29 @@
 
     add: function (productId) {
         this.showLoading();
-        var data = { '': productId };
-        $.post("/api/cart/add", data, this.addCartComplete);
+        var data = { productId: productId };
+        $.post("/cart/add", data, this.addCartComplete);
     },
 
     update: function (productId, qty) {
         this.showLoading();
 
         var data = { id: productId, quatity: qty };
-        $.post("/api/cart/update", data, this.updateCartComplete);
+        $.post("/cart/update", data, this.updateCartComplete);
     },
 
     remove: function (productId) {
         this.showLoading();
 
-        var data = { '': productId };
-        $.post("/api/cart/remove", data, this.removeCartComplete);
+        var data = { productId: productId };
+        $.post("/cart/remove", data, this.removeCartComplete);
     },
 
     clear: function () {
         this.showLoading();
 
         var data = {};
-        $.post("/api/cart/clear", data, this.clearCartComplete);
+        $.post("/cart/clear", data, this.clearCartComplete);
     },
 
     addCartComplete: function (data) {

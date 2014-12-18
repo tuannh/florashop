@@ -222,7 +222,7 @@ footer .design_by a:hover { color: #fff }
 .info-detail p input { width: 62%; float: left; height: 22px; line-height: 22px }
 .info-detail p textarea {width: 62%;}
 .info-detail p select { width: 63%; float: left; height: 30px; line-height: 30px }
-.info-detail p .btnDatHang { border:none; float: right; background-color: #9f1500; background: -moz-linear-gradient(bottom, #9f1500 30%, #da2004 70%); background: -o-linear-gradient(bottom, #9f1500 30%, #da2004 70%); background: -ms-linear-gradient(bottom, #9f1500 30%, #da2004 70%); background: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #9f1500), color-stop(0.7, #da2004)); height: 29px; width: 280px; display: block; line-height: 29px; text-transform: uppercase; z-index: 800; color: #fff; -moz-transition: all 0.3s ease 0s; -webkit-transition: all 0.3s ease 0s; -o-transition: all 0.3s ease 0s; -ms-transition: all 0.3s ease 0s; transition: all 0.3s ease 0s; -moz-border-radius: 4px; -webkit-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; text-align: center; margin-right: 4.5% }
+.info-detail p .btnDatHang { border:none; float: right; background-color: #9f1500; background: -moz-linear-gradient(bottom, #9f1500 30%, #da2004 70%); background: -o-linear-gradient(bottom, #9f1500 30%, #da2004 70%); background: -ms-linear-gradient(bottom, #9f1500 30%, #da2004 70%); background: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #9f1500), color-stop(0.7, #da2004)); height: 29px; width: 150px; display: block; line-height: 29px; text-transform: uppercase; z-index: 800; color: #fff; -moz-transition: all 0.3s ease 0s; -webkit-transition: all 0.3s ease 0s; -o-transition: all 0.3s ease 0s; -ms-transition: all 0.3s ease 0s; transition: all 0.3s ease 0s; -moz-border-radius: 4px; -webkit-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; text-align: center; margin-right: 4.5% }
 .info-detail p .btnDatHang:hover { background-color: #da2004; background: -moz-linear-gradient(bottom, #da2004 30%, #9f1500 70%); background: -o-linear-gradient(bottom, #da2004 30%, #9f1500 70%); background: -ms-linear-gradient(bottom, #da2004 30%, #9f1500 70%); background: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #da2004), color-stop(0.7, #9f1500)); text-decoration: none }
 .product-content-info { overflow: hidden; padding-top: 23px; }
 .hot { color: #e24b4b; float: right; font-size: 12px; font-weight: 700; position: relative; top: 7px; }
@@ -435,3 +435,5 @@ input.btn-type-1[type="submit"]:hover { background-color: #9f1500; cursor: point
 
 #Birthday {width: 100px !important; text-align: center;}
 .user-gender {width: 60px !important;}
+
+.btn-disable { background: -moz-linear-gradient(bottom, gray 30%, gray 70%) !important; }
