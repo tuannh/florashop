@@ -13,6 +13,7 @@ using DM = FloraShop.Core.Domain;
 using FloraShop.Core.Extensions;
 using System.Threading;
 using System.Globalization;
+using System.Data.Entity;
 
 namespace FloraShop.Web.Controllers
 {
@@ -21,14 +22,6 @@ namespace FloraShop.Web.Controllers
         public UserController(FloraShopContext dbContext)
             : base(dbContext)
         {
-            var culture = CultureInfo.GetCultureInfo("en-US").Clone() as CultureInfo;
-
-            culture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
-            culture.DateTimeFormat.ShortTimePattern = "HH:mm";
-            culture.DateTimeFormat.LongDatePattern = "dd/MM/yyyy";
-            culture.DateTimeFormat.LongTimePattern = "dd/MM/yyyy";
-
-            Thread.CurrentThread.CurrentCulture = culture;
         }
 
         // GET: User
@@ -36,6 +29,44 @@ namespace FloraShop.Web.Controllers
         {
             return Redirect("/san-pham/");
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Include = "Username,Password,RememberMe")] LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = DbContext.Users.Where(a => string.Compare(a.Username, model.Username, true) == 0).FirstOrDefault();
+
+                if (user != null)
+                {
+                    var password = EncryptProvider.EncryptPassword(model.Password, user.PasswordSalt);
+
+                    if (user.Active && user.Password == password)
+                    {
+                        var userInfo = string.Format("{0}-{1}", user.Id, user.Username);
+                        FormsAuthentication.SetAuthCookie(userInfo, model.RememberMe);
+
+                        var key = SiteContext.Current.ReturnUrlQueryKey;
+                        var returnUrl = SiteContext.Current.QueryString[key] ?? "";
+
+                        if (!string.IsNullOrEmpty(returnUrl))
+                            return Redirect(SiteUrls.Instance.DefaultAdminUrl());
+
+                        return Redirect("/san-pham/");
+                    }
+                }
+            }
+
+            return Redirect("/dang-nhap/");
+        }
+
 
         [HttpGet]
         public ActionResult Logout()
@@ -106,6 +137,45 @@ namespace FloraShop.Web.Controllers
             ViewBag.Error = 1;
             ViewBag.Message = "Thông tin không hợp lệ. Xin kiểm tra lại.";
             return View(model);
+        }
+
+        public ActionResult Edit()
+        {
+            var user = SiteContext.Current.User;
+            var model = new UserModel(user);
+
+            ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name", user.ProvinceId);
+            ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name", user.DistrictId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult Edit(UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = SiteContext.Current.User.Id;
+                var user = DbContext.Users.Find(id);
+
+
+                if (user == null)
+                    return Redirect("/dang-nhap/");
+
+                model.UpdateDomain(ref user);
+                DbContext.Entry(user).State = EntityState.Modified;
+                DbContext.SaveChanges();
+
+                ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name", user.ProvinceId);
+                ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name", user.DistrictId);
+
+                ViewBag.Message = "Cập nhật thông tin thành công.";
+            }
+
+            return View();
+
         }
 
     }
