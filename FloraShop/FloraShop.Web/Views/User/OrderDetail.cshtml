@@ -1,0 +1,86 @@
+﻿@model FloraShop.Core.Domain.Order
+
+@{
+    Layout = "~/Views/Layouts/Content.cshtml";
+    ViewBag.Title = "Quản lý đơn hàng";
+}
+
+<div class="title-big">Chi tiết <br />đơn hàng #@(Model.Id)</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tbody>
+            <tr class="table-title">
+                <td class="cart-img">Sản Phẩm</td>
+                <td class="cart-name">Tên Sản Phẩm</td>
+                <td class="cart-price">Đơn giá</td>
+                <td class="cart-qty">Số lượng</td>
+                <td class="cart-subtotal">Tổng tiền</td>
+            </tr>
+            @foreach (var item in Model.ProductOrders)
+            {
+                <tr class="table-product-info">
+                    <td class="prod-img-center">
+                        <div class="prod-table-img-c">
+                            <img src="/Userfiles/Modules/Products/Thumb/@item.Product.Photos.First().FileName" alt="@item.Product.Name" />
+                        </div>
+                    </td>
+                    <td class="prod-name">
+                        <a href="/chi-tiet-sp/@item.Product.Alias">
+                            @item.Product.Name
+                        </a>
+                    </td>
+                    <td class="prod-price">@item.Price.ToString("N0") VND</td>
+                    <td class="prod-qty">@item.Quatity</td>
+                    <td class="prod-tot">@((item.Quatity * item.Price).ToString("N0")) VND</td>
+                </tr>
+            }
+            <tr class="totalAll">
+                <td colspan="5" class="align">
+                    Tổng tiền:
+                    <span id="shopcart-total">
+                        @(Model.ProductOrders.Sum(a => a.Price * a.Quatity).ToString("N0"))
+                    </span> VND
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+@section Styles{
+    @Html.CssBundle("~/css/content")
+    @Html.CssBundle("~/css/jquery-ui", "~/Css/jquery/jquery-ui.css")
+}
+
+@section FooterScripts    {
+    @Html.JsBundle("~/js/jqueryval")
+    @Html.JsBundle("~/js/user/register", "~/Scripts/jquery/jquery-ui.js")
+}
+
+
+@helper GetStatus(int status)
+{
+    switch (status)
+    {
+        case (int)FloraShop.Core.Enumerations.OrderStatus.New:
+            @("Chờ xử lý")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Confirm:
+        @("Đã xác nhận")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Delivery:
+        @("Đã giao hàng")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Cancel:
+        @("Hủy")
+            break;
+
+        default:
+        @("");
+        break;
+    }
+}

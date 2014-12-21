@@ -1,148 +1,132 @@
 ﻿@model IEnumerable<FloraShop.Core.Domain.User>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/Layouts/Edit.cshtml";
+    ViewBag.Title = "Quản lý users";
+
+    var pagingModel = ViewBag.PagingModel as PagingModel;
+    pagingModel.SummaryInfoTemplate = "Trang {0}/{1} ({2} users)";
+    var kw = ViewBag.Keyword as string;
 }
+<div class="header">
+    <h1>Quản lý users</h1>
+    <div class="headerR">
+        @Html.Raw(ViewBag.SearchReseult)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="kw" name="kw" type="text" placeholder="Từ khóa cần tìm" value="@kw" />
+            <input type="submit" value="Tìm" class="btnSearch" />
+        }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.District.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Province.Name)
-        </th>
+    </div>
+</div>
+<table class="tb_table" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tb_content">
         <th>
             @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordSalt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FullName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Active)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsAdmin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
+            Ngày đăng ký
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UpdatedDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastLogin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ResetCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ResetExpiredCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cellphone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telphone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalPoints)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birthday)
+            Điểm
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Gender)
         </th>
-        <th></th>
+        <th>
+            Đơn hàng
+        </th>
+        <th class="col-command"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.District.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Province.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordSalt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAdmin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastLogin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResetCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResetExpiredCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cellphone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telphone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalPoints)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr class="tb_content">
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @if (item.Birthday.HasValue)
+                {
+                    @item.Birthday.Value.ToString("dd/MM/yyyy")
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @if (item.Active)
+                {
+                    <img src="~/images/admin/true.gif" alt="" style="width: 22px; height: 18px;">
+                }
+            </td>
+            <td>
+                @item.CreatedDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPoints)
+            </td>
+            <td>
+                @(item.Gender == 1 ? "Name" : "Nữ")
+            </td>
+            <td>
+                @{ var count = @item.Orders.Count(); }
+
+                @if (count > 0)
+                {
+                    <a href="/admin/order/?userid=@item.Id">@count</a>
+                }
+                else
+                {
+                    <span>@count</span>
+                }
+
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "edit", new { id = item.Id }) |
+                @Html.ActionLink("Xóa", "delete", new { id = item.Id, @class = "cmd-delete" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="paging">
+    @Html.Controls().Pager(pagingModel)
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.cmd-delete').click(function () {
+            var result = confirm('Bạn thực sự muốn xóa user này không?')
+            if (result)
+                return true;
+
+            return false;
+        })
+
+
+    })
+</script>

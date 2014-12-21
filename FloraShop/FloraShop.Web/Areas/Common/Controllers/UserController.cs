@@ -40,7 +40,7 @@ namespace FloraShop.Web.Areas.Common.Controllers
             {
                 var user = db.Users.Where(a => string.Compare(a.Username, model.Username, true) == 0).FirstOrDefault();
 
-                if (user != null)
+                if (user != null && user.IsAdmin)
                 {
                     var password = EncryptProvider.EncryptPassword(model.Password, user.PasswordSalt);
 

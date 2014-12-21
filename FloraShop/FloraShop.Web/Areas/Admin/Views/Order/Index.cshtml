@@ -13,15 +13,25 @@
     var deliveryClass = status == "3" ? "class='active'" : "";
     var cancelClass = status == "4" ? "class='active'" : "";
     var allClass = status == "0" ? "class='active'" : "";
+
+    var user = ViewBag.User as User;
+    var userOrder = (user!= null) ? string.Format("&userid={0}", user.Id) : "";
 }
 <div class="header">
-    <h1>Quản lý đơn hàng</h1>
+    @if (user== null)
+    {
+        <h1>Quản lý đơn hàng</h1>
+    }
+    else
+    {
+        <h1>Đơn hàng (tài khoản: @(user.Username))</h1>
+    }
     <div class="headerL">
-        <a @Html.Raw(allClass) href="/admin/order/?status=0">Tất cả</a> |
-        <a @Html.Raw(newClass) href="/admin/order/?status=1">ĐH mới</a> |
-        <a @Html.Raw(confirmClass) href="/admin/order/?status=2">ĐH đã xác nhân</a> |
-        <a @Html.Raw(deliveryClass) href="/admin/order/?status=3">ĐH đã giao</a> |
-        <a @Html.Raw(cancelClass) href="/admin/order/?status=4">ĐH đã hủy</a>
+        <a @Html.Raw(allClass) href="/admin/order/?status=0@(userOrder)">Tất cả</a> |
+        <a @Html.Raw(newClass) href="/admin/order/?status=1@(userOrder)">ĐH mới</a> |
+        <a @Html.Raw(confirmClass) href="/admin/order/?status=2@(userOrder)">ĐH đã xác nhân</a> |
+        <a @Html.Raw(deliveryClass) href="/admin/order/?status=3@(userOrder)">ĐH đã giao</a> |
+        <a @Html.Raw(cancelClass) href="/admin/order/?status=4@(userOrder)">ĐH đã hủy</a>
     </div>
     <div class="headerR">
         @Html.Raw(ViewBag.SearchReseult)
@@ -41,7 +51,7 @@
             Mã đặt hàng
         </th>
         <th style="width: 200px;">
-            @Html.DisplayNameFor(model => model.CustomerName)
+            Khách hàng
         </th>
         <th style="width: 220px;">
             @Html.DisplayNameFor(model => model.Email)
