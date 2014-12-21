@@ -22,11 +22,19 @@ namespace FloraShop.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/Order
-        public ActionResult Index(string kw, int? status)
+        public ActionResult Index(string kw, int? status, int? userid)
         {
-            var lst = DbContext.Orders.ToList();
+            var lst = DbContext.Orders.Include(a => a.User).ToList();
+
             if (status.HasValue && status.Value > 0)
                 lst = lst.Where(o => o.Status == status).ToList();
+
+            if (userid.HasValue && userid.Value > 0)
+            {
+                lst = lst.Where(u => u.User != null && u.User.Id == userid).ToList();
+                var user = DbContext.Users.Find(userid.Value);
+                ViewBag.User = user;
+            }
 
             if (!string.IsNullOrEmpty(kw))
             {

@@ -1680,6 +1680,8 @@
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Orders.cshtml" />
+    <Content Include="Views\User\OrderDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

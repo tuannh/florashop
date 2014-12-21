@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using FloraShop.Core.DAL;
 using FloraShop.Core.Domain;
 using FloraShop.Core.Controllers;
+using FloraShop.Core.Models;
+using FloraShop.Core.Extensions;
+using FloraShop.Core.Providers;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
@@ -17,56 +20,44 @@ namespace FloraShop.Web.Areas.Admin.Controllers
         public UsersController(FloraShopContext db)
             : base(db)
         {
-
         }
 
         // GET: Admin/Users
-        public ActionResult Index()
+        public ActionResult Index(string kw)
         {
-            var users = DbContext.Users.Include(u => u.District).Include(u => u.Province);
-            return View(users.ToList());
-        }
+            List<User> lst = null;
 
-        // GET: Admin/Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            if (!string.IsNullOrEmpty(kw))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var keyword = kw.ToLower().Trim();
+                lst = DbContext.Users.ToList();
+                lst = lst.Where(a => a.Username.ToLower().Contains(keyword) || (a.FullName ?? "").ToLower().Contains(keyword) ||
+                                     (a.Email ?? "").ToLower().Contains(keyword))
+                         .OrderBy(a => a.Username)
+                         .ToList();
+
+                if (lst.Count > 0)
+                    ViewBag.SearchReseult = string.Format("<b>{0}</b> kết quả được tìm thấy", lst.Count);
+                else
+                    ViewBag.SearchReseult = string.Format("Không tìm thấy kết quả với từ khóa <b>{0}</b>", kw);
             }
-            User user = DbContext.Users.Find(id);
-            if (user == null)
+            else
             {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // GET: Admin/Users/Create
-        public ActionResult Create()
-        {
-            ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name");
-            ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name");
-            return View();
-        }
-
-        // POST: Admin/Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Username,Password,PasswordSalt,Email,FullName,Active,IsAdmin,CreatedDate,UpdatedDate,LastLogin,ResetCode,ResetExpiredCode,Cellphone,Telphone,Address,TotalPoints,Birthday,Gender,DistrictId,ProvinceId")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                DbContext.Users.Add(user);
-                DbContext.SaveChanges();
-                return RedirectToAction("Index");
+                lst = DbContext.Users.OrderBy(a => a.Username).ToList();
             }
 
-            ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name", user.DistrictId);
-            ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name", user.ProvinceId);
-            return View(user);
+            var pagingModel = new PagingModel();
+            pagingModel.ItemsPerPage = PageSize;
+            pagingModel.CurrentPage = PageIndex;
+            pagingModel.TotalItems = lst.Count();
+            pagingModel.RequestUrl = ControllerContext.RequestContext.HttpContext.Request.RawUrl;
+
+            lst = lst.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+
+            ViewBag.PagingModel = pagingModel;
+            ViewBag.Keyword = kw;
+
+            return View(lst);
         }
 
         // GET: Admin/Users/Edit/5
@@ -81,26 +72,53 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name", user.DistrictId);
             ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name", user.ProvinceId);
+
             return View(user);
         }
 
-        // POST: Admin/Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Username,Password,PasswordSalt,Email,FullName,Active,IsAdmin,CreatedDate,UpdatedDate,LastLogin,ResetCode,ResetExpiredCode,Cellphone,Telphone,Address,TotalPoints,Birthday,Gender,DistrictId,ProvinceId")] User user)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "Id,Username,Password,Email,FullName,Active,Cellphone,Telphone,Address,Gender,DistrictId,ProvinceId")] User user, string userbirthday)
         {
             if (ModelState.IsValid)
             {
-                DbContext.Entry(user).State = EntityState.Modified;
+                var dbUser = DbContext.Users.Find(user.Id);
+                if (dbUser == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                // update info
+                dbUser.Email = user.Email;
+                dbUser.FullName = user.FullName;
+                dbUser.Active = user.Active;
+                dbUser.Cellphone = user.Cellphone;
+                dbUser.Telphone = user.Telphone;
+                dbUser.Address = user.Address;
+                dbUser.Gender = user.Gender;
+                dbUser.DistrictId = user.DistrictId;
+                dbUser.ProvinceId = user.ProvinceId;
+
+                var newPass = EncryptProvider.EncryptPassword(user.Password, dbUser.PasswordSalt);
+                dbUser.Password = newPass; 
+
+                var birthday = DateTime.Now.GetDate(userbirthday, "dd/MM/yyyy");
+                if (birthday.HasValue)
+                    dbUser.Birthday = birthday;
+
+                DbContext.Entry(dbUser).State = EntityState.Modified;
                 DbContext.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("index");
             }
+
             ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name", user.DistrictId);
             ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name", user.ProvinceId);
+
             return View(user);
         }
 
@@ -111,32 +129,18 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = DbContext.Users.Find(id);
+
+            var user = DbContext.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
-        }
 
-        // POST: Admin/Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = DbContext.Users.Find(id);
             DbContext.Users.Remove(user);
             DbContext.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                DbContext.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

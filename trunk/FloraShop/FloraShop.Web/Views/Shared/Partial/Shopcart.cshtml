@@ -45,14 +45,15 @@
                     <td class="prod-del"><a data-id="@item.ProductId" class="trash-table cart-remove" href="javascript:void(0)"><img src="/images/flora/icon-delete.png" alt="" /></a></td>
                 </tr>
             }
-            <tr class="totalAll"><td colspan="6" class="align">Tổng tiền: <span id="shopcart-total">@total.ToString("N0")</span> VND</td>
+            <tr class="totalAll"><td colspan="6" class="align">Tổng tiền: <span id="shopcart-total">@total.ToString("N0")</span> VND</td></tr>
         </tbody>
     </table>
 </div>
 <div class="col-md-12 cart-but">
     <div class="cart-but-left">
         <a @Html.Raw(hideOrderBtn) href="javascript:void(0)" class="continue btn-order cart-link" data-href="/dat-hang/">Đặt hàng</a>
-    <a href="/san-pham/" class="continue">Tiếp tục mua</a> </div>
+        <a href="/san-pham/" class="continue">Tiếp tục mua</a>
+    </div>
     <div class="cart-but-right">
         <div class="clear-cart-but"> <a @Html.Raw(hideOrderBtn) href="javascript:void(0)" class="clear-cart cart-clear">Xóa đơn hàng</a> </div>
         <br>

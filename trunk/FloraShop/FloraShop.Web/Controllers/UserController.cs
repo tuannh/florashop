@@ -67,7 +67,6 @@ namespace FloraShop.Web.Controllers
             return Redirect("/dang-nhap/");
         }
 
-
         [HttpGet]
         public ActionResult Logout()
         {
@@ -176,6 +175,26 @@ namespace FloraShop.Web.Controllers
 
             return View();
 
+        }
+
+        public ActionResult Orders()
+        {
+            var id = SiteContext.Current.User.Id;
+            var user = DbContext.Users.Include(a => a.Orders).Where(a => a.Id == id).FirstOrDefault();
+            var model = user.Orders.ToList();
+
+            return View(model);
+        }
+
+        public ActionResult OrderDetail(int id)
+        {
+            var model = DbContext.Orders.Include(a => a.ProductOrders.Select(b => b.Product)).Where(a => a.Id == id).First();
+            if (model== null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
         }
 
     }

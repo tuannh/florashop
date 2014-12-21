@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using FloraShop.Core.Domain.Users;
+using System.Collections.Generic;
 
 namespace FloraShop.Core.Domain
 {
@@ -75,8 +76,10 @@ namespace FloraShop.Core.Domain
         [Display(Name = "Tỉnh/Thành phố")]
         public int? ProvinceId { get; set; }
 
-        public District District { get; set; }
+        public virtual District District { get; set; }
 
-        public Province Province { get; set; }
+        public virtual Province Province { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

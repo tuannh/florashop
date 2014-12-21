@@ -1,0 +1,77 @@
+﻿@model IEnumerable<FloraShop.Core.Domain.Order>
+
+@{
+    Layout = "~/Views/Layouts/Content.cshtml";
+    ViewBag.Title = "Quản lý đơn hàng";
+}
+
+<div class="title-big">Quản lý<br/> đơn hàng</div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tbody>
+            <tr class="table-title">
+                <td class="cart-img">Mã ĐH</td>
+                <td class="cart-price">Trang thái</td>
+                <td class="cart-price">Ngày đặt</td>
+                <td class="cart-qty">Số lượng</td>
+                <td class="cart-subtotal">Tổng tiền</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr class="table-product-info">
+                    <td class="prod-img-center">
+                        #@Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td class="prod-price">
+                        @GetStatus(item.Status)
+                    </td>
+                    <td class="prod-price">
+                        @item.OrderDate.Value.ToString("dd/MM/yyyy")
+                    </td>
+                    <td class="prod-qty">
+                        @item.ProductOrders.Count()
+                    </td>
+                    <td class="prod-tot">
+                        @item.ProductOrders.Sum(a => a.Price * a.Quatity).ToString("N0")
+                    </td>
+                </tr>
+            }
+
+    </table>
+</div>
+@section Styles{
+    @Html.CssBundle("~/css/content")
+    @Html.CssBundle("~/css/jquery-ui", "~/Css/jquery/jquery-ui.css")
+}
+
+@section FooterScripts    {
+    @Html.JsBundle("~/js/jqueryval")
+    @Html.JsBundle("~/js/user/register", "~/Scripts/jquery/jquery-ui.js")
+}
+
+
+@helper GetStatus(int status)
+{
+    switch (status)
+    {
+        case (int)FloraShop.Core.Enumerations.OrderStatus.New:
+            @("Chờ xử lý")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Confirm:
+        @("Đã xác nhận")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Delivery:
+        @("Đã giao hàng")
+            break;
+
+        case (int)FloraShop.Core.Enumerations.OrderStatus.Cancel:
+        @("Hủy")
+            break;
+
+        default:
+        @("");
+        break;
+    }
+}
