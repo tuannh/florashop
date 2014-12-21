@@ -18,7 +18,6 @@ namespace FloraShop.Core.Domain
         [StringLength(50, ErrorMessage = "Tên đăng nhập không được quá 50 kí tự")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Mật khẩu không thể rỗng")]
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 

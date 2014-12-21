@@ -16,6 +16,8 @@ namespace FloraShop.Core.Domain.Users
 
         public int Points { get; set; }
 
+        public DateTime CreatedDate { get; set; }
+
         public virtual User User { get; set; }
 
         public virtual Order Order { get; set; }

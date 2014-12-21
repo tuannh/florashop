@@ -58,10 +58,10 @@
     @foreach (var item in Model)
     {
         <tr class="tb_content">
-            <td>
+            <td class="colLeft">
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
-            <td>
+            <td class="colLeft">
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
@@ -70,7 +70,7 @@
                     @item.Birthday.Value.ToString("dd/MM/yyyy")
                 }
             </td>
-            <td>
+            <td class="colLeft">
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
 
@@ -83,7 +83,7 @@
             <td>
                 @item.CreatedDate.ToString("dd/MM/yyyy")
             </td>
-            <td>
+            <td class="colLeft">
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
@@ -107,7 +107,7 @@
             </td>
             <td>
                 @Html.ActionLink("Sửa", "edit", new { id = item.Id }) |
-                @Html.ActionLink("Xóa", "delete", new { id = item.Id, @class = "cmd-delete" })
+                @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
             </td>
         </tr>
     }

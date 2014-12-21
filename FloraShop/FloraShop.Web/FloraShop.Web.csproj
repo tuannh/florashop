@@ -1673,9 +1673,6 @@
     <Content Include="Views\Shared\Controls\Content-Simple.cshtml" />
     <Content Include="Views\Shared\Partial\Login-Info.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
