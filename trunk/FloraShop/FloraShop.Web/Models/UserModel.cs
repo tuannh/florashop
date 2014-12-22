@@ -21,8 +21,7 @@ namespace FloraShop.Web.Models
             Username = user.Username;
             Email = user.Email;
             FullName = user.FullName;
-            Cellphone = user.Cellphone;
-            Telphone = user.Telphone;
+            Phone = user.Phone;
             Address = user.Address;
 
             if (user.Birthday.HasValue)
@@ -38,8 +37,7 @@ namespace FloraShop.Web.Models
             user.Username = this.Username;
             user.Email = this.Email;
             user.FullName = this.FullName;
-            user.Cellphone = this.Cellphone;
-            user.Telphone = this.Telphone;
+            user.Phone = this.Phone;
             user.Address = this.Address;
             user.Birthday = DateTime.Now.GetDate(this.Birthday, "dd/MM/yyyy");
 
@@ -77,13 +75,9 @@ namespace FloraShop.Web.Models
         [Display(Name = "Họ tên")]
         public string FullName { get; set; }
 
-        [Display(Name = "Điện thoại di động")]
-        [RegularExpression(@"[0-9 \-]+", ErrorMessage = "Số điện thoại chỉ chứa ký số")]
-        public string Cellphone { get; set; }
-
         [Display(Name = "Điện thoại")]
         [RegularExpression(@"[0-9 \-]+", ErrorMessage = "Số điện thoại chỉ chứa ký số")]
-        public string Telphone { get; set; }
+        public string Phone { get; set; }
 
         [Display(Name = "Địa chỉ")]
         public string Address { get; set; }

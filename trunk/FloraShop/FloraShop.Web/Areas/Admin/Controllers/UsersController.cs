@@ -12,9 +12,11 @@ using FloraShop.Core.Controllers;
 using FloraShop.Core.Models;
 using FloraShop.Core.Extensions;
 using FloraShop.Core.Providers;
+using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
+    [AdminFilter]
     public class UsersController : AdminController
     {
         public UsersController(FloraShopContext db)
@@ -82,7 +84,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "Id,Username,Password,Email,FullName,Active,Cellphone,Telphone,Address,Gender,DistrictId,ProvinceId")] User user, string userbirthday)
+        public ActionResult Edit([Bind(Include = "Id,Username,Password,Email,FullName,Active,Phone,Address,Gender,DistrictId,ProvinceId")] User user, string userbirthday)
         {
             if (ModelState.IsValid)
             {
@@ -96,8 +98,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                 dbUser.Email = user.Email;
                 dbUser.FullName = user.FullName;
                 dbUser.Active = user.Active;
-                dbUser.Cellphone = user.Cellphone;
-                dbUser.Telphone = user.Telphone;
+                dbUser.Phone = user.Phone;
                 dbUser.Address = user.Address;
                 dbUser.Gender = user.Gender;
                 dbUser.DistrictId = user.DistrictId;

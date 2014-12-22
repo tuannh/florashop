@@ -8,9 +8,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
+    [AdminFilter]
     public class UserController : Controller
     {
         private FloraShopContext db = new FloraShopContext();

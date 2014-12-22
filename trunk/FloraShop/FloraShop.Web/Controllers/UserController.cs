@@ -17,9 +17,11 @@ using System.Data.Entity;
 using FloraShop.Core.Domain;
 using FloraShop.Core.Utility;
 using FloraShop.Core.Configurations;
+using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Controllers
 {
+   
     public class UserController : FrontController
     {
         public UserController(FloraShopContext dbContext)
@@ -192,7 +194,7 @@ namespace FloraShop.Web.Controllers
         public ActionResult OrderDetail(int id)
         {
             var model = DbContext.Orders.Include(a => a.ProductOrders.Select(b => b.Product)).Where(a => a.Id == id).First();
-            if (model== null)
+            if (model == null)
             {
                 return HttpNotFound();
             }

@@ -20,6 +20,7 @@
         <form method="post" action="/dat-hang/submit">
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.UserId)
 
             <p>
                 @Html.LabelFor(model => model.CustomerName)
@@ -68,6 +69,7 @@
                 <input type="submit" value="Đặt hàng" class="btnDatHang" />
             </p>
         </form>
+        <input id="hfDistrictId" type="hidden" value="@Model.DistrictId" />
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -76,10 +78,20 @@
                     var data = { provinceId: id };
                     $.post("/flora/district", data, loadCompelete);
                 })
+
+                var districtId = $('#hfDistrictId').val();
+                if (hfDistrictId != '0') {
+                    $('.ddl-province').change();
+                }
             })
 
             function loadCompelete(data) {
                 $('.ddl-district').html(data.data);
+
+                var districtId = $('#hfDistrictId').val();
+                if (hfDistrictId != '0') {
+                    $('.ddl-district').val(districtId);
+                }
             }
         </script>
     }
