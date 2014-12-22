@@ -13,7 +13,7 @@
                 <a href="#">Đơn hàng</a>
             </li>
             <li>
-                <a href="#">Điểm thưởng (1200)</a>
+                <a href="#">Điểm thưởng (@user.TotalPoints.ToString("N0"))</a>
             </li>
             <li>
                 <a href="#">Tài khoản</a>
@@ -26,5 +26,17 @@
 }
 else
 {
-    <h2 class="login"><a href="/dang-nhap/">Đăng nhập</a> | <a href="/user/register">Đăng ký</a></h2>
+
+    <h2 class="login"><a name="login">Xin chào: guest</a></h2>
+
+    <div class="logged-in">
+        <ul>
+            <li>
+                <a href="#">Đăng nhập</a>
+            </li>
+            <li>
+                <a href="#">Đăng ký</a>
+            </li>
+        </ul>
+    </div>
 }

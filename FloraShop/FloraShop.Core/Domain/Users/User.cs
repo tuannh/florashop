@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using FloraShop.Core.Domain.Users;
 using System.Collections.Generic;
 
 namespace FloraShop.Core.Domain
@@ -80,5 +79,7 @@ namespace FloraShop.Core.Domain
         public virtual Province Province { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<UserPoint> UserPoints { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FloraShop.Core.Domain.Users
+namespace FloraShop.Core.Domain
 {
     public class UserPoint
     {
@@ -15,6 +15,8 @@ namespace FloraShop.Core.Domain.Users
         public int OrderId { get; set; }
 
         public int Points { get; set; }
+
+        public string Note { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

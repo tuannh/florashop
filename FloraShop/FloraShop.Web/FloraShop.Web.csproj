@@ -1553,7 +1553,6 @@
     <Compile Include="Areas\Common\Controllers\UserController.cs" />
     <Compile Include="Areas\Common\Models\UserModel.cs" />
     <Compile Include="Controllers\FloraController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1679,6 +1678,8 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Orders.cshtml" />
     <Content Include="Views\User\OrderDetail.cshtml" />
+    <Content Include="Views\User\ForgotPw.cshtml" />
+    <Content Include="Views\User\Points.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

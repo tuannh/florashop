@@ -124,7 +124,7 @@
         $('.ddl-province').change(function () {
             var id = $(this).val();
             var data = { provinceId: id };
-            $.post("/cart/district", data, loadCompelete);
+            $.post("/flora/district", data, loadCompelete);
         })
     })
 

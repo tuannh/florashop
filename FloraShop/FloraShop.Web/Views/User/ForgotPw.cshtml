@@ -1,0 +1,38 @@
+﻿@model string
+@{
+    Layout = "~/Views/Layouts/Content.cshtml";
+    ViewBag.Title = "Quên đăng nhập";
+}
+<div class="title-big">Quên mật khẩu</div>
+
+<div class="info-detail">
+    <div class="error">
+        @ViewBag.Message
+    </div>
+    <form method="post" action="/user/forgotpw">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <p>
+            <label for="Username">Tên đăng nhập</label>
+            <input type="text" value="" name="Username" id="Username" data-val-required="Bạn chưa nhập tên đăng nhập" data-val-regex-pattern="^[a-z0-9_-]{5,50}$" data-val-regex="Tên đăng nhập tối thiểu 5 kí tự, chỉ chứa các kí tự [a-z0-9_-]" data-val="true" class="username text-box single-line">
+            <span data-valmsg-replace="true" data-valmsg-for="Username" class="field-validation-valid">
+                <span id="Username-error" style="visibility: hidden;" class="">Bạn chưa nhập tên đăng nhập</span>
+            </span>
+        </p>
+
+        <p>
+            <input type="submit" value="Gởi" class="btnDatHang" />
+        </p>
+    </form>
+
+</div>
+
+
+@section Styles{
+    @Html.CssBundle("~/css/content")
+}
+
+@section FooterScripts    {
+    @Html.JsBundle("~/js/jqueryval")
+}
