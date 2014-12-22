@@ -1555,6 +1555,9 @@
     <Compile Include="Controllers\FloraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\AdminFilter.cs" />
+    <Compile Include="Filters\BaseFilter.cs" />
+    <Compile Include="Filters\FrontEndFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

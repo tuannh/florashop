@@ -14,9 +14,11 @@ using System.IO;
 using FloraShop.Core;
 using FloraShop.Core.Utility;
 using System.Drawing;
+using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
+    [AdminFilter]
     public class UserGuideController : AdminController
     {
         public const string Folder = "~/Userfiles/Upload/images/Modules/userguide/";

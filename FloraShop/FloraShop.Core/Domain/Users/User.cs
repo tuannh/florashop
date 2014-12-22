@@ -48,13 +48,9 @@ namespace FloraShop.Core.Domain
 
         public DateTime? ResetExpiredCode { get; set; }
 
-        [Display(Name = "Điện thoại di động")]
-        [RegularExpression(@"[0-9 \-]+", ErrorMessage = "Số điện thoại chỉ chứa ký số")]
-        public string Cellphone { get; set; }
-
         [Display(Name = "Điện thoại")]
         [RegularExpression(@"[0-9 \-]+", ErrorMessage = "Số điện thoại chỉ chứa ký số")]
-        public string Telphone { get; set; }
+        public string Phone { get; set; }
 
         [Display(Name = "Địa chỉ")]
         public string Address { get; set; }

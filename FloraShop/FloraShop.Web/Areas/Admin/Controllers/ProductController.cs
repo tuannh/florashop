@@ -16,9 +16,11 @@ using FloraShop.Core.Models;
 using FloraShop.Core.Controllers;
 using FloraShop.Core.Search;
 using FloraShop.Core.Extensions;
+using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
+    [AdminFilter]
     public class ProductController : AdminController
     {
 

@@ -10,9 +10,11 @@ using FloraShop.Core.Domain;
 using FloraShop.Core.DAL;
 using FloraShop.Core.Models;
 using FloraShop.Core.Controllers;
+using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
+    [AdminFilter]
     public class CategoryController : AdminController
     {
         public CategoryController(FloraShopContext dbContext)

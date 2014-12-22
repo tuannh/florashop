@@ -15,9 +15,11 @@ using System.IO;
 using FloraShop.Core.Utility;
 using System.Drawing;
 using System.Collections;
+using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
+    [AdminFilter]
     public class BannerSettings
     {
         public int Width { get; set; }

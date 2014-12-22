@@ -75,7 +75,22 @@ namespace FloraShop.Web.Controllers
                     var provinces = DbContext.Provinces.Select(a => new SelectListItem() { Value = a.Id.ToString(), Text = a.Name }).ToList();
                     provinces.Insert(0, new SelectListItem() { Value = "0", Text = "Chọn tỉnh/thành phố" });
 
-                    ViewData["Order"] = new Order();
+
+                    var order = new Order();
+                    if (Request.IsAuthenticated)
+                    {
+                        var user = SiteContext.User;
+
+                        order.UserId = user.Id;
+                        order.CustomerName = user.FullName;
+                        order.Phone = user.Phone;
+                        order.Email = user.Email;
+                        order.Address = user.Address;
+                        order.DistrictId = user.DistrictId;
+                        order.ProvinceId = user.ProvinceId;
+                    }
+
+                    ViewData["Order"] = order;
                     ViewData["Provinces"] = provinces;
                 }
                 else if (pageType == PageType.Login)
@@ -96,6 +111,7 @@ namespace FloraShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                order.UserId = order.UserId == 0 ? null : order.UserId;
                 order.ProvinceId = order.ProvinceId == 0 ? null : order.ProvinceId;
                 order.DistrictId = order.DistrictId == 0 ? null : order.DistrictId;
                 order.OrderDate = DateTime.Now;
