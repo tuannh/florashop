@@ -3,28 +3,28 @@
     add: function (productId) {
         this.showLoading();
         var data = { productId: productId };
-        $.post("/cart/add", data, this.addCartComplete);
+        $.post("/flora/add", data, this.addCartComplete);
     },
 
     update: function (productId, qty) {
         this.showLoading();
 
         var data = { id: productId, quatity: qty };
-        $.post("/cart/update", data, this.updateCartComplete);
+        $.post("/flora/update", data, this.updateCartComplete);
     },
 
     remove: function (productId) {
         this.showLoading();
 
         var data = { productId: productId };
-        $.post("/cart/remove", data, this.removeCartComplete);
+        $.post("/flora/remove", data, this.removeCartComplete);
     },
 
     clear: function () {
         this.showLoading();
 
         var data = {};
-        $.post("/cart/clear", data, this.clearCartComplete);
+        $.post("/flora/clear", data, this.clearCartComplete);
     },
 
     addCartComplete: function (data) {
