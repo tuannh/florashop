@@ -260,7 +260,7 @@ s { color: #bebebe; }
 .price-sale { float: right }
 .add-to-cart { float: right }
 table { border-collapse: collapse; border-spacing: 0; }
-.table-bordered { margin-bottom: 20px; margin-top: 20px; }
+.table-bordered { margin-bottom: 20px; margin-top: 20px; width: 100%; }
 .table-bordered { border: 1px solid #ddd; }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -274,13 +274,13 @@ table { border-collapse: collapse; border-spacing: 0; }
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td { border-top: 1px solid #ddd; line-height: 1.42857; padding: 8px; }
-.cart-img { font-weight: bold; padding: 10px; text-align: center; width: 180px; }
-.cart-name { font-weight: bold; padding: 15px; text-align: center; width: 485px; }
+.cart-img { font-weight: bold; padding: 10px; text-align: center; width: 120px; }
+.cart-name { font-weight: bold; padding: 15px; text-align: center; }
 .cart-edit { font-weight: bold; padding: 24px; text-align: center; }
-.cart-price { font-weight: bold; padding: 10px; text-align: center; width: 150px; }
-.cart-qty { font-weight: bold; padding: 8px; text-align: center; }
-.cart-subtotal { font-weight: bold; padding: 10px; text-align: center; width: 150px; }
-.cart-del { font-weight: bold; padding: 24px; text-align: center; }
+.cart-price { font-weight: bold; padding: 10px; text-align: center; width: 120px; }
+.cart-qty { font-weight: bold; padding: 8px; text-align: center; width: 40px;}
+.cart-subtotal { font-weight: bold; padding: 10px; text-align: center; width: 120px; }
+.cart-del { font-weight: bold; width: 40px; padding: 24px; text-align: center; }
 .prod-qty input { border: 1px solid #ccc; color: #666666; position: relative; text-align: center; top: 0; transition: all 0.5s ease 0s; width: 30px; }
 .cart-but-left { float: left; }
 .cart-but-right { float: right; }
@@ -437,3 +437,5 @@ input.btn-type-1[type="submit"]:hover { background-color: #9f1500; cursor: point
 .user-gender {width: 60px !important;}
 
 .btn-disable { background: -moz-linear-gradient(bottom, gray 30%, gray 70%) !important; }
+
+.prod-table-img-c img {max-width: 30%;}

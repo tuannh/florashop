@@ -18,7 +18,7 @@ namespace FloraShop.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(string productId)
+        public ActionResult Add(string productId, int? itemCount)
         {
             var session = SiteContext.Current.Context.Session;
             var lst = session[MyCart.ShopCart] as List<MyCart>;

@@ -134,6 +134,7 @@
     <Content Include="Css\jquery\jquery-ui.css" />
     <Content Include="Css\jquery\lightGallery.css" />
     <Content Include="Css\resize.css" />
+    <Content Include="Css\reveal.css" />
     <Content Include="Css\style.css" />
     <Content Include="Css\superfish.css" />
     <Content Include="favicon.ico" />
@@ -215,6 +216,7 @@
     <Content Include="Images\jquery\jquery.ui\ui-icons_888888_256x240.png" />
     <Content Include="Images\jquery\jquery.ui\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Images\loading.gif" />
+    <Content Include="Images\modal-gloss.png" />
     <Content Include="Scripts\admin\category.list.js" />
     <Content Include="Scripts\common\browserdetect.min.js" />
     <Content Include="Scripts\common\captcha.js" />
@@ -234,6 +236,7 @@
     <Content Include="Scripts\flora\owl.carousel.js" />
     <Content Include="Scripts\flora\superfish.js" />
     <Content Include="Scripts\jquery\jquery-ui.js" />
+    <Content Include="Scripts\jquery\jquery.reveal.js" />
     <Content Include="Scripts\jquery\jquery.tmpl.js" />
     <Content Include="Scripts\jquery\lightGallery.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

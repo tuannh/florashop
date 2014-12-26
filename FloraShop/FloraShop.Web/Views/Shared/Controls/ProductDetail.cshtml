@@ -2,12 +2,18 @@
 
 @{
     var sizes = string.IsNullOrEmpty(Model.Sizes) ? null : Model.Sizes.Replace(" ", "").Split(new string[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+    var colors = string.IsNullOrEmpty(Model.Colors) ? null : Model.Colors.Replace(" ", "").Split(new string[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
 
-    var selectSizes = new List<SelectListItem>();
+    List<SelectListItem> selectSizes = new List<SelectListItem>();
     if (sizes != null)
     {
-        var tmpList = sizes.Select(a => new SelectListItem() { Value = a, Text = a }).ToList();
-        selectSizes.AddRange(tmpList);
+        selectSizes = sizes.Select(a => new SelectListItem() { Text = a }).ToList();
+    }
+
+    List<SelectListItem> selectColors = null;
+    if (colors != null)
+    {
+        selectColors = colors.Select(a => new SelectListItem() { Text = a }).ToList();
     }
 }
 
@@ -57,17 +63,13 @@
         <div class="select-top">
             <div class="select-sizes">
                 <p>Chọn size <i>*</i></p>
-                @Html.DropDownList("size", selectSizes)
+                @Html.DropDownList("Size", selectSizes, new { @class = "select-size product-size" })
             </div>
             <div class="select-colors">
                 <p>
                     Chọn màu <i>*</i>
                 </p>
-                <select class="form-control select-size">
-                    <option>orange</option>
-                    <option>right</option>
-                    <option>red</option>
-                </select>
+                @Html.DropDownList("Color", selectColors, new { @class = "form-control select-size product-color" })
             </div>
         </div>
         <div class="block-qty">
