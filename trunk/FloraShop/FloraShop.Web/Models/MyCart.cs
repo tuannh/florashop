@@ -18,6 +18,14 @@ namespace FloraShop.Web.Models
             Photo = pro.GetPhoto() != null ? pro.GetPhoto().FileName : "";
             Alias = pro.Alias;
             Price = pro.SalePrice > 0 ? pro.SalePrice : pro.Price;
+
+
+            var sizes = (pro.Sizes ?? "").Replace(" ", "").Split(new string[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            if (sizes.Any())
+            {
+                sizes.First();
+                AllSizes = sizes;
+            }
         }
 
         public string ProductId { get; set; }
@@ -27,6 +35,8 @@ namespace FloraShop.Web.Models
         public string Code { get; set; }
 
         public string Size { get; set; }
+
+        public IEnumerable<string> AllSizes { get; set; }
 
         public string Color { get; set; }
 

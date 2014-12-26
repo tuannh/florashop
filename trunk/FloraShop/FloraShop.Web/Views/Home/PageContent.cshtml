@@ -1,5 +1,6 @@
 ﻿@model FloraShop.Core.Domain.Page
 @using FloraShop.Core.Enumerations
+@using FloraShop.Core
 
 @{
     Layout = "~/Views/Layouts/Content.cshtml";
@@ -33,6 +34,16 @@ else if (pageType == PageType.Contact || pageType == PageType.BuyGuide)
 else if (pageType == PageType.Shopcart)
 {
     Html.RenderPartial("~/Views/Shared/Partial/Shopcart.cshtml");
+    @section FooterScripts{
+       @if (!SiteContext.Current.Context.User.Identity.IsAuthenticated)
+       {
+        <div id="myModal" class="reveal-modal">
+            Bạn chưa đăng nhập.<br /><br />
+            <a href="/dang-nhap/" title="Đăng nhập">Đăng nhập</a> | <a href="/dat-hang/" title="Tiếp tục đặt hàng">Tiếp tục đặt hàng</a>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+       }
+    }
 }
 else if (pageType == PageType.Order)
 {
@@ -40,34 +51,4 @@ else if (pageType == PageType.Order)
     @section FooterScripts    {
         @Html.JsBundle("~/js/jqueryval")
     }
-}
-else if (pageType == PageType.Login)
-{
-    Html.RenderPartial("~/Views/Home/_Login.cshtml", ViewData["LoginModel"] as FloraShop.Web.Models.LoginModel, ViewData);
-    @section FooterScripts    {
-        @Html.JsBundle("~/js/jqueryval")
-    }
-}
-else if (pageType == PageType.Register)
-{
-    Html.RenderPartial("~/Views/Home/_Register.cshtml");
-    @section FooterScripts    {
-        @Html.JsBundle("~/js/jqueryval")
-    }
-}
-
-
-@section Styles{
-    @*@if (pageType == PageType.Product)
-    {
-        @Html.CssBundle("~/css/product")
-    }
-    else if (pageType == PageType.Promotion)
-    {
-        @Html.CssBundle("~/css/promotion")
-    }
-    else
-    {
-        @Html.CssBundle("~/css/content")
-    }*@
 }
