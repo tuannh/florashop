@@ -47,9 +47,11 @@ namespace FloraShop.Core.DAL
             this.Database.Initialize(true);
         }
 
-        public System.Data.Entity.DbSet<FloraShop.Core.Domain.Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
-        public System.Data.Entity.DbSet<FloraShop.Core.Domain.District> Districts { get; set; }
+        public DbSet<District> Districts { get; set; }
+
+        public DbSet<UserPoint> UserPoints { get; set; }
 
     }
 }

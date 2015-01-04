@@ -11,6 +11,7 @@ using FloraShop.Core.Domain;
 using FloraShop.Core.Controllers;
 using FloraShop.Core.Models;
 using FloraShop.Web.Filters;
+using FloraShop.Core.Enumerations;
 
 namespace FloraShop.Web.Areas.Admin.Controllers
 {
@@ -85,7 +86,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                                          .FirstOrDefault();
 
             ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name", order.ProvinceId);
-            ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name", order.DistrictId);
+            ViewBag.DistrictId = new SelectList(DbContext.Districts.Where(a => a.ProvinceId == order.ProvinceId).ToList(), "Id", "Name", order.DistrictId);
 
             return View(order);
         }
@@ -99,11 +100,31 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             {
                 DbContext.Entry(order).State = EntityState.Modified;
                 DbContext.SaveChanges();
+
+                if (order.Status == (int)OrderStatus.Delivery && order.UserId.HasValue)
+                {
+                    var total = 0.0;
+                    var userpoint = DbContext.UserPoints.Where(a => a.UserId == order.UserId && a.OrderId == order.Id).FirstOrDefault();
+                    if (userpoint == null)
+                    {
+                        userpoint = new UserPoint()
+                        {
+                            UserId = order.UserId.Value,
+                            OrderId = order.Id,
+                            Points = (int)total / 100,
+                            Note = string.Format("Cộng điểm cho đơn hàng #{0}", order.Id)
+                        };
+
+                        DbContext.UserPoints.Add(userpoint);
+                        DbContext.SaveChanges();
+                    }
+
+                }
                 return RedirectToAction("index");
             }
 
-            ViewBag.ProvinceId = new SelectList(DbContext.Districts, "Id", "Name", order.ProvinceId);
-            ViewBag.DistrictId = new SelectList(DbContext.Districts, "Id", "Name", order.DistrictId);
+            ViewBag.ProvinceId = new SelectList(DbContext.Provinces, "Id", "Name", order.ProvinceId);
+            ViewBag.DistrictId = new SelectList(DbContext.Districts.Where(a=> a.ProvinceId == order.ProvinceId).ToList() , "Id", "Name", order.DistrictId);
 
             return View(order);
         }
