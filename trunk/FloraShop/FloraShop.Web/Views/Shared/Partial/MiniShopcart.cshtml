@@ -10,7 +10,16 @@
     var notEmptyCart = (count == 0) ? "style='display: none;'" : "";
 }
 
-<h2 class="title-shop-cart">Giỏ hàng của bạn</h2>
+<h2 class="title-shop-cart">
+    @if (count > 0)
+    {
+        <a href="/gio-hang/">Giỏ hàng của bạn</a>
+    }
+    else
+    {
+        @Html.Raw("Giỏ hàng của bạn")
+    }
+</h2>
 <div class="content-shop-cart">
 
     <p id="cart-empty" @Html.Raw(emptyCart)>Giỏ hàng hiện đang rỗng</p>

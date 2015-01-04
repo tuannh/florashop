@@ -10,11 +10,11 @@
         selectSizes = sizes.Select(a => new SelectListItem() { Text = a }).ToList();
     }
 
-    List<SelectListItem> selectColors = null;
-    if (colors != null)
-    {
-        selectColors = colors.Select(a => new SelectListItem() { Text = a }).ToList();
-    }
+    //List<SelectListItem> selectColors = new List<SelectListItem>();
+    //if (colors != null)
+    //{
+    //    selectColors = colors.Select(a => new SelectListItem() { Text = a }).ToList();
+    //}
 }
 
 <div class="title-big">
@@ -22,6 +22,7 @@
     &nbsp;&nbsp; sản phẩm
 </div>
 <div class="detail">
+    <input id="product-detail" type="hidden"/>
     <h3>@Model.Name</h3>
     <div class="img_detail">
         <a href="#">
@@ -62,20 +63,20 @@
         </div>
         <div class="select-top">
             <div class="select-sizes">
-                <p>Chọn size <i>*</i></p>
-                @Html.DropDownList("Size", selectSizes, new { @class = "select-size product-size" })
+                <p>Chọn size @*<i>*</i>*@</p>
+                @Html.DropDownList("Size", selectSizes, new { @class = "select-size mycart-size" })
             </div>
-            <div class="select-colors">
+            @*<div class="select-colors">
                 <p>
                     Chọn màu <i>*</i>
                 </p>
                 @Html.DropDownList("Color", selectColors, new { @class = "form-control select-size product-color" })
-            </div>
+            </div>*@
         </div>
         <div class="block-qty">
             <span class="qty">
                 Số lượng:
-                <input type="number" class="number-content" maxlength="1" value="1">
+                <input type="number" class="number-content mycart-qty" maxlength="1" value="1">
             </span>
             <div class="add-to-cart"> <a href="javascript:void(0);" data-id="@Model.Id" class="btn_chonmua cart-add">Thêm vào giỏ hàng</a> </div>
         </div>
@@ -155,3 +156,27 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.mycart-qty').blur(function () {
+            var qty = parseInt($(this).val())
+            if (qty == NaN || qty <= 0)
+                $(this).val(1);
+
+            $('.cart-add').attr('data-qty', $(this).val());
+        })
+        .change(function () {
+            var qty = parseInt($(this).val())
+            if (qty == NaN || qty <= 0)
+                $(this).val(1);
+
+            $('.cart-add').attr('data-qty', $(this).val());
+        })
+
+        $('.mycart-size').change(function () {
+            $('.cart-add').attr('data-size', $(this).val());
+        })
+
+    })
+</script>

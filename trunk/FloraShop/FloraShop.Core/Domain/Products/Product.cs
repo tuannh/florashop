@@ -98,7 +98,7 @@ namespace FloraShop.Core.Domain
 
         public virtual ProductPhoto GetPhoto()
         {
-            return Photos.FirstOrDefault();
+            return Photos != null ? Photos.FirstOrDefault() : null;
         }
 
         public virtual string GetPrice()

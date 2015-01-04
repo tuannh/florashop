@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 
 namespace FloraShop.Web.Filters
 {
@@ -16,6 +17,7 @@ namespace FloraShop.Web.Filters
             var ctx = SiteContext.Current;
             if (!ctx.User.IsAdmin)
             {
+                FormsAuthentication.SignOut();
                 ctx.Context.Response.Redirect("/common/user/login/");
             }
         }
