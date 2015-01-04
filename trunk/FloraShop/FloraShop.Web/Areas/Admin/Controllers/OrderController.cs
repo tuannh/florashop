@@ -103,15 +103,23 @@ namespace FloraShop.Web.Areas.Admin.Controllers
 
                 if (order.Status == (int)OrderStatus.Delivery && order.UserId.HasValue)
                 {
-                    var total = 0.0;
-                    var userpoint = DbContext.UserPoints.Where(a => a.UserId == order.UserId && a.OrderId == order.Id).FirstOrDefault();
+                    var dbOrder = DbContext.Orders.Include(a => a.ProductOrders.Select(b => b.Product))
+                                         .Where(c => c.Id == order.Id)
+                                         .FirstOrDefault();
+
+                    var total = dbOrder.ProductOrders.Sum(a => a.Price * a.Quatity);
+
+                    var userpoint = DbContext.UserPoints.Where(a => a.UserId == order.UserId && a.OrderId == order.Id)
+                                             .FirstOrDefault();
+
                     if (userpoint == null)
                     {
                         userpoint = new UserPoint()
                         {
                             UserId = order.UserId.Value,
                             OrderId = order.Id,
-                            Points = (int)total / 100,
+                            Points = (int)total / 100000,
+                            CreatedDate = DateTime.Now,
                             Note = string.Format("Cộng điểm cho đơn hàng #{0}", order.Id)
                         };
 
