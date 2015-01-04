@@ -76,6 +76,10 @@
             </td>
             <td class="colLeft">
                 @Html.DisplayFor(modelItem => item.CustomerName)
+                @if (item.User != null)
+                {
+                    @Html.Raw(string.Format("({0})", item.User.Username))
+                }
             </td>
             <td class="colLeft">
                 @Html.DisplayFor(modelItem => item.Email)

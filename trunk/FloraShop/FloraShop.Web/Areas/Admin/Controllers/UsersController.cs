@@ -32,7 +32,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(kw))
             {
                 var keyword = kw.ToLower().Trim();
-                lst = DbContext.Users.ToList();
+                lst = DbContext.Users.Where(a => !a.IsAdmin).ToList();
                 lst = lst.Where(a => a.Username.ToLower().Contains(keyword) || (a.FullName ?? "").ToLower().Contains(keyword) ||
                                      (a.Email ?? "").ToLower().Contains(keyword))
                          .OrderBy(a => a.Username)
@@ -45,7 +45,9 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             }
             else
             {
-                lst = DbContext.Users.OrderBy(a => a.Username).ToList();
+                lst = DbContext.Users.Where(a => !a.IsAdmin)
+                                     .OrderBy(a => a.Username)
+                                     .ToList();
             }
 
             var pagingModel = new PagingModel();
@@ -105,7 +107,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                 dbUser.ProvinceId = user.ProvinceId;
 
                 var newPass = EncryptProvider.EncryptPassword(user.Password, dbUser.PasswordSalt);
-                dbUser.Password = newPass; 
+                dbUser.Password = newPass;
 
                 var birthday = DateTime.Now.GetDate(userbirthday, "dd/MM/yyyy");
                 if (birthday.HasValue)
