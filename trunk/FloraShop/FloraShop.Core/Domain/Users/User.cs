@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FloraShop.Core.Domain
 {
@@ -55,9 +56,6 @@ namespace FloraShop.Core.Domain
         [Display(Name = "Địa chỉ")]
         public string Address { get; set; }
 
-        [Display(Name = "Điểm thưởng")]
-        public int TotalPoints { get; set; }
-
         [Display(Name = "Ngày sinh")]
         public DateTime? Birthday { get; set; }
 
@@ -77,5 +75,16 @@ namespace FloraShop.Core.Domain
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<UserPoint> UserPoints { get; set; }
+
+        public virtual int TotalPoints
+        {
+            get
+            {
+                if (UserPoints != null)
+                    return UserPoints.Sum(a => a.Points);
+
+                return 0;
+            }
+        }
     }
 }

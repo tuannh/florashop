@@ -26,8 +26,7 @@ namespace FloraShop.Core.DAL
                 Email = "nht257@yahoo.com",
                 IsAdmin = true,
                 CreatedDate = DateTime.Now,
-                Active = true,
-                TotalPoints = 0
+                Active = true
             };
             context.Users.Add(admin);
 
@@ -40,8 +39,7 @@ namespace FloraShop.Core.DAL
                 Email = "redhearthcm@gmail.com",
                 IsAdmin = true,
                 CreatedDate = DateTime.Now,
-                Active = true,
-                TotalPoints = 0
+                Active = true
             };
             context.Users.Add(webmaster);
 

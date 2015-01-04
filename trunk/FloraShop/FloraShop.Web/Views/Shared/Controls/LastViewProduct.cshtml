@@ -1,4 +1,47 @@
 ﻿@model IEnumerable<FloraShop.Core.Domain.Product>
 
 <h2 class="title-product-view">Sản phẩm đã xem</h2>
-<div class="content-product-view"><p>Danh sách xem đang rỗng</p></div>
+
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="content-product-view">
+        @foreach (var product in Model)
+        {
+            <div class="item">
+                <div class="content_products">
+                    <div class="img_content">
+                        <a href="#">
+                            @if (product.GetPhoto() != null)
+                            {
+                                <img src="~/Userfiles/Modules/Products/Thumb/@product.GetPhoto().FileName" alt="@product.GetPhoto().Title" />
+                            }
+                            else
+                            {
+                                @product.Name
+                            }
+                        </a>
+                    </div>
+                    <div class="text_infor">
+                        <p>@product.Name</p>
+                        @if (product.SalePrice > 0)
+                        {
+                            <p class="price">@product.SalePrice.ToString("N0") VND</p>
+                        }
+                        else
+                        {
+                            <p class="price">@product.Price.ToString("N0") VND</p>
+                        }
+
+                    </div>
+                    <a href="#" data-id="@product.Id" class="btn_chonmua cart-add">Thêm vào giỏ hàng</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        }
+    </div>
+}
+else
+{
+    <div class="content-product-view"><p>Danh sách xem đang rỗng</p></div>
+}

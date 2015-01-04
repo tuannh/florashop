@@ -15,6 +15,8 @@
     //{
     //    selectColors = colors.Select(a => new SelectListItem() { Text = a }).ToList();
     //}
+
+    var relateProducts = ViewBag.RelateProducts as List<Product>;
 }
 
 <div class="title-big">
@@ -22,7 +24,7 @@
     &nbsp;&nbsp; sản phẩm
 </div>
 <div class="detail">
-    <input id="product-detail" type="hidden"/>
+    <input id="product-detail" type="hidden" />
     <h3>@Model.Name</h3>
     <div class="img_detail">
         <a href="#">
@@ -67,11 +69,11 @@
                 @Html.DropDownList("Size", selectSizes, new { @class = "select-size mycart-size" })
             </div>
             @*<div class="select-colors">
-                <p>
-                    Chọn màu <i>*</i>
-                </p>
-                @Html.DropDownList("Color", selectColors, new { @class = "form-control select-size product-color" })
-            </div>*@
+                    <p>
+                        Chọn màu <i>*</i>
+                    </p>
+                    @Html.DropDownList("Color", selectColors, new { @class = "form-control select-size product-color" })
+                </div>*@
         </div>
         <div class="block-qty">
             <span class="qty">
@@ -83,80 +85,46 @@
     </div>
 </div>
 <!--end news-->
-<h3>Sản phẩm cùng loại</h3>
-<div id="owl1">
-    <div class="item">
-        <div class="content_products">
-            <div class="img_content"><a href="#"> <img src="/images/flora/product1.jpg" alt="" /></a></div>
-            <div class="text_infor">
-                <p>Áo White House</p>
-                <p class="price">800,000 vnđ</p>
-            </div>
-            <a href="#" class="btn_chonmua">Thêm vào giỏ hàng</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content_products">
-            <div class="img_content"><a href="#"> <img src="/images/flora/product1.jpg" alt="" /></a></div>
-            <div class="text_infor">
-                <p>Áo White House</p>
-                <p class="price">800,000 vnđ</p>
-            </div>
-            <a href="#" class="btn_chonmua">Thêm vào giỏ hàng</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content_products">
-            <div class="img_content"><a href="#"> <img src="/images/flora/product1.jpg" alt="" /></a></div>
-            <div class="text_infor">
-                <p>Áo White House</p>
-                <p class="price">800,000 vnđ</p>
-            </div>
-            <a href="#" class="btn_chonmua">Thêm vào giỏ hàng</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content_products">
-            <div class="img_content"><a href="#"> <img src="/images/flora/product1.jpg" alt="" /></a></div>
-            <div class="text_infor">
-                <p>Áo White House</p>
-                <p class="price">800,000 vnđ</p>
-            </div>
-            <a href="#" class="btn_chonmua">Thêm vào giỏ hàng</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content_products">
-            <div class="img_content"><a href="#"> <img src="/images/flora/product1.jpg" alt="" /></a></div>
-            <div class="text_infor">
-                <p>Áo White House</p>
-                <p class="price">800,000 vnđ</p>
-            </div>
-            <a href="#" class="btn_chonmua">Thêm vào giỏ hàng</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content_products">
-            <div class="img_content"><a href="#"> <img src="/images/flora/product1.jpg" alt="" /></a></div>
-            <div class="text_infor">
-                <p>Áo White House</p>
-                <p class="price">800,000 vnđ</p>
-            </div>
-            <a href="#" class="btn_chonmua">Thêm vào giỏ hàng</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content_products">
-            <div class="img_content"><a href="#"> <img src="/images/flora/product1.jpg" alt="" /></a></div>
-            <div class="text_infor">
-                <p>Áo White House</p>
-                <p class="price">800,000 vnđ</p>
-            </div>
-            <a href="#" class="btn_chonmua">Thêm vào giỏ hàng</a>
-        </div>
-    </div>
-</div>
+@if (relateProducts != null && relateProducts.Count > 0)
+{
+    <h3>Sản phẩm cùng loại</h3>
 
+    <div id="owl1">
+        @foreach (var product in relateProducts)
+        {
+            <div class="item">
+                <div class="content_products">
+                    <div class="img_content">
+                        <a href="#">
+                            @if (product.GetPhoto() != null)
+                            {
+                                <img src="~/Userfiles/Modules/Products/Thumb/@product.GetPhoto().FileName" alt="@product.GetPhoto().Title" />
+                            }
+                            else
+                            {
+                                @product.Name
+                            }
+                        </a>
+                    </div>
+                    <div class="text_infor">
+                        <p>@product.Name</p>
+                        @if (product.SalePrice > 0)
+                        {
+                            <p class="price">@product.SalePrice.ToString("N0") VND</p>
+                        }
+                        else
+                        {
+                            <p class="price">@product.Price.ToString("N0") VND</p>
+                        }
+
+                    </div>
+                    <a href="#" data-id="@product.Id" class="btn_chonmua cart-add">Thêm vào giỏ hàng</a>
+                </div>
+            </div>
+        }
+    </div>
+
+}
 <script type="text/javascript">
     $(document).ready(function () {
         $('.mycart-qty').blur(function () {

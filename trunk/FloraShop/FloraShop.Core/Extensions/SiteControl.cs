@@ -294,7 +294,7 @@ namespace FloraShop.Core.Extensions
             var cateAlias = routeData.Values["categoryalias"] as string;
 
             var currentCategory = db.Categories.Where(a => string.Compare(a.Alias, cateAlias, true) == 0).FirstOrDefault();
-            
+
 
             var rootCategories = db.Categories
                                    .Where(p => p.Parent == null && p.Active)
@@ -375,9 +375,9 @@ namespace FloraShop.Core.Extensions
             var cookie = Globals.GetCookie("LastIds") ?? "";
 
             var arrIds = cookie.Replace("&", "").Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
-            if (arrIds.Length > 8)
+            if (arrIds.Length > 4)
             {
-                var tmpIds = arrIds.Take(8).Select(a => string.Format("&{0}|", a)).ToArray();
+                var tmpIds = arrIds.Take(4).Select(a => string.Format("&{0}|", a)).ToArray();
                 cookie = string.Join("", tmpIds);
                 Globals.SetCookie("LastIds", cookie);
             }
@@ -406,6 +406,12 @@ namespace FloraShop.Core.Extensions
                             .FirstOrDefault(p => p.Active && string.Compare(p.Alias, alias, true) == 0);
 
             var category = db.Categories.Where(a => string.Compare(a.Alias, cateAlias, true) == 0).FirstOrDefault();
+
+            if (product != null)
+            {
+                var relateProducts = db.Products.Where(a => a.CategoryId == product.CategoryId).OrderBy(a => a.DislayOrder).Take(8).ToList();
+                control.HtmlHelper.ViewContext.ViewBag.RelateProducts = relateProducts;
+            }
 
             control.HtmlHelper.ViewContext.ViewBag.Category = category;
 

@@ -107,7 +107,6 @@ namespace FloraShop.Web.Controllers
                     Active = true,
                     IsAdmin = false,
                     CreatedDate = DateTime.Now,
-                    TotalPoints = 0,
 
                     Username = model.Username,
                     PasswordSalt = salt,
