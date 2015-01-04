@@ -31,6 +31,12 @@
             </tr>
             @foreach (var item in cart)
             {
+                var selectList = new List<SelectListItem>();
+                if (item.AllSizes != null)
+                {
+                    selectList = item.AllSizes.Select(a => new SelectListItem() { Text = a, Value = a, Selected = (a == item.Size) }).ToList();
+                }
+                
                 <tr id="tr@(item.ProductId)" class="table-product-info">
                     <td class="prod-name">
                         <a href="/chi-tiet-sp/@item.Alias">
@@ -43,14 +49,7 @@
                         </div>
                     </td>
                     <td class="prod-qty">
-                        @{
-                var selectList = new List<SelectListItem>();
-                if (item.AllSizes != null)
-                {
-                    selectList = item.AllSizes.Select(a => new SelectListItem() { Text = a, Selected = (a == item.Size) }).ToList();
-                }
-                        }
-                        @Html.DropDownList("Size", selectList)
+                        @Html.DropDownList("Size", selectList, new { @class = "cart-size", data_id=item.ProductId })
 
                     </td>
                     <td class="prod-price">@item.Price.ToString("N0") VND</td>
@@ -73,7 +72,7 @@
         <a href="/san-pham/" class="continue">Tiếp tục mua</a>
     </div>
     <div class="cart-but-right">
-        <div class="clear-cart-but"> <a @Html.Raw(hideOrderBtn) href="javascript:void(0)" class="clear-cart cart-clear">Xóa đơn hàng</a> </div>
+        <div class="clear-cart-but"> <a @Html.Raw(hideOrderBtn) href="javascript:void(0)" class="clear-cart cart-clear">Xóa giỏ hàng</a> </div>
     </div>
 </div>
 

@@ -1,8 +1,8 @@
 ﻿var cart = {
 
-    add: function (productId) {
+    add: function (productId, qty, size) {
         this.showLoading();
-        var data = { productId: productId };
+        var data = { id: productId, quatity: qty, size: size };
         $.post("/flora/add", data, this.addCartComplete);
     },
 
@@ -11,6 +11,13 @@
 
         var data = { id: productId, quatity: qty };
         $.post("/flora/update", data, this.updateCartComplete);
+    },
+
+    updateSize: function (productId, size) {
+        this.showLoading();
+
+        var data = { id: productId, size: size };
+        $.post("/flora/updatesize", data, this.updateCartComplete);
     },
 
     remove: function (productId) {
@@ -39,6 +46,9 @@
             }
 
             cart.hideLoading();
+
+            if ($('#product-detail').length > 0)
+                location.href = '/gio-hang/';
         }
         else
             alert(data.message);
@@ -47,10 +57,14 @@
     updateCartComplete: function (data) {
         if (data.error == 0) {
 
-            // update topcart
-            $('#cart-count-val').text(data.count);
-            $('#cart-total-val').text(data.total);
-            $('#shopcart-total').text(data.total);
+            // update right cart
+            $('#cart-empty').hide();
+            $('#cart-not-empty').hide();
+            if (data.count > 0) {
+                $('#cart-not-empty').show();
+                $('#cart-count-val').text(data.count);
+                $('#cart-total-val').text(data.total);
+            }
 
             // update maincart
             var tr = $(data.rowid);
@@ -122,18 +136,19 @@
 
 $(document).ready(function () {
 
-    // check top cart link has item
-    $('.top-right #cart a').click(function () {
-        var cart = $(this).find('#cart-total').text().trim();
-        if ('Giỏ hàng (0)' == cart)
-            return false;
+    $('.cart-add').click(function () {
+        var id = $(this).data('id');
+        var qty = $(this).data('qty');
+        var size = $(this).data('size');
 
-        return true;
+        cart.add(id, qty, size);
     })
 
-    $('.cart-add').click(function () {
-        var id = $(this).attr('data-id');
-        cart.add(id);
+    $('.cart-size').change(function () {
+        var id = $(this).data('id');
+        var size = $(this).val();
+
+        cart.updateSize(id, size);
     })
 
     $('.cart-remove').click(function () {
@@ -149,6 +164,7 @@ $(document).ready(function () {
         if ($(this).attr('data-change') == '1') {
             var id = $(this).attr('data-id');
             var qty = $(this).val();
+
             cart.update(id, qty);
         }
 

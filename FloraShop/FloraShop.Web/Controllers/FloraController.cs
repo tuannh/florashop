@@ -18,7 +18,7 @@ namespace FloraShop.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(string productId, int? itemCount)
+        public ActionResult Add(int id, int? quatity, string size)
         {
             var session = SiteContext.Current.Context.Session;
             var lst = session[MyCart.ShopCart] as List<MyCart>;
@@ -30,21 +30,25 @@ namespace FloraShop.Web.Controllers
                 session[MyCart.ShopCart] = lst;
             }
 
-            var cart = lst.FirstOrDefault(a => a.ProductId == productId);
+            var cart = lst.FirstOrDefault(a => a.ProductId == id.ToString());
             if (cart == null)
             {
-                var db = DbContext;
-                var id = int.Parse(productId);
-
-                var product = db.Products.Find(id);
+                var product = DbContext.Products.Find(id);
                 if (product != null)
                 {
                     cart = new MyCart(product);
+                    if (!string.IsNullOrEmpty(size))
+                        cart.Size = size;
+
                     lst.Add(cart);
                 }
             }
 
-            cart.Quatity++;
+            if (quatity.HasValue)
+                cart.Quatity += quatity.Value;
+            else
+                cart.Quatity++;
+
             var total = lst.Sum(a => a.Quatity * a.Price);
             var count = lst.Sum(a => a.Quatity);
 
@@ -82,6 +86,11 @@ namespace FloraShop.Web.Controllers
         {
             var session = SiteContext.Current.Context.Session;
             var lst = session[MyCart.ShopCart] as List<MyCart>;
+            if (lst == null)
+            {
+                lst = new List<MyCart>();
+                session[MyCart.ShopCart] = lst;
+            }
 
             var sum = 0.0;
             var total = 0.0;
@@ -93,7 +102,41 @@ namespace FloraShop.Web.Controllers
                 if (item != null)
                 {
                     item.Quatity = quatity;
-                    sum = item.Price * quatity;
+                    sum = item.Price * item.Quatity;
+                    total = lst.Sum(a => a.Price * a.Quatity);
+                    count = lst.Sum(a => a.Quatity);
+
+                    return Json(new { error = 0, message = "", rowid = string.Format("#tr{0}", id), total = total.ToString("N0"), sum = sum.ToString("N0"), count = count.ToString("N0") });
+                }
+            }
+
+            return Json(new { error = 1, message = "Sản phẩn không tồn tại trong giỏ hàng", rowid = string.Format("#tr{0}", id), total = total.ToString("N0"), sum = sum.ToString("N0"), count = count.ToString("N0") });
+        }
+
+        [HttpPost]
+        public ActionResult UpdateSize(int id, string size)
+        {
+            var session = SiteContext.Current.Context.Session;
+            var lst = session[MyCart.ShopCart] as List<MyCart>;
+            if (lst == null)
+            {
+                lst = new List<MyCart>();
+                session[MyCart.ShopCart] = lst;
+            }
+
+            var sum = 0.0;
+            var total = 0.0;
+            var count = 0;
+
+            if (lst != null)
+            {
+                var item = lst.FirstOrDefault(a => a.ProductId == id.ToString());
+                if (item != null)
+                {
+                    if (!string.IsNullOrEmpty(size))
+                        item.Size = size;
+
+                    sum = item.Price * item.Quatity;
                     total = lst.Sum(a => a.Price * a.Quatity);
                     count = lst.Sum(a => a.Quatity);
 

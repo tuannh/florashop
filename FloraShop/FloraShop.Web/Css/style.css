@@ -439,3 +439,7 @@ input.btn-type-1[type="submit"]:hover { background-color: #9f1500; cursor: point
 .btn-disable { background: -moz-linear-gradient(bottom, gray 30%, gray 70%) !important; }
 
 .prod-table-img-c img {max-width: 30%;}
+
+
+.title-shop-cart a {color: #FFF;}
+.table-product-info .prod-name  {text-align: left;}
