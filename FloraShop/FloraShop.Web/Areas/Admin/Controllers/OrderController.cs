@@ -120,7 +120,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                             OrderId = order.Id,
                             Points = (int)total / 100000,
                             CreatedDate = DateTime.Now,
-                            Note = string.Format("Cộng điểm cho đơn hàng #{0}", order.Id)
+                            Note = string.Format(@"Cộng điểm cho đơn hàng <a href=""/don-hang/{0}"">#{0}</a>", order.Id)
                         };
 
                         DbContext.UserPoints.Add(userpoint);

@@ -27,6 +27,7 @@ using System.Web.Mvc;
 using FloraShop.Core.Domain;
 using FloraShop.Core.DAL;
 using Ninject;
+using System.Data.Entity;
 
 namespace FloraShop.Core
 {
@@ -178,7 +179,7 @@ namespace FloraShop.Core
 
                     using(var db = new FloraShopContext())
                     {
-                        user = db.Users.Find(id);
+                        user = db.Users.Include(a => a.UserPoints).FirstOrDefault(a=>a.Id == id);
                     }
                 }
 
