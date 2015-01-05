@@ -5,7 +5,7 @@
     ViewBag.Title = "Quản lý đơn hàng";
 }
 
-<div class="title-big">Quản lý<br/> đơn hàng</div>
+<div class="title-big">Quản lý<br/>&nbsp;&nbsp;đơn hàng</div>
 <div class="table-responsive">
     <table class="table table-bordered">
         <tbody>
@@ -20,7 +20,9 @@
             {
                 <tr class="table-product-info">
                     <td class="prod-img-center">
-                        #@Html.DisplayFor(modelItem => item.Id)
+                        <a href="/don-hang/@item.Id">
+                            #@Html.DisplayFor(modelItem => item.Id)
+                        </a>
                     </td>
                     <td class="prod-price">
                         @GetStatus(item.Status)

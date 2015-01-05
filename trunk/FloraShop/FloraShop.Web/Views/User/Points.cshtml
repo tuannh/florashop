@@ -5,26 +5,26 @@
     ViewBag.Title = "Quản lý đơn hàng";
 }
 
-<div class="title-big">Quản lý<br /> đơn hàng</div>
+<div class="title-big">Thông tin<br />&nbsp;&nbsp;điểm thưởng</div>
 <div class="table-responsive">
     <table class="table table-bordered">
         <tbody>
             <tr class="table-title">
                 <td class="cart-img">Thời gian</td>
                 <td class="cart-price">Số điểm</td>
-                <td class="cart-qty">Lý do</td>
+                <td class="cart-note">Lý do</td>
             </tr>
             @foreach (var item in Model)
             {
                 <tr class="table-product-info">
                     <td class="prod-img-center">
-                        @item.CreatedDate.ToString("HH:mm:sss <br/> dd/MM/yyyy")
+                        @Html.Raw(item.CreatedDate.ToString("HH:mm:sss <br/> dd/MM/yyyy"))
                     </td>
                     <td class="prod-price">
                         @item.Points.ToString("N0")
                     </td>
                     <td class="prod-price">
-                        @item.Note
+                        @Html.Raw(item.Note)
                     </td>
                 </tr>
             }

@@ -38,7 +38,7 @@ namespace FloraShop.Web.Areas.Common.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.Where(a => string.Compare(a.Username, model.Username, true) == 0).FirstOrDefault();
+                var user = db.Users.Include(a => a.UserPoints).Where(a => string.Compare(a.Username, model.Username, true) == 0).FirstOrDefault();
 
                 if (user != null && user.IsAdmin)
                 {

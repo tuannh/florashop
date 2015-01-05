@@ -278,6 +278,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 .cart-name { font-weight: bold; padding: 15px; text-align: center; }
 .cart-edit { font-weight: bold; padding: 24px; text-align: center; }
 .cart-price { font-weight: bold; padding: 10px; text-align: center; width: 120px; }
+.cart-note { font-weight: bold; padding: 10px; text-align: center; }
 .cart-qty { font-weight: bold; padding: 8px; text-align: center; width: 40px;}
 .cart-subtotal { font-weight: bold; padding: 10px; text-align: center; width: 120px; }
 .cart-del { font-weight: bold; width: 40px; padding: 24px; text-align: center; }

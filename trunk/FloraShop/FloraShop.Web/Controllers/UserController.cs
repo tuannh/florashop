@@ -21,7 +21,7 @@ using FloraShop.Web.Filters;
 
 namespace FloraShop.Web.Controllers
 {
-   
+
     public class UserController : FrontController
     {
         public UserController(FloraShopContext dbContext)
@@ -47,7 +47,7 @@ namespace FloraShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = DbContext.Users.Where(a => string.Compare(a.Username, model.Username, true) == 0).FirstOrDefault();
+                var user = DbContext.Users.Include(a => a.UserPoints).Where(a => string.Compare(a.Username, model.Username, true) == 0).FirstOrDefault();
 
                 if (user != null)
                 {
