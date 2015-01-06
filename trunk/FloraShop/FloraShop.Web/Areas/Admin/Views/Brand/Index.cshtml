@@ -77,14 +77,12 @@
                 }
             </td>
             <td>
-
                 @Html.ActionLink("Sửa", "edit", new { id = item.Id })
-                @if (item.HasProduct())
+                @if (!item.HasProduct())
                 {
                     @Html.Raw(" | ")
                     @Html.ActionLink("Xóa", "delete", new { id = item.Id }, new { @class = "cmd-delete" })
                 }
-
             </td>
         </tr>
     }

@@ -76,6 +76,11 @@ namespace FloraShop.Core.Domain
 
         public virtual ICollection<UserPoint> UserPoints { get; set; }
 
+        public virtual bool ValidToDelete()
+        {
+            return Orders == null || Orders.Count() == 0;
+        }
+
         public virtual int TotalPoints
         {
             get
