@@ -32,7 +32,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(kw))
             {
                 var keyword = kw.ToLower().Trim();
-                lst = DbContext.Users.Where(a => !a.IsAdmin).ToList();
+                lst = DbContext.Users.Include(a => a.Orders).Where(a => !a.IsAdmin).ToList();
                 lst = lst.Where(a => a.Username.ToLower().Contains(keyword) || (a.FullName ?? "").ToLower().Contains(keyword) ||
                                      (a.Email ?? "").ToLower().Contains(keyword))
                          .OrderBy(a => a.Username)
@@ -45,7 +45,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             }
             else
             {
-                lst = DbContext.Users.Where(a => !a.IsAdmin)
+                lst = DbContext.Users.Include(a => a.Orders).Where(a => !a.IsAdmin)
                                      .OrderBy(a => a.Username)
                                      .ToList();
             }

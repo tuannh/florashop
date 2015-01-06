@@ -120,7 +120,10 @@
             <label>&nbsp;</label>
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Cập nhật" class="btnAdd" />
-                <input type="button" value="Xóa" class="btnDelete" data-href="/admin/users/delete/@Model.Id" />
+                @if (Model.ValidToDelete())
+                {
+                    <input type="button" value="Xóa" class="btnDelete" data-href="/admin/users/delete/@Model.Id" />
+                }
                 <input type="reset" value="Reset" class="btnCancel" />
                 <input type="button" value="Bỏ qua" class="btnCancel btnDiscard" data-href="/admin/users/" />
             </div>

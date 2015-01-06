@@ -101,6 +101,13 @@ namespace FloraShop.Core.Domain
             return Photos != null ? Photos.FirstOrDefault() : null;
         }
 
+        public virtual bool ValidToDelete()
+        {
+            var proOder = SiteContext.Current.DbContext.ProductOrders.FirstOrDefault(a => a.ProductId == Id);
+
+            return proOder == null;
+        }
+
         public virtual string GetPrice()
         {
             return string.Format("{0:N0} VND", Price);

@@ -111,7 +111,7 @@ namespace FloraShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                order.UserId = order.UserId == 0 ? null : order.UserId;
+                order.UserId = Request.IsAuthenticated ? (int?)SiteContext.User.Id : null;
                 order.ProvinceId = order.ProvinceId == 0 ? null : order.ProvinceId;
                 order.DistrictId = order.DistrictId == 0 ? null : order.DistrictId;
                 order.OrderDate = DateTime.Now;

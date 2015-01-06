@@ -49,6 +49,8 @@ namespace FloraShop.Core.DAL
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<ProductOrder> ProductOrders { get; set; }
+
         public DbSet<District> Districts { get; set; }
 
         public DbSet<UserPoint> UserPoints { get; set; }
