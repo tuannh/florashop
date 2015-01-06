@@ -11,6 +11,7 @@ using FloraShop.Core.Domain;
 using FloraShop.Core.Controllers;
 using FloraShop.Core.Models;
 using FloraShop.Core;
+using FloraShop.Core.Extensions;
 using System.IO;
 using FloraShop.Core.Utility;
 using System.Drawing;
@@ -114,16 +115,21 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     var filename = string.Format("{0}-{1}", banner.Id, file.FileName);
                     path = string.Format("{0}{1}", folerPath, filename);
 
+                    try
+                    {
+                        var tmpname = string.Format("{0}-{1}", Guid.NewGuid().ToString(), file.FileName);
+                        var tmppath = string.Format("{0}{1}", folerPath, tmpname);
+                        file.SaveAs(tmppath);
 
-                    var tmpname = string.Format("{0}-{1}", Guid.NewGuid().ToString(), file.FileName);
-                    var tmppath = string.Format("{0}{1}", folerPath, tmpname);
-                    file.SaveAs(tmppath);
+                        var settings = banner.Category == 0 ? HomeSettings : ContentSettings;
+                        ImageTools.FixResizeImage(tmppath, path, settings.Width, settings.Height, settings.BgColor, settings.Quality);
 
-                    var settings = banner.Category == 0 ? HomeSettings : ContentSettings;
-                    ImageTools.FixResizeImage(tmppath, path, settings.Width, settings.Height, settings.BgColor, settings.Quality);
-
-                    try { System.IO.File.Delete(tmppath); }
-                    catch { }
+                        System.IO.File.Delete(tmppath);
+                    }
+                    catch (Exception exp)
+                    {
+                        exp.Log();
+                    }
 
                     banner.FileName = filename;
                     DbContext.SaveChanges();
@@ -160,6 +166,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 if (file != null)
                 {
                     var folerPath = Globals.MapPath(Folder);
@@ -173,22 +180,28 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     var filename = string.Format("{0}-{1}", banner.Id, file.FileName);
                     path = string.Format("{0}{1}", folerPath, filename);
 
-                    var tmpname = string.Format("{0}-{1}", Guid.NewGuid().ToString(), file.FileName);
-                    var tmppath = string.Format("{0}{1}", folerPath, tmpname);
-                    file.SaveAs(tmppath);
+                    try
+                    {
+                        var tmpname = string.Format("{0}-{1}", Guid.NewGuid().ToString(), file.FileName);
+                        var tmppath = string.Format("{0}{1}", folerPath, tmpname);
+                        file.SaveAs(tmppath);
 
-                    var settings = banner.Category == 0 ? HomeSettings : ContentSettings;
-                    ImageTools.FixResizeImage(tmppath, path, settings.Width, settings.Height, settings.BgColor, settings.Quality);
+                        var settings = banner.Category == 0 ? HomeSettings : ContentSettings;
+                        ImageTools.FixResizeImage(tmppath, path, settings.Width, settings.Height, settings.BgColor, settings.Quality);
 
-                    try { System.IO.File.Delete(tmppath); }
-                    catch { }
+                        System.IO.File.Delete(tmppath);
+                    }
+                    catch (Exception exp)
+                    {
+                        exp.Log();
+                    }
 
                     banner.FileName = filename;
                 }
 
                 DbContext.Entry(banner).State = EntityState.Modified;
                 DbContext.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
             return View(banner);
         }
@@ -205,12 +218,22 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            // return View(banner);
+
+            var filePath = Globals.MapPath(Folder) + banner.FileName;
 
             DbContext.Banners.Remove(banner);
             DbContext.SaveChanges();
 
-            return RedirectToAction("Index");
+            if (System.IO.File.Exists(filePath))
+            {
+                try
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                catch { }
+            }
+
+            return RedirectToAction("index");
         }
 
     }

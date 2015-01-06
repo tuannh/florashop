@@ -37,7 +37,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(kw))
             {
                 var keyword = kw.ToLower().Trim();
-                lst =DbContext.Brands.ToList();
+                lst = DbContext.Brands.ToList();
                 lst = lst.Where(a => a.Name.ToLower().Contains(keyword) || (a.Description ?? "").ToLower().Contains(keyword))
                          .OrderBy(a => a.DisplayOrder)
                          .ThenBy(a => a.Name)
@@ -50,7 +50,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             }
             else
             {
-                lst =DbContext.Brands.OrderBy(a => a.DisplayOrder).ThenBy(a => a.Name).ToList();
+                lst = DbContext.Brands.OrderBy(a => a.DisplayOrder).ThenBy(a => a.Name).ToList();
             }
 
             var pagingModel = new PagingModel();
@@ -74,7 +74,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand =DbContext.Brands.Find(id);
+            Brand brand = DbContext.Brands.Find(id);
             if (brand == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace FloraShop.Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-               DbContext.Brands.Add(brand);
-               DbContext.SaveChanges();
+                DbContext.Brands.Add(brand);
+                DbContext.SaveChanges();
 
                 if (file != null)
                 {
@@ -139,7 +139,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     catch { }
 
                     brand.Photo = filename;
-                   DbContext.SaveChanges();
+                    DbContext.SaveChanges();
                 }
 
                 return RedirectToAction("Index");
@@ -155,7 +155,7 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand =DbContext.Brands.Find(id);
+            Brand brand = DbContext.Brands.Find(id);
             if (brand == null)
             {
                 return HttpNotFound();
@@ -200,8 +200,8 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     brand.Photo = filename;
                 }
 
-               DbContext.Entry(brand).State = EntityState.Modified;
-               DbContext.SaveChanges();
+                DbContext.Entry(brand).State = EntityState.Modified;
+                DbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -215,29 +215,27 @@ namespace FloraShop.Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand =DbContext.Brands.Find(id);
+            Brand brand = DbContext.Brands.Find(id);
             if (brand == null)
             {
                 return HttpNotFound();
             }
 
-           DbContext.Brands.Remove(brand);
-           DbContext.SaveChanges();
-            return RedirectToAction("Index");
+            var filePath = Globals.MapPath(Folder) + brand.Photo;
 
-            // return View(brand);
+            DbContext.Brands.Remove(brand);
+            DbContext.SaveChanges();
+
+            if (System.IO.File.Exists(filePath))
+            {
+                try
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                catch { }
+            }
+
+            return RedirectToAction("index");
         }
-
-        // POST: Admin/Brand/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Brand brand =DbContext.Brands.Find(id);
-           DbContext.Brands.Remove(brand);
-           DbContext.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
     }
 }
