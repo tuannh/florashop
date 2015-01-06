@@ -2,6 +2,7 @@
  * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
+var aviaryLoaded = false;
 
 CKEDITOR.editorConfig = function (config, type) {
     config.pasteFromWordRemoveFontStyles = true;
@@ -19,7 +20,7 @@ CKEDITOR.editorConfig = function (config, type) {
     config.toolbar_simple =
     [
              ['Source'],
-             ['Bold', 'Italic', '-', 'Link', 'Unlink', 'Anchor'],
+             ['Bold', 'Italic', '-', 'SimpleLink', 'Unlink', 'Anchor'],
              ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord']
     ];
 
@@ -27,7 +28,7 @@ CKEDITOR.editorConfig = function (config, type) {
     [
              ['Source'],
              ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
-             ['Link', 'Unlink', 'Anchor'],
+             ['SimpleLink', 'Unlink', 'Anchor'],
              ['Image', 'Table', 'HorizontalRule'],
              '/',
              ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat'],
@@ -45,7 +46,7 @@ CKEDITOR.editorConfig = function (config, type) {
             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
             ['list', 'indent', 'blocks', 'align', 'bidi'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Anchor'],
+            ['SimpleLink', 'Unlink', 'Anchor'],
             '/',
             ['Styles', 'Format', 'Font', 'FontSize'],
             ['TextColor', 'BGColor']
@@ -63,7 +64,7 @@ CKEDITOR.editorConfig = function (config, type) {
             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
             ['list', 'indent', 'blocks', 'align', 'bidi'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Anchor'],
+            ['SimpleLink', 'Unlink', 'Anchor'],
             ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'],
             '/',
             ['Styles', 'Format', 'Font', 'FontSize'],
