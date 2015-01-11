@@ -110,3 +110,20 @@ input[type=password]{ width: 350px; height:20px;border: solid 1px #bebcbb;}
 .headerL a.active {color: #dd5b29;}
 
 .frm-album {float: left; width: 50%}
+
+#mask-loading {
+    background-color: #27231F;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0.6;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999999;
+}
+#mask-loading div {
+    background: url("/Images/loading.gif") no-repeat scroll center center;
+    height: 100%;
+    width: 100%;
+}

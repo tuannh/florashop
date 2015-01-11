@@ -98,7 +98,7 @@ namespace FloraShop.Core.Domain
 
         public virtual ProductPhoto GetPhoto()
         {
-            return Photos != null ? Photos.FirstOrDefault() : null;
+            return Photos != null ? Photos.OrderBy(a=>a.DisplayOrder).FirstOrDefault() : null;
         }
 
         public virtual bool ValidToDelete()

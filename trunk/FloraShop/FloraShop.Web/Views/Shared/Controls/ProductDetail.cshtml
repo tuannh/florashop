@@ -30,7 +30,7 @@
         <a href="#">
             @if (Model.GetPhoto() != null)
             {
-                <img src="~/Userfiles/Modules/Products/@Model.GetPhoto().FileName" alt="@Model.Name" />
+                <img class="product-main" src="~/Userfiles/Modules/Products/@Model.GetPhoto().FileName" alt="@Model.Name" />
             }
             else
             {
@@ -40,9 +40,9 @@
         @if (Model.Photos != null && Model.Photos.Count() > 0)
         {
             <ul id="lightGallery" class="imgages-zoom-block">
-                @foreach (var photo in Model.Photos)
+                @foreach (var photo in Model.Photos.OrderBy(a => a.DisplayOrder))
                 {
-                    <li data-src="/Userfiles/Modules/Products/@photo.FileName">
+                    <li class="product-thumb" data-src="/Userfiles/Modules/Products/@photo.FileName">
                         <a href="#">
                             <img class="smaill-img-zoom" src="~/Userfiles/Modules/Products/Thumb/@photo.FileName" alt="@photo.Title" />
                         </a>
@@ -127,6 +127,12 @@
 }
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $('.product-thumb').hover(function () {
+            var src = $(this).attr('data-src');
+            $('.product-main').attr('src', src);
+        })
+
         $('.mycart-qty').blur(function () {
             var qty = parseInt($(this).val())
             if (qty == NaN || qty <= 0)
