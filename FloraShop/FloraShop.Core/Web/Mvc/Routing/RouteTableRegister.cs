@@ -30,7 +30,6 @@ namespace FloraShop.Core.Web.Mvc.Routing
             config = Globals.MapPath(config);
 
             RegisterRoutes(routes, config);
-            routes.RouteExistingFiles = true;
         }
         public static void RegisterRoutes(RouteCollection routes, string routeFile)
         {

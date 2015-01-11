@@ -1555,6 +1555,7 @@
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Common\Controllers\UserController.cs" />
     <Compile Include="Areas\Common\Models\UserModel.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FloraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1693,7 +1694,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Common\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloraShop.Core\FloraShop.Core.csproj">
       <Project>{b86d89c7-c89f-4145-8ad1-4b69bb56dd73}</Project>

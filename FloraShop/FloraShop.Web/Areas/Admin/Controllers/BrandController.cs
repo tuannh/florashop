@@ -131,8 +131,6 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     file.SaveAs(tmppath);
 
                     var config = FloraShop.Core.Configurations.SiteConfiguration.GetConfig();
-                    // var brandConfig = config.Brand;
-                    //ImageTools.FixResizeImage(tmppath, path, brandConfig.Width, brandConfig.Height, ColorTranslator.FromHtml(brandConfig.Background), config.Quality);
                     ImageTools.SaveImage(tmppath, path, config.Quality);
 
                     try { System.IO.File.Delete(tmppath); }
@@ -190,8 +188,6 @@ namespace FloraShop.Web.Areas.Admin.Controllers
                     file.SaveAs(tmppath);
 
                     var config = FloraShop.Core.Configurations.SiteConfiguration.GetConfig();
-                    //var brandConfig = config.Brand;
-                    //ImageTools.FixResizeImage(tmppath, path, brandConfig.Width, brandConfig.Height, ColorTranslator.FromHtml(brandConfig.Background), config.Quality);
                     ImageTools.SaveImage(tmppath, path);
 
                     try { System.IO.File.Delete(tmppath); }

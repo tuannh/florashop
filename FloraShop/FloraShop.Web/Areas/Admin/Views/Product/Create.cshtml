@@ -10,6 +10,8 @@
             new SelectListItem() { Value = "3", Text= "Sản phẩm secondhand" },
             new SelectListItem() { Value = "4", Text= "Sản phẩm bán chạy" }
         };
+
+    var config = FloraShop.Core.Configurations.SiteConfiguration.GetConfig().Product;
 }
 
 <h1>Thêm sản phẩm</h1>
@@ -105,10 +107,12 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Sizes, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Sizes, "", new { @class = "text-danger" })
+                <br />
+                Size cách nhau bởi dấu ;
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="display: none;">
             @Html.LabelFor(model => model.Colors, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Colors, new { @class = "form-control" })
@@ -176,7 +180,7 @@
             <table class="form-upload">
                 <tr>
                     <td>
-                        Upload photo
+                        Upload photo (@config.Width x @config.Height)
                     </td>
                     <td>
                         <input type="file" name="file" id="file" />
@@ -220,6 +224,8 @@
 
         $('.btn-add-photo').click(function () {
 
+            $('#mask-loading').show();
+
             var formData = new FormData();
             formData.append("file", $("#file")[0].files[0]);
             resetUpload();
@@ -230,6 +236,8 @@
                 url: '/admin/product/uploadfile/',
                 data: formData,
                 success: function (data) {
+                    $('#mask-loading').hide();
+
                     data.src = "/Userfiles/_temp/Modules/Product/thumb/" + data.filename;
 
                     var index = $('.photo-list tr').length - 1;
@@ -273,13 +281,12 @@
         <td>
             <input id="Photos[#index#].Title" name="Photos[#index#].Title" value="#title#" type="text" style="width: 95%;" />
             <input id="Photos[#index#].FileName" name="Photos[#index#].FileName" value="#filename#" type="hidden" />
-            <input id="Photos[#index#].DisplayOrder" name="Photos[#index#].DisplayOrder" value="#displayorder#" type="hidden" />
         </td>
         <td>
             <img src="#src#" alt="#title#" />
         </td>
         <td>
-            <input type="number" style="width: 80px;" value="#displayorder#" />
+            <input id="Photos[#index#].DisplayOrder" name="Photos[#index#].DisplayOrder" type="number" style="width: 80px;" value="#displayorder#" />
         </td>
         <td>
             <a href="javascript:void(0);" class="del-photo">Xóa</a>

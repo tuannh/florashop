@@ -21,7 +21,9 @@
         </div>
         @{ Html.RenderPartial("~/Areas/Admin/Views/Shared/Controls/Footer.cshtml"); }
     </div>
-    
+    <div id="mask-loading">
+        <div></div>
+    </div>
     @RenderSection("FooterScripts", false)
     @Html.JsBundle("~/js/jqueryval")
     @Html.JsBundle("~/js/editor")

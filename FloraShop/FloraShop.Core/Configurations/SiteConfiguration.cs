@@ -97,54 +97,18 @@ namespace FloraShop.Core.Configurations
 
             Quality = 80;
 
-            Banner = new ImageResize()
-            {
-                Width = 1110,
-                Height = 344,
-                ThumbWidth = 200,
-                ThumbHeight = 61,
-                Background = "#FFF"
-            };
-
-            Brand = new ImageResize()
-            {
-                Width = 174,
-                Height = 71,
-                ThumbWidth = 174,
-                ThumbHeight = 71,
-                Background = "#FFF"
-            };
-
             Product = new ImageResize()
             {
-                Width = 800,
-                Height = 600,
+                Width = 2014,
+                Height = 768,
                 ThumbWidth = 200,
                 ThumbHeight = 150,
                 Background = "#FFF"
             };
 
-            News = new ImageResize()
-           {
-               Width = 800,
-               Height = 600,
-               ThumbWidth = 244,
-               ThumbHeight = 182,
-               Background = "#FFF"
-           };
-
-            UserGuide = new ImageResize()
-            {
-                Width = 800,
-                Height = 600,
-                ThumbWidth = 244,
-                ThumbHeight = 182,
-                Background = "#FFF"
-            };
-
             IsSendEmailToAdmin = true;
             IsSendEmailToUser = true;
-            DefaultSender = "no-reply@tuanhangxanh.com";
+            DefaultSender = "no-reply@florafashion.com.vn";
             AdminEmail = "nht257@yahoo.com";
         }
 

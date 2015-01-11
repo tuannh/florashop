@@ -674,7 +674,7 @@ namespace FloraShop.Core.Utility
             return dir.EnumerateFiles(searchPattern).Where(it => (it.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden);
         }
 
-        
+
         #endregion
 
         /// <summary>

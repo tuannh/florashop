@@ -231,11 +231,21 @@ namespace FloraShop.Core.Utility
                     var newWidth = width;
                     var newHeight = height;
 
-                    float ratio = (float)width / (float)height;
+                    var tmpWidth = thumbWidth;
+                    float tmpHeight = (float)(height * thumbWidth) / width;
+                    var intTmpHeight = (int)tmpHeight;
 
-                    // width ratio great than height ratio. Height is fix scale
-                    if (width >= thumbWidth || height >= thumbHeight)
+                    // thumb is ratio scale with src image
+                    if (tmpHeight == (float)intTmpHeight && intTmpHeight == thumbHeight)
                     {
+                        newWidth = thumbWidth;
+                        newHeight = thumbHeight;
+                    }
+                    // width ratio great than height ratio. Height is fix scale
+                    else if (width >= thumbWidth || height >= thumbHeight)
+                    {
+                        var ratio = (float)width / (float)height;
+
                         if (ratio >= 1) // fix height
                         {
                             newHeight = thumbHeight;
@@ -281,8 +291,9 @@ namespace FloraShop.Core.Utility
                         using (var graphic = Graphics.FromImage(destImage))
                         {
                             graphic.FillRectangle(new SolidBrush(bgColor), new Rectangle(0, 0, thumbWidth, thumbHeight));
-
+                            graphic.PixelOffsetMode = PixelOffsetMode.Half;
                             graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; /* new way */
+
                             graphic.DrawImage(srcImg, pasteX, pasteY, newWidth, newHeight);
 
                             var ext = Path.GetExtension(targetFile);
@@ -354,7 +365,7 @@ namespace FloraShop.Core.Utility
                         }
                         catch (Exception exp)
                         {
-                            exp.Log("CreateThumbnail");
+                           exp.Log("CreateThumbnail");
                         }
 
                         return copy;
@@ -412,7 +423,17 @@ namespace FloraShop.Core.Utility
                     var eps = new EncoderParameters(1);
                     eps.Param[0] = new EncoderParameter(Encoder.Quality, quality);
 
-                    if (srcWidth == width && srcHeight == height)
+                    var tmpWidth = width;
+                    float tmpHeight = (float)(width * srcHeight) / srcWidth;
+                    var intTmpHeight = (int)tmpHeight;
+
+                    // thumb is ratio scale with src image
+                    if (tmpHeight == (float)intTmpHeight && intTmpHeight == height)
+                    {
+                        newWidth = width;
+                        newHeight = height;
+                    }
+                    else if (srcWidth == width && srcHeight == height)
                     {
                         var fileInfo = new FileInfo(sourceFile);
                         var size = fileInfo.Length;
@@ -457,8 +478,10 @@ namespace FloraShop.Core.Utility
                         using (var graphic = Graphics.FromImage(destImage))
                         {
                             graphic.FillRectangle(new SolidBrush(bgColor), new Rectangle(0, 0, width, height));
-
+                            graphic.PixelOffsetMode = PixelOffsetMode.Half;
                             graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; /* new way */
+                            graphic.CompositingMode = CompositingMode.SourceCopy;
+
                             graphic.DrawImage(srcImg, pasteX, pasteY, newWidth, newHeight);
 
                             destImage.Save(targetFile, codec, eps);
