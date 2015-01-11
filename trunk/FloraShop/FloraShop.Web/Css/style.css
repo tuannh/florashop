@@ -444,3 +444,5 @@ input.btn-type-1[type="submit"]:hover { background-color: #9f1500; cursor: point
 
 .title-shop-cart a {color: #FFF;}
 .table-product-info .prod-name  {text-align: left;}
+
+.content-product-view .img_content { width: 80%; }
