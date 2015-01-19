@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloraShop.Core.Logs;
+using System;
 using System.Linq;
 using System.Collections;
 using System.Drawing;
@@ -242,7 +243,7 @@ namespace FloraShop.Core.Utility
                         newHeight = thumbHeight;
                     }
                     // width ratio great than height ratio. Height is fix scale
-                    else if (width >= thumbWidth || height >= thumbHeight)
+                    else if (width > thumbWidth && height > thumbHeight)
                     {
                         var ratio = (float)width / (float)height;
 
@@ -280,8 +281,8 @@ namespace FloraShop.Core.Utility
                     }
                     else
                     {
-                        pasteX = Math.Abs((newWidth - thumbWidth) / 2);
-                        pasteY = Math.Abs((newHeight - thumbHeight) / 2);
+                        pasteX = (thumbWidth - newWidth) / 2;
+                        pasteY = (thumbHeight - newHeight) / 2;
                     }
 
                     #region make dest image
@@ -291,8 +292,8 @@ namespace FloraShop.Core.Utility
                         using (var graphic = Graphics.FromImage(destImage))
                         {
                             graphic.FillRectangle(new SolidBrush(bgColor), new Rectangle(0, 0, thumbWidth, thumbHeight));
-                            graphic.PixelOffsetMode = PixelOffsetMode.Half;
-                            graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; /* new way */
+                            //graphic.PixelOffsetMode = PixelOffsetMode.Half;
+                            //graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; /* new way */
 
                             graphic.DrawImage(srcImg, pasteX, pasteY, newWidth, newHeight);
 
@@ -350,7 +351,7 @@ namespace FloraShop.Core.Utility
             if (!string.IsNullOrEmpty(sourceFile))
             {
                 var tmpPath = string.Format(@"{0}\{1}{2}", Path.GetDirectoryName(sourceFile), Guid.NewGuid(), Path.GetFileName(sourceFile));
-                if (CreateThumbnail(sourceFile, tmpPath, thumbWidth, thumbHeight, bgColor, quality = 80))
+                if (CreateThumbnail(sourceFile, tmpPath, thumbWidth, thumbHeight, bgColor, quality))
                 {
                     using (var image = Image.FromFile(tmpPath))
                     {
@@ -365,7 +366,7 @@ namespace FloraShop.Core.Utility
                         }
                         catch (Exception exp)
                         {
-                           exp.Log("CreateThumbnail");
+                            exp.Log();
                         }
 
                         return copy;
@@ -446,7 +447,7 @@ namespace FloraShop.Core.Utility
                         srcImg.Dispose();
                         return true;
                     }
-                    else if (srcWidth > width || srcHeight > height)
+                    else if (srcWidth > width && srcHeight > height)
                     {
                         var ratio = (float)srcWidth / srcHeight;
                         var ratioX = (float)srcWidth / width;
@@ -467,8 +468,21 @@ namespace FloraShop.Core.Utility
                     }
                     else
                     {
-                        pasteX = Math.Abs((newWidth - width) / 2);
-                        pasteY = Math.Abs((newHeight - height) / 2);
+                        if (srcWidth > width)
+                        {
+                            newWidth = width;
+                            pasteY = Math.Abs((newHeight - height) / 2);
+                        }
+                        else if (srcHeight > height)
+                        {
+                            pasteX = Math.Abs((newWidth - width) / 2);
+                            newHeight = height;
+                        }
+                        else
+                        {
+                            pasteX = Math.Abs((newWidth - width) / 2);
+                            pasteY = Math.Abs((newHeight - height) / 2);
+                        }
                     }
 
                     #region make dest image
@@ -478,10 +492,6 @@ namespace FloraShop.Core.Utility
                         using (var graphic = Graphics.FromImage(destImage))
                         {
                             graphic.FillRectangle(new SolidBrush(bgColor), new Rectangle(0, 0, width, height));
-                            graphic.PixelOffsetMode = PixelOffsetMode.Half;
-                            graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; /* new way */
-                            graphic.CompositingMode = CompositingMode.SourceCopy;
-
                             graphic.DrawImage(srcImg, pasteX, pasteY, newWidth, newHeight);
 
                             destImage.Save(targetFile, codec, eps);
@@ -498,7 +508,8 @@ namespace FloraShop.Core.Utility
             }
             catch (Exception exp)
             {
-                exp.Log("FixResizeImage");
+                exp.Log();
+
                 return false;
             }
 
@@ -547,7 +558,7 @@ namespace FloraShop.Core.Utility
                         }
                         catch (Exception exp)
                         {
-                            exp.Log("CreateThumbnail");
+                            exp.Log();
                         }
 
                         return copy;
@@ -628,7 +639,6 @@ namespace FloraShop.Core.Utility
                             {
                                 graphic.FillRectangle(new SolidBrush(bgColor), new Rectangle(0, 0, newWidth, newHeight));
 
-                                graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; /* new way */
                                 graphic.DrawImage(srcImg, 0, 0, newWidth, newHeight);
 
                                 destImage.Save(targetFile, codec, eps);
@@ -657,7 +667,8 @@ namespace FloraShop.Core.Utility
             }
             catch (Exception exp)
             {
-                exp.Log("ResizeImage");
+                exp.Log();
+
                 return false;
             }
 
@@ -707,7 +718,7 @@ namespace FloraShop.Core.Utility
                         }
                         catch (Exception exp)
                         {
-                            exp.Log("CreateThumbnail");
+                            exp.Log();
                         }
 
                         return copy;
@@ -772,7 +783,8 @@ namespace FloraShop.Core.Utility
             }
             catch (Exception exp)
             {
-                exp.Log("SaveImage");
+                exp.Log();
+
                 return false;
             }
 
