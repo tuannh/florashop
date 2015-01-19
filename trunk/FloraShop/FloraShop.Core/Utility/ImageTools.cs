@@ -447,7 +447,7 @@ namespace FloraShop.Core.Utility
                         srcImg.Dispose();
                         return true;
                     }
-                    else if (srcWidth > width && srcHeight > height)
+                    else if (srcWidth > width || srcHeight > height)
                     {
                         var ratio = (float)srcWidth / srcHeight;
                         var ratioX = (float)srcWidth / width;
