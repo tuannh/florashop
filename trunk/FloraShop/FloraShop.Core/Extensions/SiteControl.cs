@@ -415,6 +415,7 @@ namespace FloraShop.Core.Extensions
 
             control.HtmlHelper.ViewContext.ViewBag.Category = category;
 
+            var result = "";
             if (product != null)
             {
                 var cookie = Globals.GetCookie("LastIds") ?? "";
@@ -423,11 +424,16 @@ namespace FloraShop.Core.Extensions
                 cookie = curId + cookie;
 
                 Globals.SetCookie("LastIds", cookie);
+                
+                result = RenderViewToString(control.HtmlHelper.ViewContext.Controller, viewPath, product);
+
+                db.Dispose();
             }
-
-            var result = RenderViewToString(control.HtmlHelper.ViewContext.Controller, viewPath, product);
-
-            db.Dispose();
+            else
+            {
+                SiteContext.Current.Context.Response.Redirect("/san-pham/", true);
+            }
+           
             return new MvcHtmlString(result);
         }
 
