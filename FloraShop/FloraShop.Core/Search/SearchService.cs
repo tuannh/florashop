@@ -92,15 +92,18 @@ namespace FloraShop.Core.Search
             doc.Add(new Field(IndexKeys.Active, product.Active.ToString(), Field.Store.NO, Field.Index.NOT_ANALYZED));
 
             doc.Add(new Field(IndexKeys.Name, product.Name, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field(IndexKeys.Alias, product.Alias, Field.Store.YES, Field.Index.NO));
+            doc.Add(new Field(IndexKeys.Alias, product.Alias, Field.Store.YES, Field.Index.NOT_ANALYZED));
 
             doc.Add(new Field(IndexKeys.Code, product.Code, Field.Store.NO, Field.Index.NOT_ANALYZED));
 
             if (!string.IsNullOrEmpty(product.ShortDescription))
-                doc.Add(new Field(IndexKeys.ShortDescription, product.ShortDescription, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            {
+                var shortdesc = Globals.HtmlDecode(product.ShortDescription);
+                doc.Add(new Field(IndexKeys.ShortDescription, shortdesc, Field.Store.YES, Field.Index.ANALYZED));
+            }
 
             if (!string.IsNullOrEmpty(product.Description))
-                doc.Add(new Field(IndexKeys.Description, product.Description, Field.Store.NO, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field(IndexKeys.Description, product.Description, Field.Store.NO, Field.Index.ANALYZED));
 
             if (product.Price > 0)
                 doc.Add(new Field(IndexKeys.Price, product.Price.ToString("#########"), Field.Store.YES, Field.Index.NOT_ANALYZED));
@@ -152,7 +155,7 @@ namespace FloraShop.Core.Search
                 Description = doc.Get(IndexKeys.ShortDescription),
                 Price = price,
                 SalePrice = salePrice,
-                Photo =  doc.Get(IndexKeys.Photo)
+                Photo = doc.Get(IndexKeys.Photo)
             };
 
             return search;
