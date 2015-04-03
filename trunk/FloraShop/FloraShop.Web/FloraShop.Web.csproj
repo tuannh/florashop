@@ -1687,6 +1687,7 @@
     <Content Include="Views\User\OrderDetail.cshtml" />
     <Content Include="Views\User\ForgotPw.cshtml" />
     <Content Include="Views\User\Points.cshtml" />
+    <Content Include="App_Data\FloraShop.bak" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
