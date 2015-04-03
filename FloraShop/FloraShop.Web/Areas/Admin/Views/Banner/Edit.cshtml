@@ -16,8 +16,6 @@
             new SelectListItem() { Value = "0", Text= "Trang chủ (1800x1186)" },
             new SelectListItem() { Value = "1", Text= "Trang nội dung (1366x420)" },
         };
-
-    var config = FloraShop.Core.Configurations.SiteConfiguration.GetConfig().Banner;
 }
 
 <h2>Cập nhật banner</h2>
@@ -90,7 +88,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label id="photo">@(string.Format("Banner photo({0}x{1})", config.Width, config.Height))</label>
+            <label id="photo">Banner photo</label>
             <div class="col-md-10">
                 <input type="file" name="file" id="file" data-val-required="Chưa chọn photo" />
 
@@ -138,6 +136,8 @@
             initCategory();
         })
 
+      
+
     })
 
     function initCategory()
@@ -149,4 +149,6 @@
         else
             $('#photo').text('Banner photo(1366x420)');
     }
+
+    initCategory();
 </script>
